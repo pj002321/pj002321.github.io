@@ -152,6 +152,14 @@ td.res{color:var(--green);font-weight:700}
 .btn.ghost{background:transparent;color:var(--accent)}
 .btn.ghost:hover{background:var(--accent-soft)}
 
+/* study */
+.study{margin-bottom:32px}
+.study-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+@media (max-width:900px){.study-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:480px){.study-grid{grid-template-columns:minmax(0,1fr)}}
+.study-grid div{display:flex;flex-direction:column;gap:4px;padding:16px 18px;border-radius:12px;background:var(--point-soft);border:1px solid #F7D3C1}
+.study-grid b{color:var(--point);font-size:16px}
+.study-grid span{color:var(--body);font-size:14px;line-height:1.55}
 /* admin */
 .admin-row{display:flex;flex-wrap:wrap;align-items:center;gap:10px 14px;padding-top:12px;margin-top:4px;border-top:1px dashed var(--line)}
 .admin-row .btn.ghost{border-color:var(--point);color:var(--point)}
@@ -276,7 +284,7 @@ footer p{color:var(--muted);margin-top:10px}
   <div class="wrap">
     <h2 class="toc-title rv">목차</h2>
     <ol class="toc-list">
-      <li class="rv"><a href="#about"><span class="n">01</span><b>소개</b><small>프로젝트 · 이력</small></a></li>
+      <li class="rv"><a href="#about"><span class="n">01</span><b>소개</b><small>관심 분야 · 프로젝트 · 이력</small></a></li>
       <li class="rv"><a href="#skills"><span class="n">02</span><b>기술 스택</b><small>LLM · Backend · Vision · Infra</small></a></li>
       <li class="rv"><a href="#ai"><span class="n">03</span><b>AI 활용 방식</b><small>규칙 → 위임 → 교차 검증</small></a></li>
       <li class="rv"><a href="#verify"><span class="n">04</span><b>검증 방식</b><small>기준 → 측정 → 비교 → 고정</small></a></li>
@@ -292,7 +300,16 @@ footer p{color:var(--muted);margin-top:10px}
 <main>
 <section class="sec" id="about">
   <div class="wrap">
-    <div class="sec-head rv"><span class="label">ABOUT</span><h2>소개</h2><p>게임공학을 전공하고 모바일 · Unity 개발을 거쳐, 삼성 AXI에서 LLM · RAG · 비전 모델을 서비스로 만드는 일을 했습니다.</p></div>
+    <div class="sec-head rv"><span class="label">ABOUT</span><h2>소개</h2><p>게임공학을 전공하고 모바일 · Unity 개발을 거쳐, 지금은 LLM · RAG · 비전 모델을 서비스로 만들고 있습니다.</p></div>
+    <div class="study rv">
+      <h3 class="sub">요즘 깊게 공부하는 것</h3>
+      <div class="study-grid">
+        <div><b>LLM</b><span>에이전트 설계, 툴 호출 라우팅, 답변 검증과 평가</span></div>
+        <div><b>머신러닝</b><span>임베딩 모델 비교, 평가 지표와 통계적 검증</span></div>
+        <div><b>데이터 설계</b><span>스키마 · 정합성, RAG용 청킹과 벡터 검색 구조</span></div>
+        <div><b>백엔드</b><span>FastAPI 계층 설계, DB 세션 · 쿼리 최적화, 배포</span></div>
+      </div>
+    </div>
     <div class="grid-about">
       <div class="rv"><h3 class="sub">프로젝트</h3>
         <div class="table-wrap"><table>
