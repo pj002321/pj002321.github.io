@@ -641,7 +641,7 @@ document.addEventListener("click", e=>{
   if (e.target.closest("[data-close]")) { closeSheet(); return; }
   const j = e.target.closest("[data-jump]");
   if (j) { e.preventDefault(); const b=$("#sheetBody"); const t = j.dataset.jump==="top" ? null : document.getElementById(j.dataset.jump);
-    b.scrollTo({top: t ? t.offsetTop - b.offsetTop - 8 : 0, behavior:"smooth"}); }
+    b.scrollTo({top: t ? b.scrollTop + t.getBoundingClientRect().top - b.getBoundingClientRect().top - 12 : 0, behavior:"smooth"}); }
   const rv = e.target.closest("[data-reveal]");
   if (rv) { const code = rv.nextElementSibling; code.hidden = !code.hidden; rv.textContent = code.hidden ? "보기" : "숨기기"; return; }
   const c = e.target.closest("[data-copy]");
