@@ -132,7 +132,7 @@ td.res b{color:inherit}
 .flow.lit .step{border-color:var(--accent);background:var(--accent-soft)}
 .flow.lit .step:last-of-type{border-color:var(--point);background:var(--point-soft)}
 .flow .step:nth-of-type(1){transition-delay:0s}.flow .step:nth-of-type(2){transition-delay:.15s}.flow .step:nth-of-type(3){transition-delay:.3s}.flow .step:nth-of-type(4){transition-delay:.45s}.flow .step:nth-of-type(5){transition-delay:.6s}.flow .step:nth-of-type(6){transition-delay:.75s}
-@media (max-width:640px){.flow{flex-direction:column}.flow .arrow{transform:rotate(90deg)}}
+@media (max-width:640px){.flow{flex-direction:column;gap:4px}.flow .step{flex:none;padding:10px 12px}.flow .arrow{transform:rotate(90deg);line-height:1}}
 
 /* projects */
 .cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:28px}
@@ -175,6 +175,7 @@ td.res b{color:inherit}
 .pw code{font-family:var(--mono);font-size:14px;color:var(--ink);background:var(--point-soft);padding:2px 8px;border-radius:6px}
 /* ERD diagram */
 .erdx{position:relative;overflow:hidden;border:1px solid var(--line);border-radius:12px;background:var(--surface)}
+body:has(.sheet-open) .dots{display:none}
 .erdx.scroll{overflow-x:auto;height:auto!important}
 .erd-canvas{position:relative;transform-origin:0 0}
 .erd-svg{position:absolute;left:0;top:0;pointer-events:none;overflow:visible}
@@ -212,9 +213,12 @@ td.res b{color:inherit}
 .adm-h.mine{color:var(--accent)}
 .adm ul{margin:0;padding-left:18px;font-size:14.5px;line-height:1.65;color:var(--body)}
 .adm ul.team{color:var(--muted)}
-.keyblk{padding:18px 22px;border:1px solid #D3DDEC;border-radius:14px;background:linear-gradient(180deg,var(--accent-soft),var(--surface) 70%)}
-.key-t{margin:-4px 0 12px;font-size:16px;font-weight:700;color:var(--ink)}
-.kflow{margin-bottom:14px}
+.keys{display:flex;flex-direction:column;gap:14px}
+.keyblk{padding:16px 20px;border:1px solid var(--line);border-left:3px solid var(--accent);border-radius:12px;background:var(--surface)}
+.key-h{display:flex;align-items:baseline;gap:10px;margin-bottom:10px}
+.key-n{font-size:13px;font-weight:800;color:var(--point);font-variant-numeric:tabular-nums}
+.key-t{margin:0;font-size:16px;font-weight:800;color:var(--ink)}
+.kflow{margin-bottom:12px}
 .kflow .step{background:var(--surface);border-color:#D3D8E0;border-width:1px;font-size:14px}
 .kflow .step.hl{border-color:var(--point);background:var(--point-soft)}
 .kpts{display:grid;grid-template-columns:max-content minmax(0,1fr);gap:8px 16px;margin:0;font-size:14.5px;line-height:1.6}
@@ -244,8 +248,10 @@ td.res b{color:inherit}
 @media (max-width:520px){.other{padding:16px}}
 /* sheet */
 .sheet-bg{position:fixed;inset:0;z-index:40;background:rgba(18,24,38,.38);opacity:0;transition:opacity .35s}
-.sheet{position:fixed;z-index:41;left:50%;bottom:0;width:min(1080px,100%);height:calc(100% - 40px - env(safe-area-inset-top,0px));transform:translate(-50%,104%);background:var(--bg);border-radius:20px 20px 0 0;box-shadow:0 -10px 40px rgba(18,24,38,.18);display:flex;flex-direction:column;transition:transform .5s cubic-bezier(.2,.8,.2,1)}
+.sheet{position:fixed;z-index:41;left:50%;bottom:0;width:min(1440px,calc(100% - 48px));height:calc(100% - 40px - env(safe-area-inset-top,0px));transform:translate(-50%,104%);background:var(--bg);border-radius:20px 20px 0 0;box-shadow:0 -10px 40px rgba(18,24,38,.18);display:flex;flex-direction:column;transition:transform .5s cubic-bezier(.2,.8,.2,1)}
 .sheet-open .sheet-bg{opacity:1}
+@media (max-width:760px){.sheet{width:100%}}
+@media (min-width:1200px){.sheet-body{padding:28px 44px 56px}.sheet-top,.sheet-tabs{padding-inline:44px}}
 .sheet-open .sheet{transform:translate(-50%,0)}
 .sheet-top{flex:none;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:16px 24px;border-bottom:1px solid var(--line)}
 .sheet-top .t{font-weight:800;font-size:18px}
@@ -555,6 +561,7 @@ const P = [
   tags:["FastAPI","LangGraph","pgvector","Next.js 16","Railway"],
   links:[["GitHub","https://github.com/pj002321/Safe-farm"],["서비스","https://safe-farm-production.up.railway.app/"],["공모전","https://event.wanted.co.kr/ai-championship/2026/projects/548"]], admin:"https://safe-farm-production.up.railway.app/admin/login", adminInfo:{mine:["개요: 핵심 지표 · 작물 분포 · <b>AI 주간 운영 브리핑</b>","회원: 근거를 대조하는 <b>AI 회원 분석</b> · 위험 회원 리포트","품질: <b>답변 평가 · 가드레일 차단 로그</b> · 데이터 신선도 · 문서 인덱스","시스템: 상태 · 오류 로그와 재실행 · <b>API 호출량</b> · 재색인 · 검색 방식 3가지 비교 · 예측 정확도"],team:["초기 화면 뼈대"]},
   role:"팀장 · 일정 관리, AI 질의응답(RAG · LangGraph · SSE), 밭 맞춤 컨텍스트, 지도 레이어",
+ keys:[{"title": "밭 맞춤 AI 질의응답 (RAG · LangGraph)", "flow": [["질문", ""], ["plan ∥ retrieve", "밭 정보 필요 판단 · pgvector 검색 동시 시작"], ["run_tools", "밭 · 생육단계 · 날씨 조회"], ["generate", "SSE 스트리밍 답변"]], "points": [["병렬 시작", "계획과 문서 검색을 <b>동시에 시작</b>해 첫 응답까지의 대기 시간을 줄임"], ["규칙 우선", "비 · 태풍 같은 주제어는 LLM 판단 없이 바로 조회하고 <b>회귀 테스트</b>로 고정"], ["가드레일", "농약 희석배수 같은 금지 주제는 <b>LLM 호출 전</b> 정규식 필터로 차단"], ["사진 진단", "사진에서 증상만 뽑아 병해충 문서를 검색한 뒤, <b>문서 근거로만</b> 진단"]]}, {"title": "내 밭 기준 생육 단계 계산 (GDD)", "flow": [["밭 좌표", ""], ["최근접 관측소", "거리 계산 · FK 없이 좌표 매칭"], ["누적 GDD", "일별 기온 · 상한온도 캡"], ["생육 단계", "프롬프트 · 오늘 할 일 · 지도"]], "points": [["파이프라인", "밭 선택 → 최근접 관측소 → GDD 생육단계 → <b>프롬프트 주입</b>까지 전체 경로 구성"], ["상한온도 캡", "고온일에 GDD가 과하게 쌓이지 않도록 작물별 <b>상한온도</b>에서 자름"], ["지역 매칭", "법정동 · 통계청 코드 체계가 달라 <b>point-in-polygon</b>으로 250개 시군구 매핑"], ["지도 레이어", "시군구 GDD 평년 대비 · 기상특보 · 강수 · 바람 레이어와 밭 마커 요약 팝업"]]}, {"title": "작물 · 숙기 추천", "flow": [["파종일", ""], ["평년 기온", "최근접 관측소의 날짜별 평년값"], ["숙기별 필요 GDD 비교", "조생 · 중생 · 만생"], ["추천", "감당되는 가장 늦은 숙기"]], "points": [["평년값 사용", "그날 날씨가 아니라 <b>평년 기후</b>로 판단해 일시적인 기온에 흔들리지 않게 함"], ["근거 없으면 보류", "후보가 부족하거나 평년값이 없으면 추천하지 않고 <b>기본값(중생)</b>에 맡김"], ["부적합 제외", "철 지난 부적합 등급은 추천 목록에서 빼고, 판단 로직은 <b>순수 함수 + 테스트</b>로 분리"]]}],
   contrib:"커밋 145건 (머지 제외)",
   stack:"Python, FastAPI, LangGraph, pgvector, Next.js 16, Railway",
   arch:[
@@ -592,13 +599,7 @@ const P = [
   tags:["FastAPI","LangGraph","pgvector","Claude · OpenAI","Next.js 16"],
   links:[["GitHub 조직","https://github.com/TodayWhatDish"],["서비스","https://twd-web.vercel.app/"]], repos:[["추천 데이터 · RAG 파이프라인","https://github.com/TodayWhatDish/dev-data-embed"],["웹 서비스 · 관리자 페이지","https://github.com/TodayWhatDish/dev-web"]], admin:"https://twd-web.vercel.app/admin", adminInfo:{mine:["<b>검증 탭</b>: 답변과 다른 모델의 반증 정확도 · 근거를 나란히 확인","고객 분석 · <b>판매 전략</b>: LLM이 인용한 근거 구매를 SQL로 대조","고객 질문 기록 (관리자 테스트 질문은 제외) · 운영 상태","회원 추가 · 수정 · 탈퇴"],team:["차트 번들링 정리"]},
   role:"팀장 · 일정 관리, LLM 답변 반증(교차 모델 채점) 설계 · 구현, RAG 파이프라인 설계, FastAPI 백엔드, 인증, 배포, 운영 장애 대응",
- key:{title:"LLM 답변 반증 — 답을 만든 모델이 아닌 다른 모델이 채점",
-    flow:[["답변 생성","OpenAI · 근거 후기 · 후보 상품"],["1차 문자열 대조","펫 이름 언급 여부 · 비용 0"],["2차 교차 채점","Claude · 고객 정보 · 후보 상품 · 성분표와 대조"],["화면 표시","정확도 · 근거를 스트림 마지막에 전송"]],
-    points:[["다른 모델로 채점","같은 모델이 자기 답을 채점하면 틀린 답도 맞다고 하는 <b>자기평가 편향</b>이 생겨, 답변(OpenAI)과 반증(Claude)을 분리하고 설정 하나로 교체되게 함"],
-      ["항상 검사로 전환","처음엔 '의심될 때만' 키워드로 검사했지만 질문 종류가 늘 때마다 키워드를 추가해야 해서, <b>대조할 고객 정보가 있으면 항상</b> LLM 채점"],
-      ["문자열 대조의 한계","아직 안 산 <b>추천 후보</b>를 언급하는 게 정상이라 상품명 대조로는 정답과 오답을 못 가름 → 상품 판단은 LLM 채점에 맡김"],
-      ["오탐 제거","반증 모델에 상품 자료가 없어 <b>정상 추천을 0점</b> 처리 → 답변과 같은 후보 · 성분표를 제공. 닭고기 알러지에 오리 · 계란 추천을 '교차반응'으로 감점 → 규칙 명시"],
-      ["결과","구조화 출력 + 재시도 3회로 채점 형식을 고정, 수정 후 스모크 테스트 반증 정확도 <b>0.9 ~ 1.0</b> (소수 질문 기준)"]]},
+ keys:[{"title": "LLM 답변 반증 — 답을 만든 모델이 아닌 다른 모델이 채점", "flow": [["답변 생성", "OpenAI · 근거 후기 · 후보 상품"], ["1차 문자열 대조", "펫 이름 언급 여부 · 비용 0"], ["2차 교차 채점", "Claude · 고객 정보 · 후보 상품 · 성분표와 대조"], ["화면 표시", "정확도 · 근거를 스트림 마지막에 전송"]], "points": [["다른 모델로 채점", "같은 모델이 자기 답을 채점하면 틀린 답도 맞다고 하는 <b>자기평가 편향</b>이 생겨, 답변(OpenAI)과 반증(Claude)을 분리하고 설정 하나로 교체되게 함"], ["항상 검사로 전환", "처음엔 '의심될 때만' 키워드로 검사했지만 질문 종류가 늘 때마다 키워드를 추가해야 해서, <b>대조할 고객 정보가 있으면 항상</b> LLM 채점"], ["문자열 대조의 한계", "아직 안 산 <b>추천 후보</b>를 언급하는 게 정상이라 상품명 대조로는 정답과 오답을 못 가름 → 상품 판단은 LLM 채점에 맡김"], ["오탐 제거", "반증 모델에 상품 자료가 없어 <b>정상 추천을 0점</b> 처리 → 답변과 같은 후보 · 성분표를 제공. 닭고기 알러지에 오리 · 계란 추천을 '교차반응'으로 감점 → 규칙 명시"], ["결과", "구조화 출력 + 재시도 3회로 채점 형식을 고정, 수정 후 스모크 테스트 반증 정확도 <b>0.9 ~ 1.0</b> (소수 질문 기준)"]]}, {"title": "RAG 추천 파이프라인", "flow": [["고객 정보", "반려동물 · 알레르기 · 설문 메모"], ["SQL 선필터", "축종 · 체급 · 알레르기"], ["벡터 검색", "후기 상위 20개 (pgvector)"], ["답변 스트림", "근거 → 답변 → 반증"]], "points": [["토큰 절감", "상품 자료를 통째로 넣지 않고 SQL로 먼저 걸러 LLM 입력 토큰 <b>약 90% 감소</b>"], ["검색 품질", "공통 문구 제거 · 원료 정보 추가 · 재색인으로 recall@3 <b>12.7% → 25.8%</b>"], ["메모 검색", "메모별로 따로 검색해 후기 매칭률 <b>25% → 70%</b>"], ["체감 속도", "NDJSON으로 근거를 먼저 보내 첫 근거 <b>1.2초</b>, 첫 글자 <b>2.9초</b> (중앙값)"]]}, {"title": "배포 · 백엔드 구조", "flow": [], "points": [["이미지 경량화", "로컬 임베딩 의존성(torch)을 선택 설치로 분리해 Docker 이미지 <b>2.16GB → 503MB</b>"], ["pgvector 이관", "벡터 검색을 Postgres(pgvector)로 옮기고 Railway · Vercel로 배포"], ["리팩터링 관리", "리뷰 결과를 BE-01 ~ BE-40 체크리스트로 관리, 요청 단위 DB 세션 · 예외 원문 비노출 등 처리"], ["의존 방향", "api → services → repositories 단방향 규칙을 <b>import 검사 테스트</b>로 강제"]]}],
 
   contrib:"백엔드 커밋 200건, 팀 내 1위",
   stack:"FastAPI, LangGraph, pgvector, Claude · OpenAI, Next.js 16, Docker",
@@ -635,6 +636,7 @@ const P = [
   tags:["FastAPI","LangGraph","Claude Haiku 4.5","pgvector","Supabase"],
   links:[["GitHub 조직","https://github.com/Life-fit-pj"],["서비스","https://life-web-production-241a.up.railway.app/"]], repos:[["동네 추천 엔진 · 임베딩","https://github.com/Life-fit-pj/Life-Embed-jh"],["웹 서비스 · API 서버","https://github.com/Life-fit-pj/Life-Web"]], admin:"https://life-web-production-241a.up.railway.app/admin.html", adminInfo:{mine:["<b>AI 사용량</b>: 사람별 · 날짜별 검색 · 질문 수 집계","회원 CRUD","집계 쿼리 12개 <b>동시 실행</b>으로 로딩 개선"],team:["추천 가중치 조정 · 유사 회원 찾기 · 회원별 추천 테스트 · 개인정보 마스킹 · 관리자용 LLM 분석"]},
   role:"엔진 API 서버 신설, 인증 · 회원 흐름, LLM 채팅 확장, Railway 배포",
+ keys:[{"title": "엔진 · 웹 서버 분리 (ADR-0001)", "flow": [["Life-Web", "화면 · 인증"], ["httpx.Client", "커넥션 재사용"], ["엔진 FastAPI", "app/api 신설"], ["services · DB", "추천 · 채팅 · 관리자"]], "points": [["분리 근거", "호출자가 하나뿐이어도, 임베딩 동기 추론이 같은 이벤트 루프의 <b>인증 · CRUD 요청을 막는 문제</b>가 재현돼 분리"], ["계약 유지", "함수 이름 · 인자 · 반환값은 그대로 두고 전달 방식만 HTTP로 바꿔 <b>웹 쪽은 한 파일</b>만 수정"], ["예외 규칙", "없음 → 404, 값 검증 실패 → 422로 정하고 클라이언트가 원래 모양으로 복원"], ["단계적 이전", "회원 · 검색 · 설문 · 채팅을 슬라이스 단위로 옮기며 pytest로 도메인 검증"]]}, {"title": "LLM 채팅 확장 (LangGraph · Tool Use)", "flow": [["질문", ""], ["plan 노드", "도구가 필요한지 판단"], ["Claude Tool Use", "시설 수 · 시세 · 생활 조건 조회"], ["답변", "대화 기록과 함께 저장"]], "points": [["도구 라우팅", "plan 노드와 Function Calling을 연결해 시설 수 · 세부 분류 · 시세 · 생활 조건을 <b>DB에서 조회</b>해 답변"], ["응답 정리", "Anthropic 응답의 tool 블록을 걸러 화면에는 답변만 표시"]]}, {"title": "인증 · 배포 · 운영", "flow": [], "points": [["인증", "임시 로그인을 <b>Supabase Auth</b>(이메일 · 구글)로 교체, 비로그인 검색 방지"], ["벡터 검색 이관", "벡터 검색을 pgvector(DB)로 옮겨 Supabase 전송량 절감"], ["운영 안정화", "Railway 메모리 초과 · 끊긴 DB 연결 500 · 질문 한도 우회를 차례로 해결 (문제 해결 표 참고)"]]}],
   contrib:"커밋 96건",
   stack:"FastAPI, LangGraph, Claude Haiku 4.5, pgvector, Supabase, Railway",
   arch:[
@@ -667,6 +669,7 @@ const P = [
   tags:["MediaPipe","PyTorch LSTM","YOLOv8","ROS 2","Gazebo"],
   links:[["GitHub 조직","https://github.com/SAX-AI-TeamProject1"],["시연 영상","https://youtu.be/uNY5pw-5RxQ"]], repos:[["수신호 인식","https://github.com/SAX-AI-TeamProject1/Signal-Vision"],["장애물 인식","https://github.com/SAX-AI-TeamProject1/Signal-transport-perception"],["시뮬레이션 (ROS 2)","https://github.com/SAX-AI-TeamProject1/Signal-Simulation"],["학습 데이터셋","https://github.com/SAX-AI-TeamProject1/Industrial-data"]],
   role:"팀장 · 일정 관리, 수신호 인식 주도, YOLO 장애물 인식 단독, 인식 모듈 패키지 배포",
+ keys:[{"title": "수신호 인식 파이프라인 (Signal-Vision)", "flow": [["웹캠", ""], ["MediaPipe", "손 21점 × 2 + 상체 8관절"], ["LSTM", "150차원 × 30프레임"], ["안정화 필터", "0.8 · 5프레임 연속 · EMA"], ["rosbridge", "/hand_signal JSON"]], "points": [["데이터 직접 수집", "공장 수신호 데이터가 없어 수집 도구와 랜드마크 뷰어를 만들어 7종 동작을 직접 촬영"], ["상체 포즈 포함", "장갑을 끼면 손 랜드마크가 흔들려 <b>상체 포즈</b>를 함께 넣음 (손만 쓰는 126차원 안 기각)"], ["불확실하면 정지", "확정 전 · 사람이 안 보이면 <b>unknown → 로봇 정지</b>"], ["악조건 검증", "노이즈 · 가림 · 속도 · 거리 · 렌즈 왜곡 5종에서 정확도 하락 <b>2%p 이내</b>"]]}, {"title": "YOLO 장애물 인식 (단독)", "flow": [["Gazebo 캡처", "로봇 카메라 시점"], ["자동 라벨", "boundingbox_camera"], ["Kaggle T4 학습", "50 epoch 7분"], ["실화면 검증", "오탐 · 미탐 기준 채택"]], "points": [["렌더러 일치", "Blender · COCO 대신 <b>로봇이 실제로 보는 Gazebo 화면</b>으로 학습해 신뢰도 0.27~0.46 → 0.95"], ["학습 속도", "로컬 Mac 32분 → Kaggle T4 <b>7분</b>으로 옮겨 반복 실험 주기 단축"], ["점수보다 실화면", "검증 점수는 라운드마다 떨어졌지만 실제 창고 화면의 <b>오탐 · 미탐</b>으로 모델 채택"], ["결정 기록", "데이터 소스 · 클래스 구성 · 라벨 방식 등 <b>ADR 14건</b>으로 기록"]]}, {"title": "팀 운영 · 모듈 배포", "flow": [], "points": [["저장소 분리", "인식 · 제어를 3개 저장소로 나누고 인식 모듈은 <b>버전 태그 pip 패키지</b>로 배포"], ["설치 문제 해결", "OpenCV · numpy · MediaPipe 버전을 고정해 팀원 환경(ARM 리눅스 포함)에서 설치되게 함"], ["팀장", "WBS · 일정 관리, Jira로 작업 분배"]]}],
   contrib:"인식 레포 2곳 커밋 49건",
   stack:"MediaPipe, PyTorch LSTM, YOLOv8, ROS 2 Jazzy, Gazebo, Kaggle",
   arch:[
@@ -714,11 +717,11 @@ function adminInfoHTML(p){
   </div>${adminHTML(p)}</div>`;
 }
 function keyHTML(p){
-  if(!p.key) return "";
-  const k=p.key;
-  return `<div class="blk keyblk"><h3 id="d-key">핵심 기여</h3><p class="key-t">${esc(k.title)}</p>
-    <div class="flow kflow">${k.flow.map(([t,s],i)=>`${i?'<span class="arrow">→</span>':''}<div class="step${i===2?' hl':''}">${esc(t)}<small>${esc(s)}</small></div>`).join("")}</div>
-    <dl class="kpts">${k.points.map(([h,d])=>`<dt>${esc(h)}</dt><dd>${d}</dd>`).join("")}</dl></div>`;
+  if(!p.keys) return "";
+  return `<div class="blk"><h3 id="d-key">주요 기여</h3><div class="keys">${p.keys.map((k,n)=>`<div class="keyblk">
+    <div class="key-h"><span class="key-n">${String(n+1).padStart(2,"0")}</span><p class="key-t">${esc(k.title)}</p></div>
+    ${k.flow&&k.flow.length?`<div class="flow kflow">${k.flow.map(([t,sb],i)=>`${i?'<span class="arrow">→</span>':''}<div class="step">${esc(t)}${sb?`<small>${esc(sb)}</small>`:''}</div>`).join("")}</div>`:""}
+    <dl class="kpts">${k.points.map(([h,d])=>`<dt>${esc(h)}</dt><dd>${d}</dd>`).join("")}</dl></div>`).join("")}</div></div>`;
 }
 function adminHTML(p){
   if(!p.admin) return "";
@@ -813,7 +816,7 @@ function layoutERD(root){
     });
     svg.innerHTML=out;
     const avail=wrap.clientWidth, sc=avail>=720?Math.min(1,avail/W):1;
-    cv.style.transform=sc<1?`scale(${sc})`:""; wrap.style.height=(H*sc)+"px"; wrap.classList.toggle("scroll", sc===1 && W>avail);
+    cv.style.transform=sc<1?`scale(${sc})`:""; cv.style.marginLeft=(sc===1&&W<avail)?((avail-W)/2)+"px":"0"; wrap.style.height=(H*sc)+"px"; wrap.classList.toggle("scroll", sc===1 && W>avail);
   });
 }
 let CUR_P=null; const P_BY_CANVAS=()=>CUR_P;
@@ -843,7 +846,7 @@ function openSheet(id){
   const p = P.find(x=>x.id===id); if(!p) return;
   lastFocus = document.activeElement;
   $("#sheetTitle").textContent = p.name;
-  $("#sheetTabs").innerHTML = [["개요","top"],...(p.key?[["핵심 기여","d-key"]]:[]),["서비스 구조","d-arch"],["데이터 구조","d-data"],["기술 선택 이유","d-why"],["문제 해결","d-issue"],...(p.adminInfo?[["관리자","d-admin"]]:[]),["배운 점","d-learn"]]
+  $("#sheetTabs").innerHTML = [["개요","top"],...(p.keys?[["주요 기여","d-key"]]:[]),["서비스 구조","d-arch"],["데이터 구조","d-data"],["기술 선택 이유","d-why"],["문제 해결","d-issue"],...(p.adminInfo?[["관리자","d-admin"]]:[]),["배운 점","d-learn"]]
     .map(([l,t])=>`<a href="#${t}" data-jump="${t}">${l}</a>`).join("");
   const body = $("#sheetBody"); body.innerHTML = detail(p); labelTables(body); body.scrollTop = 0;
   root.hidden = false; document.body.style.overflow = "hidden";
