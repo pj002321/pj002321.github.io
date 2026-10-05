@@ -5,7 +5,7 @@
 <style>
 /* Layout: 흰 문서 같은 한 페이지 스크롤. 상단 고정 메뉴 → 섹션마다 제목 + 표/흐름도, 프로젝트는 카드 → 상세보기 시트 */
 :root{
-  --bg:#FCFCFB; --surface:#FFFFFF; --soft:#F3F5F9; --ink:#1A1D24; --body:#3A404C; --muted:#5E6573;
+  --bg:#FCFCFB; --surface:#FFFFFF; --soft:#F3F5F9; --ink:#1A1D24; --body:#2F3440; --muted:#535A66;
   --line:#E3E6EB; --accent:#1F3A68; --accent-soft:#EAF0F8; --point:#E8622C; --point-soft:#FDEEE6; --tint:#F3F6FB;
   --red:#B42318; --amber:#B54708; --green:#067647;
   --font:'Malgun Gothic','맑은 고딕','Nanum Gothic','Apple SD Gothic Neo',sans-serif;
@@ -14,7 +14,7 @@
 }
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
-body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--font);font-size:16px;line-height:1.65;-webkit-font-smoothing:antialiased}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--font);font-size:16px;line-height:1.7;-webkit-font-smoothing:antialiased;word-break:keep-all;overflow-wrap:break-word}
 a{color:inherit}
 img{max-width:100%;display:block}
 .wrap{max-width:1120px;margin:0 auto;padding-inline:24px}
@@ -90,12 +90,13 @@ section.sec.alt{background:var(--tint)}
 h3.sub{font-size:19px;font-weight:700;margin-bottom:12px}
 
 .table-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:12px;background:var(--surface)}
-table{border-collapse:collapse;width:100%;font-size:15px}
-th,td{text-align:left;padding:12px 16px;border-bottom:1px solid var(--line);vertical-align:top}
+table{border-collapse:collapse;width:100%;font-size:15.5px;line-height:1.7}
+th,td{text-align:left;padding:14px 18px;border-bottom:1px solid var(--line);vertical-align:top}
 tr:last-child td{border-bottom:0}
 th{background:var(--soft);font-weight:700;font-size:14px;color:var(--ink);white-space:nowrap}
 td{color:var(--body)}
-td:first-child{color:var(--ink);font-weight:700}
+td:first-child{color:var(--ink);font-weight:700;white-space:nowrap}
+.t-wrap td:first-child{white-space:normal;min-width:9em}
 .t-plain td:first-child{font-weight:400}
 th.c-red{color:var(--red)} th.c-amber{color:var(--amber)} th.c-navy{color:var(--accent)} th.c-green{color:var(--green)}
 td.res{color:var(--green);font-weight:700}
@@ -105,7 +106,7 @@ td.res{color:var(--green);font-weight:700}
   .table-wrap tr:first-child{display:none}
   .table-wrap tr{padding:14px 16px;border-bottom:1px solid var(--line)}
   .table-wrap tr:last-child{border-bottom:0}
-  .table-wrap td{border:0;padding:3px 0}
+  .table-wrap td{border:0;padding:3px 0;white-space:normal}
   .table-wrap td::before{content:attr(data-label);display:block;font-size:12px;font-weight:700;color:var(--muted);letter-spacing:.02em}
   .table-wrap td:first-child{font-size:16px;padding-bottom:6px}
   .table-wrap td:first-child::before{display:none}
@@ -621,7 +622,7 @@ function detail(p){
   <div class="blk"><h3 id="d-arch">서비스 구조</h3>${archHTML(p.arch)}</div>
   <div class="blk"><h3 id="d-data">${p.data?'데이터 구조':'데이터 구조 (ERD)'}</h3>${dataHTML(p)}</div>
   <div class="blk"><h3 id="d-why">기술 선택 이유</h3><div class="table-wrap"><table><tr><th>기술</th><th>선택 이유</th><th>검토 후 제외한 안</th></tr>${p.reasons.map(r=>`<tr><td>${esc(r[0])}</td><td>${esc(r[1])}</td><td>${esc(r[2])}</td></tr>`).join("")}</table></div></div>
-  <div class="blk"><h3 id="d-issue">문제 해결</h3><div class="table-wrap"><table><tr><th class="c-red">문제</th><th class="c-amber">원인</th><th class="c-navy">해결</th><th class="c-green">결과</th></tr>${p.issues.map(r=>`<tr><td style="font-weight:400">${r[0]}</td><td>${r[1]}</td><td>${r[2]}</td><td class="res">${r[3]}</td></tr>`).join("")}</table></div></div>
+  <div class="blk"><h3 id="d-issue">문제 해결</h3><div class="table-wrap"><table class="t-wrap"><tr><th class="c-red">문제</th><th class="c-amber">원인</th><th class="c-navy">해결</th><th class="c-green">결과</th></tr>${p.issues.map(r=>`<tr><td style="font-weight:400">${r[0]}</td><td>${r[1]}</td><td>${r[2]}</td><td class="res">${r[3]}</td></tr>`).join("")}</table></div></div>
   <div class="blk learn"><h3 id="d-learn">이 프로젝트로 배운 것</h3><p>${esc(p.learn)}</p></div>`;
 }
 
