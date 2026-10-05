@@ -173,6 +173,23 @@ td.res b{color:inherit}
 .admin-row .btn.ghost:hover{background:var(--point-soft)}
 .pw{display:inline-flex;align-items:center;gap:8px;font-size:13.5px;color:var(--muted)}
 .pw code{font-family:var(--mono);font-size:14px;color:var(--ink);background:var(--point-soft);padding:2px 8px;border-radius:6px}
+/* admin info + key contribution */
+.adm{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(0,1fr);gap:14px;margin-bottom:12px}
+@media (max-width:820px){.adm{grid-template-columns:minmax(0,1fr)}}
+.adm-col{border:1px solid var(--line);border-radius:12px;background:var(--surface);padding:14px 18px}
+.adm-h{display:inline-block;font-size:12.5px;font-weight:700;color:var(--muted);margin-bottom:6px}
+.adm-h.mine{color:var(--accent)}
+.adm ul{margin:0;padding-left:18px;font-size:14.5px;line-height:1.65;color:var(--body)}
+.adm ul.team{color:var(--muted)}
+.keyblk{padding:18px 22px;border:1px solid #D3DDEC;border-radius:14px;background:linear-gradient(180deg,var(--accent-soft),var(--surface) 70%)}
+.key-t{margin:-4px 0 12px;font-size:16px;font-weight:700;color:var(--ink)}
+.kflow{margin-bottom:14px}
+.kflow .step{background:var(--surface);border-color:#D3D8E0;border-width:1px;font-size:14px}
+.kflow .step.hl{border-color:var(--point);background:var(--point-soft)}
+.kpts{display:grid;grid-template-columns:max-content minmax(0,1fr);gap:8px 16px;margin:0;font-size:14.5px;line-height:1.6}
+.kpts dt{font-weight:700;color:var(--accent);white-space:nowrap}
+.kpts dd{margin:0;color:var(--body)}
+@media (max-width:640px){.kpts{grid-template-columns:minmax(0,1fr);gap:2px}.kpts dd{margin-bottom:8px}}
 /* other projects */
 .others{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
 @media (max-width:980px){.others{grid-template-columns:minmax(0,1fr)}}
@@ -505,7 +522,7 @@ const P = [
   meta:"2026 원티드 AI 챔피언십 출품 · 2026.09.09 – 09.22 · 4인 · 팀장",
   desc:"기상청 · 농촌진흥청 · 위성에 흩어진 데이터를 밭 좌표 하나로 묶어, 내 밭 작물의 생육 단계와 오늘 할 일을 알려주는 AI 서비스입니다.",
   tags:["FastAPI","LangGraph","pgvector","Next.js 16","Railway"],
-  links:[["GitHub","https://github.com/pj002321/Safe-farm"],["서비스","https://safe-farm-production.up.railway.app/"],["공모전","https://event.wanted.co.kr/ai-championship/2026/projects/548"]], admin:"https://safe-farm-production.up.railway.app/admin/login",
+  links:[["GitHub","https://github.com/pj002321/Safe-farm"],["서비스","https://safe-farm-production.up.railway.app/"],["공모전","https://event.wanted.co.kr/ai-championship/2026/projects/548"]], admin:"https://safe-farm-production.up.railway.app/admin/login", adminInfo:{mine:["개요: 핵심 지표 · 작물 분포 · <b>AI 주간 운영 브리핑</b>","회원: 근거를 대조하는 <b>AI 회원 분석</b> · 위험 회원 리포트","품질: <b>답변 평가 · 가드레일 차단 로그</b> · 데이터 신선도 · 문서 인덱스","시스템: 상태 · 오류 로그와 재실행 · <b>API 호출량</b> · 재색인 · 검색 방식 3가지 비교 · 예측 정확도"],team:["초기 화면 뼈대"]},
   role:"팀장 · 일정 관리, AI 질의응답(RAG · LangGraph · SSE), 밭 맞춤 컨텍스트, 지도 레이어",
   contrib:"커밋 145건 (머지 제외)",
   stack:"Python, FastAPI, LangGraph, pgvector, Next.js 16, Railway",
@@ -541,8 +558,16 @@ const P = [
   meta:"삼성 AXI 팀 프로젝트 · 2026.08 · 5인 · 팀장 · 백엔드 리드",
   desc:"반려동물의 알레르기 · 체급 · 구매 이력을 바탕으로, 비슷한 보호자의 실제 후기를 근거로 사료 · 간식을 추천하고 질문에 답하는 AI 서비스입니다.",
   tags:["FastAPI","LangGraph","pgvector","Claude · OpenAI","Next.js 16"],
-  links:[["GitHub 조직","https://github.com/TodayWhatDish"],["서비스","https://twd-web.vercel.app/"]], repos:[["추천 데이터 · RAG 파이프라인","https://github.com/TodayWhatDish/dev-data-embed"],["웹 서비스 · 관리자 페이지","https://github.com/TodayWhatDish/dev-web"]], admin:"https://twd-web.vercel.app/admin",
-  role:"팀장 · 일정 관리, RAG 파이프라인 설계, FastAPI 백엔드, 인증, 배포, 운영 장애 대응",
+  links:[["GitHub 조직","https://github.com/TodayWhatDish"],["서비스","https://twd-web.vercel.app/"]], repos:[["추천 데이터 · RAG 파이프라인","https://github.com/TodayWhatDish/dev-data-embed"],["웹 서비스 · 관리자 페이지","https://github.com/TodayWhatDish/dev-web"]], admin:"https://twd-web.vercel.app/admin", adminInfo:{mine:["<b>검증 탭</b>: 답변과 다른 모델의 반증 정확도 · 근거를 나란히 확인","고객 분석 · <b>판매 전략</b>: LLM이 인용한 근거 구매를 SQL로 대조","고객 질문 기록 (관리자 테스트 질문은 제외) · 운영 상태","회원 추가 · 수정 · 탈퇴"],team:["차트 번들링 정리"]},
+  role:"팀장 · 일정 관리, LLM 답변 반증(교차 모델 채점) 설계 · 구현, RAG 파이프라인 설계, FastAPI 백엔드, 인증, 배포, 운영 장애 대응",
+ key:{title:"LLM 답변 반증 — 답을 만든 모델이 아닌 다른 모델이 채점",
+    flow:[["답변 생성","OpenAI · 근거 후기 · 후보 상품"],["1차 문자열 대조","펫 이름 언급 여부 · 비용 0"],["2차 교차 채점","Claude · 고객 정보 · 후보 상품 · 성분표와 대조"],["화면 표시","정확도 · 근거를 스트림 마지막에 전송"]],
+    points:[["다른 모델로 채점","같은 모델이 자기 답을 채점하면 틀린 답도 맞다고 하는 <b>자기평가 편향</b>이 생겨, 답변(OpenAI)과 반증(Claude)을 분리하고 설정 하나로 교체되게 함"],
+      ["항상 검사로 전환","처음엔 '의심될 때만' 키워드로 검사했지만 질문 종류가 늘 때마다 키워드를 추가해야 해서, <b>대조할 고객 정보가 있으면 항상</b> LLM 채점"],
+      ["문자열 대조의 한계","아직 안 산 <b>추천 후보</b>를 언급하는 게 정상이라 상품명 대조로는 정답과 오답을 못 가름 → 상품 판단은 LLM 채점에 맡김"],
+      ["오탐 제거","반증 모델에 상품 자료가 없어 <b>정상 추천을 0점</b> 처리 → 답변과 같은 후보 · 성분표를 제공. 닭고기 알러지에 오리 · 계란 추천을 '교차반응'으로 감점 → 규칙 명시"],
+      ["결과","구조화 출력 + 재시도 3회로 채점 형식을 고정, 수정 후 스모크 테스트 반증 정확도 <b>0.9 ~ 1.0</b> (소수 질문 기준)"]]},
+
   contrib:"백엔드 커밋 200건, 팀 내 1위",
   stack:"FastAPI, LangGraph, pgvector, Claude · OpenAI, Next.js 16, Docker",
   arch:[
@@ -567,7 +592,7 @@ const P = [
   rels:["user 1→N pet","pet 1→N pet_allergy","allergen 1→N pet_allergy","allergen 1→N ingredient_allergen","ingredient 1→N ingredient_allergen","ingredient 1→N product_ingredient","product 1→N product_ingredient","pet 1→N purchase","product 1→N purchase","purchase 1→1 review","review ⇢ chunk_vectors"],
   notes:["<b>남색 테두리</b>는 알레르기 선필터 경로입니다. 반려동물 → 알레르기 → 성분 → 상품을 SQL로 따라가 후보에서 미리 뺍니다","allergen은 parent_id로 상위 · 하위 계층","임베딩은 구매 후기 단위, source_hash로 바뀐 후기만 재임베딩","is_holdout 후기는 평가용으로 분리"],
   reasons:[["SQL 선필터 후 LLM","알레르기 성분이 든 후보는 순위로 되돌릴 수 없어 SQL이 먼저 거름. LLM 입력 토큰 약 90% 감소","전체 상품을 LLM에 전달"],["답변 · 검증 모델 분리","같은 모델이 자기 답을 채점하면 틀린 답도 맞다고 할 수 있어 다른 모델로 대조","자체 채점"],["OpenAI 임베딩","배포 이미지를 2.16GB → 503MB로 줄이려 전환, 로컬 대비 품질 차이는 기록","로컬 e5-small"]],
-  issues:[["동시 접속 시 서버 정지","커넥션 하나를 스레드 40개가 함께 쓰고, 끝난 요청도 연결을 반납하지 않음","요청 단위로 세션을 열고 닫고, 풀 크기 · 연결 확인 설정","반납 안 된 연결 0건"],["추천 1회에 DB 조회 최대 40회","후보 20개마다 구매 → 상품을 따로 조회하는 N+1 쿼리","JOIN 한 번으로 묶어 조회","DB 조회 40회 → 1회"],["알레르기 필터가 동작하지 않음","'닭'을 입력하면 '닭고기'와 매칭되지 않는 완전 일치 방식","정규화 후 부분 일치로 변경, 미적용 시 안내","평가셋 알레르기 위반 0 / 20"],["보호자 메모로 찾은 <b>후기가 엉뚱함</b>","식성 · 피부 메모 두 개를 <b>한 문장으로 합쳐</b> 검색해, 두 주제를 다 담은 후기가 없어 어느 쪽과도 어중간하게 닮음","<b>메모마다 따로 검색</b>하고 증상을 '이런 아이에게 좋은 사료 추천' 문장으로 감싼 뒤, 같은 상품은 최고 점수만 남김","메모 → 후기 매칭률 <b>25 → 70%</b>, 0 → 61%"],["로그인할 때마다 <b>추천이 6 ~ 8초</b> 걸림","같은 설문 문장을 매번 <b>임베딩 API로 다시 변환</b>, 이 왕복이 응답 시간 대부분","질의 임베딩 결과를 <b>메모리 캐시</b>(256개, 약 10MB)","반복 추천 <b>6 ~ 8초 → 1초</b>"]],
+  issues:[["반증 모델이 <b>정상 추천을 0점</b> 처리","반증 모델에 상품 자료를 주지 않아, 추천 상품을 '고객 정보에 없는 상품'으로 판단","답변 모델이 본 것과 <b>같은 후보 상품 · 성분표</b>를 함께 전달, 교차반응 규칙 명시","오탐 제거, 스모크 테스트 반증 정확도 0.9 ~ 1.0"],["동시 접속 시 서버 정지","커넥션 하나를 스레드 40개가 함께 쓰고, 끝난 요청도 연결을 반납하지 않음","요청 단위로 세션을 열고 닫고, 풀 크기 · 연결 확인 설정","반납 안 된 연결 0건"],["추천 1회에 DB 조회 최대 40회","후보 20개마다 구매 → 상품을 따로 조회하는 N+1 쿼리","JOIN 한 번으로 묶어 조회","DB 조회 40회 → 1회"],["알레르기 필터가 동작하지 않음","'닭'을 입력하면 '닭고기'와 매칭되지 않는 완전 일치 방식","정규화 후 부분 일치로 변경, 미적용 시 안내","평가셋 알레르기 위반 0 / 20"],["보호자 메모로 찾은 <b>후기가 엉뚱함</b>","식성 · 피부 메모 두 개를 <b>한 문장으로 합쳐</b> 검색해, 두 주제를 다 담은 후기가 없어 어느 쪽과도 어중간하게 닮음","<b>메모마다 따로 검색</b>하고 증상을 '이런 아이에게 좋은 사료 추천' 문장으로 감싼 뒤, 같은 상품은 최고 점수만 남김","메모 → 후기 매칭률 <b>25 → 70%</b>, 0 → 61%"]],
   learn:"같은 알레르기도 데이터마다 '닭고기 알레르기', '닭고기'처럼 표기가 달라 288건 중 205건이 서로 매칭되지 않았고, 성분 매핑 기준을 직접 만들어야 했습니다. 원료와 알레르기의 상하위 관계를 정리하며 반려동물에게 무엇이 위험한지 이해하게 되었고, AI에게 맡기기 전에 위험한 후보는 규칙으로 먼저 거르고 답변은 다른 모델로 검증하는 구조가 중요하다는 것을 느꼈습니다."
 },
 {
@@ -575,7 +600,7 @@ const P = [
   meta:"사이드 프로젝트 · 2026.08 – 09 · 3인",
   desc:"원하는 생활을 자연어로 말하면 서울 427개 행정동 중 맞는 동네 5곳을 추천하고, 그 이유를 지표로 설명하는 서비스입니다.",
   tags:["FastAPI","LangGraph","Claude Haiku 4.5","pgvector","Supabase"],
-  links:[["GitHub 조직","https://github.com/Life-fit-pj"],["서비스","https://life-web-production-241a.up.railway.app/"]], repos:[["동네 추천 엔진 · 임베딩","https://github.com/Life-fit-pj/Life-Embed-jh"],["웹 서비스 · API 서버","https://github.com/Life-fit-pj/Life-Web"]], admin:"https://life-web-production-241a.up.railway.app/admin.html",
+  links:[["GitHub 조직","https://github.com/Life-fit-pj"],["서비스","https://life-web-production-241a.up.railway.app/"]], repos:[["동네 추천 엔진 · 임베딩","https://github.com/Life-fit-pj/Life-Embed-jh"],["웹 서비스 · API 서버","https://github.com/Life-fit-pj/Life-Web"]], admin:"https://life-web-production-241a.up.railway.app/admin.html", adminInfo:{mine:["<b>AI 사용량</b>: 사람별 · 날짜별 검색 · 질문 수 집계","회원 CRUD","집계 쿼리 12개 <b>동시 실행</b>으로 로딩 개선"],team:["추천 가중치 조정 · 유사 회원 찾기 · 회원별 추천 테스트 · 개인정보 마스킹 · 관리자용 LLM 분석"]},
   role:"엔진 API 서버 신설, 인증 · 회원 흐름, LLM 채팅 확장, Railway 배포",
   contrib:"커밋 96건",
   stack:"FastAPI, LangGraph, Claude Haiku 4.5, pgvector, Supabase, Railway",
@@ -646,6 +671,21 @@ function repoHTML(p){
   if(!p.repos) return "";
   return `<div class="repo-row"><span class="pw-l">저장소</span>${p.repos.map(([l,u])=>`<a href="${u}" target="_blank" rel="noopener" title="${u.split('/').pop()}">${esc(l)}</a>`).join("")}</div>`;
 }
+function adminInfoHTML(p){
+  if(!p.adminInfo) return "";
+  const a=p.adminInfo;
+  return `<div class="blk"><h3 id="d-admin">관리자 대시보드</h3><div class="adm">
+    <div class="adm-col"><span class="adm-h mine">직접 구현</span><ul>${a.mine.map(x=>`<li>${x}</li>`).join("")}</ul></div>
+    ${a.team&&a.team.length?`<div class="adm-col"><span class="adm-h">팀원 담당</span><ul class="team">${a.team.map(x=>`<li>${x}</li>`).join("")}</ul></div>`:""}
+  </div>${adminHTML(p)}</div>`;
+}
+function keyHTML(p){
+  if(!p.key) return "";
+  const k=p.key;
+  return `<div class="blk keyblk"><h3 id="d-key">핵심 기여</h3><p class="key-t">${esc(k.title)}</p>
+    <div class="flow kflow">${k.flow.map(([t,s],i)=>`${i?'<span class="arrow">→</span>':''}<div class="step${i===2?' hl':''}">${esc(t)}<small>${esc(s)}</small></div>`).join("")}</div>
+    <dl class="kpts">${k.points.map(([h,d])=>`<dt>${esc(h)}</dt><dd>${d}</dd>`).join("")}</dl></div>`;
+}
 function adminHTML(p){
   if(!p.admin) return "";
   return `<div class="admin-row"><a class="btn ghost" href="${p.admin}" target="_blank" rel="noopener">관리자 대시보드</a>
@@ -699,12 +739,14 @@ function detail(p){
       <span class="sub">${esc(p.meta)}</span>
       <p style="font-size:16px;color:var(--body);line-height:1.6;margin:0">${esc(p.desc)}</p>
       <dl><dt>담당</dt><dd>${esc(p.role)}</dd><dt>기여</dt><dd>${esc(p.contrib)}</dd><dt>스택</dt><dd>${esc(p.stack)}</dd></dl>
-      <div class="actions" style="display:flex;gap:10px;flex-wrap:wrap">${p.links.map(([l,u])=>`<a class="btn ghost" href="${u}" target="_blank" rel="noopener">${esc(l)}</a>`).join("")}</div>${repoHTML(p)}${adminHTML(p)}
+      <div class="actions" style="display:flex;gap:10px;flex-wrap:wrap">${p.links.map(([l,u])=>`<a class="btn ghost" href="${u}" target="_blank" rel="noopener">${esc(l)}</a>`).join("")}</div>${repoHTML(p)}${p.adminInfo?'':adminHTML(p)}
     </div><div class="${p.img2?'shots2':''}">${shot}</div></div></div>
+  ${keyHTML(p)}
   <div class="blk"><h3 id="d-arch">서비스 구조</h3>${archHTML(p.arch)}</div>
   <div class="blk"><h3 id="d-data">${p.data?'데이터 구조':'데이터 구조 (ERD)'}</h3>${dataHTML(p)}</div>
   <div class="blk"><h3 id="d-why">기술 선택 이유</h3><div class="table-wrap"><table><tr><th>기술</th><th>선택 이유</th><th>검토 후 제외한 안</th></tr>${p.reasons.map(r=>`<tr><td>${esc(r[0])}</td><td>${esc(r[1])}</td><td>${esc(r[2])}</td></tr>`).join("")}</table></div></div>
   <div class="blk"><h3 id="d-issue">문제 해결</h3><div class="table-wrap"><table class="t-wrap"><tr><th class="c-red">문제</th><th class="c-amber">원인</th><th class="c-navy">해결</th><th class="c-green">결과</th></tr>${p.issues.map(r=>`<tr><td style="font-weight:400">${r[0]}</td><td>${r[1]}</td><td>${r[2]}</td><td class="res">${r[3]}</td></tr>`).join("")}</table></div></div>
+  ${adminInfoHTML(p)}
   <div class="blk learn"><h3 id="d-learn">이 프로젝트로 배운 것</h3><p>${esc(p.learn)}</p></div>`;
 }
 
@@ -714,7 +756,7 @@ function openSheet(id){
   const p = P.find(x=>x.id===id); if(!p) return;
   lastFocus = document.activeElement;
   $("#sheetTitle").textContent = p.name;
-  $("#sheetTabs").innerHTML = [["개요","top"],["서비스 구조","d-arch"],["데이터 구조","d-data"],["기술 선택 이유","d-why"],["문제 해결","d-issue"],["배운 점","d-learn"]]
+  $("#sheetTabs").innerHTML = [["개요","top"],...(p.key?[["핵심 기여","d-key"]]:[]),["서비스 구조","d-arch"],["데이터 구조","d-data"],["기술 선택 이유","d-why"],["문제 해결","d-issue"],...(p.adminInfo?[["관리자","d-admin"]]:[]),["배운 점","d-learn"]]
     .map(([l,t])=>`<a href="#${t}" data-jump="${t}">${l}</a>`).join("");
   const body = $("#sheetBody"); body.innerHTML = detail(p); labelTables(body); body.scrollTop = 0;
   root.hidden = false; document.body.style.overflow = "hidden";
