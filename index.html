@@ -163,8 +163,8 @@ td.res{color:var(--green);font-weight:700}
 .study-grid span{color:var(--body);font-size:14px;line-height:1.55}
 /* admin */
 .repo-row{display:flex;flex-wrap:wrap;align-items:center;gap:6px 14px;font-size:14px;margin-top:2px}
-.repo-row a{color:var(--accent);text-decoration:none;border-bottom:1px solid transparent;overflow-wrap:anywhere}
-.repo-row a:hover{border-bottom-color:var(--accent)}
+.repo-row a{color:var(--accent);text-decoration:underline;text-underline-offset:3px;text-decoration-color:rgba(31,58,104,.35)}
+.repo-row a:hover{text-decoration-color:var(--accent)}
 .admin-row{display:flex;flex-wrap:wrap;align-items:center;gap:10px 14px;padding-top:12px;margin-top:4px;border-top:1px dashed var(--line)}
 .admin-row .btn.ghost{border-color:var(--point);color:var(--point)}
 .admin-row .btn.ghost:hover{background:var(--point-soft)}
@@ -431,7 +431,7 @@ const P = [
   meta:"2026 원티드 AI 챔피언십 출품 · 2026.09.09 – 09.22 · 4인",
   desc:"기상청 · 농촌진흥청 · 위성에 흩어진 데이터를 밭 좌표 하나로 묶어, 내 밭 작물의 생육 단계와 오늘 할 일을 알려주는 AI 서비스입니다.",
   tags:["FastAPI","LangGraph","pgvector","Next.js 16","Railway"],
-  links:[["GitHub","https://github.com/pj002321/Safe-farm"],["서비스","https://safe-farm-production.up.railway.app/"]], admin:"https://safe-farm-production.up.railway.app/admin/login",
+  links:[["GitHub","https://github.com/pj002321/Safe-farm"],["서비스","https://safe-farm-production.up.railway.app/"],["공모전","https://event.wanted.co.kr/ai-championship/2026"]], admin:"https://safe-farm-production.up.railway.app/admin/login",
   role:"AI 질의응답(RAG · LangGraph · SSE), 밭 맞춤 컨텍스트, 지도 레이어",
   contrib:"커밋 145건 (머지 제외)",
   stack:"Python, FastAPI, LangGraph, pgvector, Next.js 16, Railway",
@@ -467,7 +467,7 @@ const P = [
   meta:"삼성 AXI 팀 프로젝트 · 2026.08 · 5인 · 백엔드 리드",
   desc:"반려동물의 알레르기 · 체급 · 구매 이력을 바탕으로, 비슷한 보호자의 실제 후기를 근거로 사료 · 간식을 추천하고 질문에 답하는 AI 서비스입니다.",
   tags:["FastAPI","LangGraph","pgvector","Claude · OpenAI","Next.js 16"],
-  links:[["GitHub 조직","https://github.com/TodayWhatDish"],["서비스","https://twd-web.vercel.app/"]], repos:[["dev-data-embed","https://github.com/TodayWhatDish/dev-data-embed"],["dev-web","https://github.com/TodayWhatDish/dev-web"]], admin:"https://twd-web.vercel.app/admin",
+  links:[["GitHub 조직","https://github.com/TodayWhatDish"],["서비스","https://twd-web.vercel.app/"]], repos:[["추천 데이터 · RAG 파이프라인","https://github.com/TodayWhatDish/dev-data-embed"],["웹 서비스 · 관리자 페이지","https://github.com/TodayWhatDish/dev-web"]], admin:"https://twd-web.vercel.app/admin",
   role:"RAG 파이프라인 설계, FastAPI 백엔드, 인증, 배포, 운영 장애 대응",
   contrib:"백엔드 커밋 200건, 팀 내 1위",
   stack:"FastAPI, LangGraph, pgvector, Claude · OpenAI, Next.js 16, Docker",
@@ -501,7 +501,7 @@ const P = [
   meta:"사이드 프로젝트 · 2026.08 – 09 · 3인",
   desc:"원하는 생활을 자연어로 말하면 서울 427개 행정동 중 맞는 동네 5곳을 추천하고, 그 이유를 지표로 설명하는 서비스입니다.",
   tags:["FastAPI","LangGraph","Claude Haiku 4.5","pgvector","Supabase"],
-  links:[["GitHub 조직","https://github.com/Life-fit-pj"],["서비스","https://life-web-production-241a.up.railway.app/"]], repos:[["Life-Embed-jh","https://github.com/Life-fit-pj/Life-Embed-jh"],["Life-Web","https://github.com/Life-fit-pj/Life-Web"]], admin:"https://life-web-production-241a.up.railway.app/admin.html",
+  links:[["GitHub 조직","https://github.com/Life-fit-pj"],["서비스","https://life-web-production-241a.up.railway.app/"]], repos:[["동네 추천 엔진 · 임베딩","https://github.com/Life-fit-pj/Life-Embed-jh"],["웹 서비스 · API 서버","https://github.com/Life-fit-pj/Life-Web"]], admin:"https://life-web-production-241a.up.railway.app/admin.html",
   role:"엔진 API 서버 신설, 인증 · 회원 흐름, LLM 채팅 확장, Railway 배포",
   contrib:"커밋 96건",
   stack:"FastAPI, LangGraph, Claude Haiku 4.5, pgvector, Supabase, Railway",
@@ -532,7 +532,7 @@ const P = [
   meta:"삼성 AXI 팀 프로젝트 · 2026.07 · 5인",
   desc:"작업자의 수신호로 물류 로봇을 제어하고, 주행 중 장애물을 인식해 멈추거나 서행하는 ROS 2 · Gazebo 시뮬레이션 시스템입니다.",
   tags:["MediaPipe","PyTorch LSTM","YOLOv8","ROS 2","Gazebo"],
-  links:[["GitHub 조직","https://github.com/SAX-AI-TeamProject1"],["시연 영상","https://youtu.be/uNY5pw-5RxQ"]], repos:[["Signal-Vision","https://github.com/SAX-AI-TeamProject1/Signal-Vision"],["Signal-transport-perception","https://github.com/SAX-AI-TeamProject1/Signal-transport-perception"],["Signal-Simulation","https://github.com/SAX-AI-TeamProject1/Signal-Simulation"],["Industrial-data","https://github.com/SAX-AI-TeamProject1/Industrial-data"]],
+  links:[["GitHub 조직","https://github.com/SAX-AI-TeamProject1"],["시연 영상","https://youtu.be/uNY5pw-5RxQ"]], repos:[["수신호 인식","https://github.com/SAX-AI-TeamProject1/Signal-Vision"],["장애물 인식 (YOLO)","https://github.com/SAX-AI-TeamProject1/Signal-transport-perception"],["ROS 2 · Gazebo 시뮬레이션","https://github.com/SAX-AI-TeamProject1/Signal-Simulation"],["학습 데이터셋","https://github.com/SAX-AI-TeamProject1/Industrial-data"]],
   role:"수신호 인식 주도, YOLO 장애물 인식 단독, 인식 모듈 패키지 배포",
   contrib:"인식 레포 2곳 커밋 49건",
   stack:"MediaPipe, PyTorch LSTM, YOLOv8, ROS 2 Jazzy, Gazebo, Kaggle",
@@ -570,7 +570,7 @@ $("#cards").innerHTML = P.map(p => `
 
 function repoHTML(p){
   if(!p.repos) return "";
-  return `<div class="repo-row"><span class="pw-l">저장소</span>${p.repos.map(([l,u])=>`<a href="${u}" target="_blank" rel="noopener">${esc(l)} ↗</a>`).join("")}</div>`;
+  return `<div class="repo-row"><span class="pw-l">저장소</span>${p.repos.map(([l,u])=>`<a href="${u}" target="_blank" rel="noopener" title="${u.split('/').pop()}">${esc(l)}</a>`).join("")}</div>`;
 }
 function adminHTML(p){
   if(!p.admin) return "";
