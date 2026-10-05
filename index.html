@@ -162,9 +162,10 @@ td.res{color:var(--green);font-weight:700}
 .study-grid b{color:var(--point);font-size:16px}
 .study-grid span{color:var(--body);font-size:14px;line-height:1.55}
 /* admin */
-.repo-row{display:flex;flex-wrap:wrap;align-items:center;gap:6px 14px;font-size:14px;margin-top:2px}
-.repo-row a{color:var(--accent);text-decoration:underline;text-underline-offset:3px;text-decoration-color:rgba(31,58,104,.35)}
-.repo-row a:hover{text-decoration-color:var(--accent)}
+.repo-row{display:flex;flex-wrap:wrap;align-items:center;gap:6px;font-size:13.5px;margin-top:2px}
+.repo-row .pw-l{flex-basis:100%;font-size:13px;color:var(--muted)}
+.repo-row a{color:var(--accent);text-decoration:none;padding:3px 10px;border:1px solid #D3DAE6;border-radius:999px;background:var(--surface);white-space:nowrap;transition:border-color .2s,background .2s}
+.repo-row a:hover{border-color:var(--accent);background:var(--accent-soft)}
 .admin-row{display:flex;flex-wrap:wrap;align-items:center;gap:10px 14px;padding-top:12px;margin-top:4px;border-top:1px dashed var(--line)}
 .admin-row .btn.ghost{border-color:var(--point);color:var(--point)}
 .admin-row .btn.ghost:hover{background:var(--point-soft)}
@@ -195,21 +196,21 @@ td.res{color:var(--green);font-weight:700}
 .ov .info{display:flex;flex-direction:column;gap:10px}
 .ov .info .sub{color:var(--muted);font-size:14.5px}
 .ov dl{display:grid;grid-template-columns:auto 1fr;gap:4px 14px;margin:0;font-size:15px;line-height:1.55}
-.ov dt{color:var(--muted)} .ov dd{margin:0;color:var(--body)}
+.ov dt{color:var(--muted);font-size:13.5px;padding-top:1px} .ov dd{margin:0;color:var(--body)}
 .legend{display:flex;gap:16px;flex-wrap:wrap;font-size:13px;color:var(--muted);margin-bottom:12px}
 .legend span{display:inline-flex;align-items:center;gap:6px}
-.legend i{width:14px;height:14px;border-radius:4px;border:1.5px solid #A6ADBA;background:var(--surface)}
-.legend i.mine{border:2px solid var(--accent);background:var(--accent-soft)}
+.legend i{width:14px;height:14px;border-radius:4px;border:1px solid #D3D8E0;background:var(--surface)}
+.legend i.mine{border:1px solid #AFC0DA;background:var(--accent-soft);box-shadow:inset 3px 0 0 var(--accent)}
 .arch{display:flex;gap:10px;align-items:stretch;overflow-x:auto;padding-bottom:4px}
 .arch .col{flex:1 1 0;min-width:170px;display:flex;flex-direction:column;gap:8px}
 .arch .col .h{font-size:13px;color:var(--muted);text-align:center}
-.arch .node{padding:10px 12px;border:1.5px solid #A6ADBA;border-radius:8px;background:var(--surface);text-align:center;font-size:14px;line-height:1.45}
+.arch .node{padding:9px 12px;border:1px solid #D3D8E0;border-radius:8px;background:var(--surface);text-align:center;font-size:14px;line-height:1.45}
 .arch .node small{display:block;color:var(--muted);font-size:12.5px}
-.arch .node.mine{border:2px solid var(--accent);background:var(--accent-soft)}
+.arch .node.mine{border:1px solid #AFC0DA;background:var(--accent-soft);box-shadow:inset 3px 0 0 var(--accent)}
 .arch .ar{align-self:center;color:var(--muted);font-size:18px;flex:none}
 .erd{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:12px}
-.ent{border:1.5px solid #A6ADBA;border-radius:8px;background:var(--surface);overflow:hidden;font-size:13.5px}
-.ent.core{border:2px solid var(--accent)}
+.ent{border:1px solid #D3D8E0;border-radius:8px;background:var(--surface);overflow:hidden;font-size:13.5px}
+.ent.core{border:1px solid #AFC0DA;box-shadow:inset 0 3px 0 var(--accent)}
 .ent .eh{padding:8px 12px;background:var(--soft);border-bottom:1px solid var(--line);font-weight:700;font-family:var(--mono);font-size:13.5px}
 .ent.core .eh{background:var(--accent-soft)}
 .ent .eh span{font-family:var(--font);font-weight:400;color:var(--muted);margin-left:6px}
@@ -222,11 +223,23 @@ td.res{color:var(--green);font-weight:700}
 .learn{padding:18px 22px;border-radius:14px;background:var(--accent-soft);border:1px solid #D3DDEC}
 .learn h3{color:var(--accent);margin-bottom:6px}
 .learn p{color:var(--ink);font-size:15.5px;line-height:1.65;margin:0}
-.featbar{display:flex;border-radius:8px;overflow:hidden;border:1.5px solid var(--accent);font-size:14px;text-align:center;margin:10px 0 6px}
-.featbar div{padding:10px 4px;background:var(--accent-soft)}
-.featbar div+div{border-left:1.5px solid var(--accent)}
-.featbar div:last-child{background:var(--surface)}
-pre.msg{margin:0;padding:14px 16px;border-radius:10px;background:var(--soft);font-family:var(--mono);font-size:13.5px;overflow-x:auto;color:var(--ink)}
+.dgrid{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:14px;align-items:start}
+@media (max-width:820px){.dgrid{grid-template-columns:minmax(0,1fr)}}
+.dstack{display:flex;flex-direction:column;gap:14px}
+.dcard{border:1px solid var(--line);border-radius:12px;background:var(--surface);padding:16px 18px;display:flex;flex-direction:column;gap:10px;min-width:0}
+.dcard h4{margin:0;font-size:15px;font-weight:800;color:var(--ink)}
+.dcard .d{margin:0;font-size:14px;line-height:1.6;color:var(--body)}
+.dcard .cap{margin:-4px 0 2px;font-size:12.5px;color:var(--muted)}
+.dcard code{font-family:var(--mono);font-size:12.5px;background:var(--soft);padding:1px 6px;border-radius:4px}
+table.lite{font-size:14px;line-height:1.5}
+table.lite th{background:transparent;color:var(--muted);font-size:12.5px;padding:6px 10px 6px 0;border-bottom:1px solid var(--line)}
+table.lite td{padding:7px 10px 7px 0;border-bottom:1px solid #EEF0F3}
+table.lite tr:last-child td{border-bottom:0}
+.featbar{display:flex;border-radius:8px;overflow:hidden;border:1px solid #C9D3E3;font-size:13px;text-align:center}
+.featbar div{padding:7px 4px;background:var(--accent-soft);color:var(--accent);font-weight:700}
+.featbar div+div{border-left:1px solid #C9D3E3}
+.featbar div:last-child{background:var(--point-soft);color:var(--point)}
+pre.msg{margin:0;padding:12px 14px;line-height:1.6;border-radius:10px;background:var(--soft);font-family:var(--mono);font-size:13.5px;overflow-x:auto;color:var(--ink)}
 
 em.cl{font-style:normal;font-size:12px;font-weight:700;letter-spacing:.04em;color:var(--point);margin-right:8px}
 footer em.cl{color:#FFB48F}
@@ -533,7 +546,7 @@ const P = [
   meta:"삼성 AXI 팀 프로젝트 · 2026.07 · 5인",
   desc:"작업자의 수신호로 물류 로봇을 제어하고, 주행 중 장애물을 인식해 멈추거나 서행하는 ROS 2 · Gazebo 시뮬레이션 시스템입니다.",
   tags:["MediaPipe","PyTorch LSTM","YOLOv8","ROS 2","Gazebo"],
-  links:[["GitHub 조직","https://github.com/SAX-AI-TeamProject1"],["시연 영상","https://youtu.be/uNY5pw-5RxQ"]], repos:[["수신호 인식","https://github.com/SAX-AI-TeamProject1/Signal-Vision"],["장애물 인식 (YOLO)","https://github.com/SAX-AI-TeamProject1/Signal-transport-perception"],["ROS 2 · Gazebo 시뮬레이션","https://github.com/SAX-AI-TeamProject1/Signal-Simulation"],["학습 데이터셋","https://github.com/SAX-AI-TeamProject1/Industrial-data"]],
+  links:[["GitHub 조직","https://github.com/SAX-AI-TeamProject1"],["시연 영상","https://youtu.be/uNY5pw-5RxQ"]], repos:[["수신호 인식","https://github.com/SAX-AI-TeamProject1/Signal-Vision"],["장애물 인식","https://github.com/SAX-AI-TeamProject1/Signal-transport-perception"],["시뮬레이션 (ROS 2)","https://github.com/SAX-AI-TeamProject1/Signal-Simulation"],["학습 데이터셋","https://github.com/SAX-AI-TeamProject1/Industrial-data"]],
   role:"수신호 인식 주도, YOLO 장애물 인식 단독, 인식 모듈 패키지 배포",
   contrib:"인식 레포 2곳 커밋 49건",
   stack:"MediaPipe, PyTorch LSTM, YOLOv8, ROS 2 Jazzy, Gazebo, Kaggle",
@@ -589,21 +602,29 @@ function archHTML(a){
 }
 function dataHTML(p){
   if (p.data) return `
-    <div class="grid-2">
-      <div><h3 class="sub" style="font-size:16px">수신호 특징 데이터</h3>
-        <p style="color:var(--body);font-size:14.5px">샘플 1개 = 30프레임 × 150차원 → <code>asset/&lt;라벨&gt;/&lt;시각&gt;.npy</code>, shape (30, 150). 감지 안 된 부위는 0</p>
+    <div class="dgrid">
+      <div class="dcard">
+        <h4>수신호 특징 데이터</h4>
+        <p class="d">샘플 1개 = 30프레임 × 150차원, <code>asset/&lt;라벨&gt;/&lt;시각&gt;.npy</code>. 감지 안 된 부위는 0으로 채웁니다.</p>
         <div class="featbar"><div style="flex:63">왼손 63</div><div style="flex:63">오른손 63</div><div style="flex:24">상체 24</div></div>
-        <p style="color:var(--muted);font-size:13.5px;margin-bottom:12px">손 21개 랜드마크 × xyz, 상체 8관절(어깨 · 팔꿈치 · 손목 · 골반) × xyz</p>
-        <div class="table-wrap"><table><tr><th>라벨</th><th>동작</th><th>로봇 행동</th></tr>
-        <tr><td>stop</td><td>손바닥 정면으로</td><td>즉시 정지</td></tr><tr><td>slow</td><td>손바닥 눌러 내리기</td><td>감속</td></tr><tr><td>come</td><td>손짓해 부르기</td><td>접근</td></tr><tr><td>back</td><td>손등으로 밀어내기</td><td>후진</td></tr><tr><td>left_go · right_go</td><td>좌 · 우로 팔 젓기</td><td>선회</td></tr><tr><td>idle</td><td>평상시 동작</td><td>직전 상태 유지</td></tr></table></div>
+        <p class="cap">손 21개 랜드마크 × xyz · 상체 8관절(어깨 · 팔꿈치 · 손목 · 골반) × xyz</p>
+        <table class="lite"><tr><th>라벨</th><th>동작</th><th>로봇 행동</th></tr>
+        <tr><td>stop</td><td>손바닥 정면으로</td><td>즉시 정지</td></tr><tr><td>slow</td><td>손바닥 눌러 내리기</td><td>감속</td></tr><tr><td>come</td><td>손짓해 부르기</td><td>접근</td></tr><tr><td>back</td><td>손등으로 밀어내기</td><td>후진</td></tr><tr><td>left_go · right_go</td><td>좌 · 우로 팔 젓기</td><td>선회</td></tr><tr><td>idle</td><td>평상시 동작</td><td>직전 상태 유지</td></tr></table>
       </div>
-      <div><h3 class="sub" style="font-size:16px">장애물 인식 데이터</h3>
-        <p style="color:var(--body);font-size:14.5px;margin-bottom:12px">Gazebo 캡처 이미지 + YOLO 라벨(class_id, 중심 x · y, 너비, 높이). 라벨은 boundingbox_camera로 자동 계산, train 2,661 / val 665장</p>
-        <div class="table-wrap"><table><tr><th>class_id</th><th>클래스</th></tr><tr><td>0 – 3</td><td>PalletJack · Bucket · Cluttering · TrashCan</td></tr><tr><td>4 – 5</td><td>Person · Vehicle</td></tr></table></div>
-        <h3 class="sub" style="font-size:16px;margin-top:20px">로봇으로 보내는 메시지</h3>
-        <pre class="msg">/hand_signal · std_msgs/String
-{"signal": "stop", "confidence": 0.93, "timestamp": …}</pre>
-        <p style="color:var(--body);font-size:14.5px;margin-top:10px">신뢰도가 낮거나 사람이 안 보이면 unknown → 정지, 하트비트가 2초 끊겨도 정지</p>
+      <div class="dstack">
+        <div class="dcard">
+          <h4>장애물 인식 데이터</h4>
+          <p class="d">Gazebo 캡처 이미지 + YOLO 라벨. 라벨은 boundingbox_camera로 자동 계산합니다. train 2,661 / val 665장</p>
+          <table class="lite"><tr><th>class_id</th><th>클래스</th></tr><tr><td>0 – 3</td><td>PalletJack · Bucket · Cluttering · TrashCan</td></tr><tr><td>4 – 5</td><td>Person · Vehicle</td></tr></table>
+        </div>
+        <div class="dcard">
+          <h4>로봇으로 보내는 메시지</h4>
+          <pre class="msg">/hand_signal  (std_msgs/String)
+{ "signal": "stop",
+  "confidence": 0.93,
+  "timestamp": … }</pre>
+          <p class="d">신뢰도가 낮거나 사람이 안 보이면 <b>unknown → 정지</b>, 하트비트가 2초 끊겨도 정지합니다.</p>
+        </div>
       </div>
     </div>`;
   return `<div class="erd">${p.erd.map(e=>`<div class="ent${e[3]?' core':''}"><div class="eh">${esc(e[0])}<span>${esc(e[1])}</span></div><ul>${e[2].map(field).join("")}</ul></div>`).join("")}</div>
