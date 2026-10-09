@@ -252,6 +252,54 @@ body:has(.sheet-open) .dots{display:none}
 .kpts dt{font-weight:700;color:var(--accent);white-space:nowrap}
 .kpts dd{margin:0;color:var(--body)}
 @media (max-width:640px){.kpts{grid-template-columns:minmax(0,1fr);gap:2px}.kpts dd{margin-bottom:8px}}
+
+/* ===== detail sheet: airy layout ===== */
+.sheet-body{gap:0;counter-reset:sec}
+.sheet-body>.blk{width:100%;max-width:1160px;margin-inline:auto;padding:40px 0;border-top:1px solid var(--line)}
+.sheet-body>.blk.ovblk{border-top:0;padding-top:8px}
+.sheet-body>.blk.learn{border-top:0;margin-top:24px;padding:24px 28px;max-width:1160px}
+.sheet-body>.blk>h3{display:flex;align-items:baseline;gap:12px;font-size:21px;margin-bottom:22px}
+.sheet-body>.blk:not(.ovblk):not(.learn)>h3::before{counter-increment:sec;content:counter(sec,decimal-leading-zero);font-size:13px;font-weight:800;color:var(--point);letter-spacing:.04em}
+.ov{gap:40px}
+.ov .info{gap:16px}
+.ov-desc{margin:0;font-size:17.5px;line-height:1.7;color:var(--ink)}
+.why{padding:14px 18px}
+.why p{font-size:15px;line-height:1.75}
+.facts{display:flex;flex-direction:column;gap:0;border-top:1px solid var(--line)}
+.facts>div{display:grid;grid-template-columns:56px minmax(0,1fr);gap:12px;padding:10px 0;border-bottom:1px solid var(--line)}
+.facts span{font-size:13px;font-weight:700;color:var(--muted);padding-top:2px}
+.facts p{margin:0;font-size:15px;line-height:1.6;color:var(--body)}
+.keys{gap:20px}
+.keyblk{padding:22px 26px}
+.key-h{margin-bottom:14px}
+.key-t{font-size:17px}
+.kflow{margin-bottom:16px}
+.kpts{gap:10px 20px;font-size:15px;line-height:1.7}
+.stk{gap:16px}.stk-c{padding:18px 18px 16px;gap:14px}
+.stk-sum{margin-top:16px}
+/* reasons */
+.rsn{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+@media (max-width:980px){.rsn{grid-template-columns:minmax(0,1fr)}}
+.rsn-c{display:flex;flex-direction:column;gap:8px;padding:18px 20px;border:1px solid var(--line);border-radius:12px;background:var(--surface)}
+.rsn-t{font-size:15.5px;color:var(--ink)}
+.rsn-c p{margin:0;font-size:14.5px;line-height:1.7;color:var(--body);flex:1}
+.rsn-x{font-size:12.5px;color:var(--muted);padding-top:8px;border-top:1px dashed var(--line)}
+/* issues */
+.iss{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+@media (max-width:980px){.iss{grid-template-columns:minmax(0,1fr)}}
+.iss-c{display:flex;flex-direction:column;gap:12px;padding:20px 22px;border:1px solid var(--line);border-radius:12px;background:var(--surface)}
+.iss-h{display:flex;gap:10px;align-items:baseline}
+.iss-n{font-size:12.5px;font-weight:800;color:var(--red);font-variant-numeric:tabular-nums}
+.iss-h p{margin:0;font-size:16px;font-weight:700;line-height:1.5;color:var(--ink)}
+.iss-c dl{display:grid;grid-template-columns:40px minmax(0,1fr);gap:8px 12px;margin:0;font-size:14.5px;line-height:1.7}
+.iss-c dt{font-size:12.5px;font-weight:800;padding-top:2px}
+.iss-c dt.c-amber{color:var(--amber)} .iss-c dt.c-navy{color:var(--accent)}
+.iss-c dd{margin:0;color:var(--body)}
+.iss-r{margin-top:auto;padding:10px 14px;border-radius:8px;background:#EAF6EF;color:var(--green);font-weight:700;font-size:14.5px;line-height:1.55}
+.iss-r b{color:inherit}
+.iss-r span{display:inline-block;font-size:12px;font-weight:800;margin-right:8px;opacity:.75}
+.adm{gap:16px}
+.erdx{margin-top:4px}
 /* other projects */
 .others{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
 @media (max-width:980px){.others{grid-template-columns:minmax(0,1fr)}}
@@ -872,19 +920,21 @@ function detail(p){
   const shot = `<div class="shot"><div class="bar"><i></i><i></i><i></i></div><img src="${p.img}" alt="${esc(p.name)} 화면"></div>`
     + (p.img2 ? `<div class="shot"><div class="bar"><i></i><i></i><i></i></div><img src="${p.img2}" alt="${esc(p.name)} 관리자 화면"></div>` : "");
   return `
-  <div class="blk"><div class="ov"><div class="info">
+  <div class="blk ovblk"><div class="ov"><div class="info">
       <span class="sub">${esc(p.meta)}</span>
-      <p style="font-size:16px;color:var(--body);line-height:1.6;margin:0">${p.desc}</p>
+      <p class="ov-desc">${p.desc}</p>
       ${p.why?`<div class="why"><span class="why-h">도메인 선정 이유</span><p>${p.why}</p></div>`:""}
-      <dl><dt>담당</dt><dd>${esc(p.role)}</dd><dt>기여</dt><dd>${esc(p.contrib)}</dd><dt>스택</dt><dd>${esc(p.stack)}</dd></dl>
+      <div class="facts"><div><span>담당</span><p>${esc(p.role)}</p></div><div><span>기여</span><p>${esc(p.contrib)}</p></div><div><span>스택</span><p>${esc(p.stack)}</p></div></div>
       <div class="actions" style="display:flex;gap:10px;flex-wrap:wrap">${p.links.map(([l,u])=>`<a class="btn ghost" href="${u}" target="_blank" rel="noopener">${esc(l)}</a>`).join("")}</div>${repoHTML(p)}${p.adminInfo?'':adminHTML(p)}
     </div><div class="${p.img2?'shots2':''}">${shot}</div></div></div>
   ${keyHTML(p)}
   <div class="blk"><h3 id="d-arch">서비스 구조</h3>${archHTML(p.arch)}</div>
   ${stackHTML(p)}
   <div class="blk"><h3 id="d-data">${p.data?'데이터 구조':'데이터 구조 (ERD)'}</h3>${dataHTML(p)}</div>
-  <div class="blk"><h3 id="d-why">기술 선택 이유</h3><div class="table-wrap"><table><tr><th>기술</th><th>선택 이유</th><th>검토 후 제외한 안</th></tr>${p.reasons.map(r=>`<tr><td>${esc(r[0])}</td><td>${esc(r[1])}</td><td>${esc(r[2])}</td></tr>`).join("")}</table></div></div>
-  <div class="blk"><h3 id="d-issue">문제 해결</h3><div class="table-wrap"><table class="t-wrap"><tr><th class="c-red">문제</th><th class="c-amber">원인</th><th class="c-navy">해결</th><th class="c-green">결과</th></tr>${p.issues.map(r=>`<tr><td style="font-weight:400">${r[0]}</td><td>${r[1]}</td><td>${r[2]}</td><td class="res">${r[3]}</td></tr>`).join("")}</table></div></div>
+  <div class="blk"><h3 id="d-why">기술 선택 이유</h3><div class="rsn">${p.reasons.map(r=>`<div class="rsn-c"><b class="rsn-t">${esc(r[0])}</b><p>${esc(r[1])}</p><span class="rsn-x">제외한 안 · ${esc(r[2])}</span></div>`).join("")}</div></div>
+  <div class="blk"><h3 id="d-issue">문제 해결</h3><div class="iss">${p.issues.map((r,i)=>`<div class="iss-c"><div class="iss-h"><span class="iss-n">${String(i+1).padStart(2,"0")}</span><p>${r[0]}</p></div>
+      <dl><dt class="c-amber">원인</dt><dd>${r[1]}</dd><dt class="c-navy">해결</dt><dd>${r[2]}</dd></dl>
+      <div class="iss-r"><span>결과</span>${r[3]}</div></div>`).join("")}</div></div>
   ${adminInfoHTML(p)}
   <div class="blk learn"><h3 id="d-learn">이 프로젝트로 배운 것</h3><p>${p.learn}</p></div>`;
 }
