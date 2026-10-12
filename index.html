@@ -413,6 +413,27 @@ footer p{color:var(--muted);margin-top:10px}
   *,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}
   .rv.wait{opacity:1;transform:none}
 }
+
+/* ===== detail cleanup: consistent rhythm ===== */
+.kpts{grid-template-columns:8.5em minmax(0,1fr)}
+.kpts dt{white-space:normal}
+.flow .step{display:flex;flex-direction:column;justify-content:center}
+.sheet-body dd b,.sheet-body li b,.rsn-c p b,.ov-desc b,.why p b,.stk-d b,.stk-sum b{color:inherit;font-weight:650}
+.iss-c:last-child:nth-child(odd){grid-column:1/-1}
+.feat{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);gap:28px;align-items:start}
+.feat.noshot{grid-template-columns:minmax(0,1fr)}
+.feat-shot{margin:0;border:1px solid var(--line);border-radius:12px;overflow:hidden;background:var(--soft);box-shadow:0 8px 22px rgba(31,58,104,.08)}
+.feat-shot img{display:block;width:100%;height:auto}
+.feat-shot figcaption{font-size:12.5px;color:var(--muted);padding:8px 12px;border-top:1px solid var(--line);background:var(--surface)}
+@media (max-width:980px){.feat{grid-template-columns:minmax(0,1fr)}}
+details.more>summary{cursor:pointer;list-style:none;display:flex;align-items:baseline;gap:14px;padding:18px 22px;border:1px solid var(--line);border-radius:12px;background:var(--surface)}
+details.more>summary::-webkit-details-marker{display:none}
+details.more>summary::after{content:"펼치기 ▾";margin-left:auto;font-size:13px;color:var(--muted)}
+details.more[open]>summary::after{content:"접기 ▴"}
+.more-t{font-size:17px;font-weight:800;color:var(--ink)}
+.more-s{font-size:13.5px;color:var(--muted)}
+details.more .sub-blk{padding:32px 0 8px}
+details.more .sub-blk h3::before{content:none}
 </style>
 </head><body>
 
@@ -797,10 +818,13 @@ function adminInfoHTML(p){
 }
 function keyHTML(p){
   if(!p.keys) return "";
-  return `<div class="blk"><h3 id="d-key">주요 기여</h3><div class="keys">${p.keys.map((k,n)=>`<div class="keyblk">
+  return `<div class="blk"><h3 id="d-key">주요 기여</h3><div class="keys">${p.keys.map((k,n)=>{
+    const src = k.shot || `assets/shots/${p.id}-${n+1}.png`;
+    return `<div class="keyblk">
     <div class="key-h"><span class="key-n">${String(n+1).padStart(2,"0")}</span><p class="key-t">${esc(k.title)}</p></div>
     ${k.flow&&k.flow.length?`<div class="flow kflow">${k.flow.map(([t,sb],i)=>`${i?'<span class="arrow">→</span>':''}<div class="step">${esc(t)}${sb?`<small>${esc(sb)}</small>`:''}</div>`).join("")}</div>`:""}
-    <dl class="kpts">${k.points.map(([h,d])=>`<dt>${esc(h)}</dt><dd>${d}</dd>`).join("")}</dl></div>`).join("")}</div></div>`;
+    <div class="feat"><dl class="kpts">${k.points.map(([h,d])=>`<dt>${esc(h)}</dt><dd>${d}</dd>`).join("")}</dl>
+    <figure class="feat-shot"><img src="${src}" alt="${esc(k.title)} 화면" loading="lazy" onerror="this.closest('.feat').classList.add('noshot');this.closest('.feat-shot').remove()">${k.cap?`<figcaption>${esc(k.cap)}</figcaption>`:''}</figure></div></div>`;}).join("")}</div></div>`;
 }
 function adminHTML(p){
   if(!p.admin) return "";
@@ -928,15 +952,17 @@ function detail(p){
       <div class="actions" style="display:flex;gap:10px;flex-wrap:wrap">${p.links.map(([l,u])=>`<a class="btn ghost" href="${u}" target="_blank" rel="noopener">${esc(l)}</a>`).join("")}</div>${repoHTML(p)}${p.adminInfo?'':adminHTML(p)}
     </div><div class="${p.img2?'shots2':''}">${shot}</div></div></div>
   ${keyHTML(p)}
-  <div class="blk"><h3 id="d-arch">서비스 구조</h3>${archHTML(p.arch)}</div>
-  ${stackHTML(p)}
-  <div class="blk"><h3 id="d-data">${p.data?'데이터 구조':'데이터 구조 (ERD)'}</h3>${dataHTML(p)}</div>
-  <div class="blk"><h3 id="d-why">기술 선택 이유</h3><div class="rsn">${p.reasons.map(r=>`<div class="rsn-c"><b class="rsn-t">${esc(r[0])}</b><p>${esc(r[1])}</p><span class="rsn-x">제외한 안 · ${esc(r[2])}</span></div>`).join("")}</div></div>
   <div class="blk"><h3 id="d-issue">문제 해결</h3><div class="iss">${p.issues.map((r,i)=>`<div class="iss-c"><div class="iss-h"><span class="iss-n">${String(i+1).padStart(2,"0")}</span><p>${r[0]}</p></div>
       <dl><dt class="c-amber">원인</dt><dd>${r[1]}</dd><dt class="c-navy">해결</dt><dd>${r[2]}</dd></dl>
       <div class="iss-r"><span>결과</span>${r[3]}</div></div>`).join("")}</div></div>
   ${adminInfoHTML(p)}
-  <div class="blk learn"><h3 id="d-learn">이 프로젝트로 배운 것</h3><p>${p.learn}</p></div>`;
+  <div class="blk learn"><h3 id="d-learn">이 프로젝트로 배운 것</h3><p>${p.learn}</p></div>
+  <details class="blk more" id="d-more"><summary><span class="more-t">기술 상세</span><span class="more-s">서비스 구조 · 기술 스택 · 데이터 구조 · 기술 선택 이유</span></summary>
+  <div class="blk sub-blk"><h3 id="d-arch">서비스 구조</h3>${archHTML(p.arch)}</div>
+  <div class="sub-blk">${stackHTML(p)}</div>
+  <div class="blk sub-blk"><h3 id="d-data">${p.data?'데이터 구조':'데이터 구조 (ERD)'}</h3>${dataHTML(p)}</div>
+  <div class="blk sub-blk"><h3 id="d-why">기술 선택 이유</h3><div class="rsn">${p.reasons.map(r=>`<div class="rsn-c"><b class="rsn-t">${esc(r[0])}</b><p>${esc(r[1])}</p><span class="rsn-x">제외한 안 · ${esc(r[2])}</span></div>`).join("")}</div></div>
+  </details>`;
 }
 
 // sheet
@@ -945,11 +971,11 @@ function openSheet(id){
   const p = P.find(x=>x.id===id); if(!p) return;
   lastFocus = document.activeElement;
   $("#sheetTitle").textContent = p.name;
-  $("#sheetTabs").innerHTML = [["개요","top"],...(p.keys?[["주요 기여","d-key"]]:[]),["서비스 구조","d-arch"],["기술 스택","d-stack"],["데이터 구조","d-data"],["기술 선택 이유","d-why"],["문제 해결","d-issue"],...(p.adminInfo?[["관리자","d-admin"]]:[]),["배운 점","d-learn"]]
+  $("#sheetTabs").innerHTML = [["개요","top"],...(p.keys?[["주요 기여","d-key"]]:[]),["문제 해결","d-issue"],...(p.adminInfo?[["관리자","d-admin"]]:[]),["배운 점","d-learn"],["기술 상세","d-more"]]
     .map(([l,t])=>`<a href="#${t}" data-jump="${t}">${l}</a>`).join("");
   const body = $("#sheetBody"); body.innerHTML = detail(p); labelTables(body); body.scrollTop = 0;
   root.hidden = false; document.body.style.overflow = "hidden";
-  CUR_P = p; layoutERD(body); (document.fonts ? document.fonts.ready : Promise.resolve()).then(()=>layoutERD(body));
+  CUR_P = p; layoutERD(body); body.querySelectorAll("details.more").forEach(d=>d.addEventListener("toggle",()=>{ if(d.open) layoutERD(body); })); (document.fonts ? document.fonts.ready : Promise.resolve()).then(()=>layoutERD(body));
   requestAnimationFrame(()=>requestAnimationFrame(()=>root.classList.add("sheet-open")));
   $(".close", root).focus();
 }
@@ -963,6 +989,7 @@ document.addEventListener("click", e=>{
   if (e.target.closest("[data-close]")) { closeSheet(); return; }
   const j = e.target.closest("[data-jump]");
   if (j) { e.preventDefault(); const b=$("#sheetBody"); const t = j.dataset.jump==="top" ? null : document.getElementById(j.dataset.jump);
+    const d = t && t.closest("details"); if (d && !d.open) d.open = true;
     b.scrollTo({top: t ? b.scrollTop + t.getBoundingClientRect().top - b.getBoundingClientRect().top - 12 : 0, behavior:"smooth"}); }
   const rv = e.target.closest("[data-reveal]");
   if (rv) { const code = rv.nextElementSibling; code.hidden = !code.hidden; rv.textContent = code.hidden ? "보기" : "숨기기"; return; }
