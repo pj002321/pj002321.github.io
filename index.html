@@ -413,6 +413,51 @@ footer p{color:var(--muted);margin-top:10px}
   *,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}
   .rv.wait{opacity:1;transform:none}
 }
+/* ===== 상세보기 정리 (2026-10) : 왼쪽 정렬 통일 · 강조색 줄이기 · 기능 화면 ===== */
+.sheet-body b,.sheet-body strong{color:inherit;font-weight:700}
+.sheet-body .iss-r b{color:inherit}
+.sheet-body p,.sheet-body dd{word-break:keep-all}
+.sheet-body>.blk>h3{font-size:22px;margin-bottom:24px}
+/* 개요 */
+.why{background:var(--soft);border:0;border-left:3px solid var(--accent);border-radius:0 10px 10px 0}
+.why-h{color:var(--accent)}
+/* 흐름 · 단계: 왼쪽 정렬 */
+.sheet-body .flow .step{text-align:left;padding:12px 14px}
+.sheet-body .flow.lit .step,.sheet-body .flow.lit .step:last-of-type{border-color:var(--line);background:var(--surface)}
+.kflow .step{border-color:var(--line)}
+.kpts{grid-template-columns:120px minmax(0,1fr);gap:10px 20px}
+.kpts dt{color:var(--ink);font-weight:700;white-space:normal}
+.kpts dd{color:var(--body)}
+.keyblk{border-left:1px solid var(--line)}
+.key-n,.iss-n{color:var(--muted)}
+/* 기술 스택: 한 가지 톤 */
+.stk-c,.stk-c.t-green,.stk-c.t-orange,.stk-c.t-purple,.stk-c.t-amber,.stk-c.t-teal{--tc:var(--ink);--tb:var(--soft);border-top:1px solid var(--line)}
+.stk-h{text-align:left;font-size:14px;letter-spacing:.01em}
+.stk-i{justify-content:flex-start}
+.stk-d{text-align:left;background:transparent;padding:10px 0 0;border-top:1px dashed var(--line);border-radius:0;color:var(--body)}
+.stk-d b{color:var(--ink)}
+.stk-sh{color:var(--muted)}
+.stk-k b{color:var(--ink)}
+/* 기술 선택 · 문제 해결 */
+.rsn-t{font-size:16px}
+.iss-c dt.c-amber,.iss-c dt.c-navy{color:var(--muted)}
+.iss-r{background:transparent;padding:10px 0 0;border-top:1px solid var(--line);border-radius:0;color:var(--ink)}
+.iss-r span{color:var(--green);opacity:1}
+.adm-h.mine{color:var(--ink)}
+.sheet-body>.blk.learn{background:var(--soft);border:0}
+/* 기능 화면 갤러리 */
+.feats{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:32px 28px}
+.feats.odd>.feat:first-child{grid-column:1 / -1}
+.feat{margin:0;display:flex;flex-direction:column;gap:12px}
+.feat a{display:block;border:1px solid var(--line);border-radius:12px;overflow:hidden;background:var(--soft);box-shadow:0 8px 24px rgba(26,29,36,.07);transition:box-shadow .25s,transform .25s}
+.feat a:hover{box-shadow:0 12px 32px rgba(26,29,36,.13);transform:translateY(-2px)}
+.feat img{display:block;width:100%;height:auto;aspect-ratio:16/10;object-fit:cover;object-position:top center}
+.feats.odd>.feat:first-child img{aspect-ratio:16/9}
+.feat figcaption{display:grid;grid-template-columns:28px minmax(0,1fr);gap:2px 10px}
+.feat .fn{grid-row:span 2;font-size:13px;font-weight:800;color:var(--muted);font-variant-numeric:tabular-nums;padding-top:2px}
+.feat .ft{font-size:16px;font-weight:700;color:var(--ink)}
+.feat .fd{margin:0;font-size:14.5px;line-height:1.65;color:var(--body)}
+@media (max-width:820px){.feats{grid-template-columns:minmax(0,1fr)}.feats.odd>.feat:first-child{grid-column:auto}.kpts{grid-template-columns:minmax(0,1fr);gap:2px 0}.kpts dd{margin-bottom:8px}}
 </style>
 </head><body>
 
@@ -916,6 +961,29 @@ function stackHTML(p){
   <div class="stk-sum"><div class="stk-st"><span class="stk-sh">핵심 요약</span><p>${x.summary}</p></div>
     ${x.stats.map(([n,l])=>`<div class="stk-k"><b>${esc(n)}</b><span>${esc(l)}</span></div>`).join("")}</div></div>`;
 }
+// 기능 화면: 각 서비스 배포 페이지에서 캡처 (2026-10-12)
+const FEATS={
+  "safe-farm":[
+    ["assets/sf_f_report.jpg","오늘의 리포트","밭 좌표 하나로 관측 · 예보 · 작물 기준을 받아 적산온도를 쌓고, 오늘 할 일을 데이터 출처와 함께 보여줍니다."],
+    ["assets/sf_f_gdd.jpg","작물별 생육 계산","논 · 밭은 파종일부터 열을 쌓고 과수는 다른 기준으로 셉니다. 작물마다 진행률이 따로 나옵니다."],
+    ["assets/sf_f_ndvi.jpg","위성 관측 비교","Sentinel-2 NDVI · NDMI로 같은 지역 논 · 밭 · 과수원 세 곳의 잎 상태를 날짜별로 비교합니다."],
+    ["assets/sf_f_plots.jpg","밭마다 다른 날씨","같은 상주라도 좌표와 해발에 따라 기온 · 바람이 달라, 값을 밭 단위로 따로 계산합니다."]],
+  "twd":[
+    ["assets/twd_f_today.jpg","로그인 첫 화면 추천","반려동물 프로필(축종 · 체구 · 알레르기)을 조건 칩으로 보여주고, 닭고기를 뺀 상품만 매칭도 순으로 추천합니다."],
+    ["assets/twd_f_ask.jpg","자연어 질문 → 근거 상품","질문 답변에 쓰인 상품을 실제 구매 후기와 매칭도로 함께 보여줍니다."],
+    ["assets/twd_f_cards.jpg","후기 근거 카드","추천마다 근거가 된 후기 원문과 가격 · 매칭도를 한 카드에 표시합니다."],
+    ["assets/twd_admin.jpg","관리자 대시보드","고객 분석과 판매 전략을 확인하는 관리자 화면입니다."]],
+  "lifefit":[
+    ["assets/lf_f_top5.jpg","조건 설정 → 추천 TOP 5","예산 · 면적과 생활 만족도 항목으로 행정동을 점수화해 지도 · 평면도와 함께 보여줍니다."],
+    ["assets/lf_f_type.jpg","문장으로 찾기","‘애들 학원 보내기 좋은 조용한 동네’ 같은 문장을 라이프스타일 유형으로 바꾸고, 공원 · CCTV 수를 근거로 동네를 제안합니다."],
+    ["assets/lf_f_chat.jpg","후속 질문","추천 동네의 시설 데이터로 답합니다. 예: 학원을 종류별 개수로 안내"]]
+};
+function featHTML(p){
+  const f=FEATS[p.id]; if(!f||!f.length) return "";
+  return `<div class="blk"><h3 id="d-feat">기능 화면</h3><div class="feats${f.length%2?' odd':''}">${f.map(([src,t,d],i)=>`<figure class="feat">
+    <a href="${src}" target="_blank" rel="noopener" aria-label="${esc(t)} 크게 보기"><img src="${src}" alt="${esc(p.name)} · ${esc(t)}" loading="lazy"></a>
+    <figcaption><span class="fn">${String(i+1).padStart(2,"0")}</span><span class="ft">${esc(t)}</span><p class="fd">${esc(d)}</p></figcaption></figure>`).join("")}</div></div>`;
+}
 function detail(p){
   const shot = `<div class="shot"><div class="bar"><i></i><i></i><i></i></div><img src="${p.img}" alt="${esc(p.name)} 화면"></div>`
     + (p.img2 ? `<div class="shot"><div class="bar"><i></i><i></i><i></i></div><img src="${p.img2}" alt="${esc(p.name)} 관리자 화면"></div>` : "");
@@ -927,6 +995,7 @@ function detail(p){
       <div class="facts"><div><span>담당</span><p>${esc(p.role)}</p></div><div><span>기여</span><p>${esc(p.contrib)}</p></div><div><span>스택</span><p>${esc(p.stack)}</p></div></div>
       <div class="actions" style="display:flex;gap:10px;flex-wrap:wrap">${p.links.map(([l,u])=>`<a class="btn ghost" href="${u}" target="_blank" rel="noopener">${esc(l)}</a>`).join("")}</div>${repoHTML(p)}${p.adminInfo?'':adminHTML(p)}
     </div><div class="${p.img2?'shots2':''}">${shot}</div></div></div>
+  ${featHTML(p)}
   ${keyHTML(p)}
   <div class="blk"><h3 id="d-arch">서비스 구조</h3>${archHTML(p.arch)}</div>
   ${stackHTML(p)}
@@ -945,7 +1014,7 @@ function openSheet(id){
   const p = P.find(x=>x.id===id); if(!p) return;
   lastFocus = document.activeElement;
   $("#sheetTitle").textContent = p.name;
-  $("#sheetTabs").innerHTML = [["개요","top"],...(p.keys?[["주요 기여","d-key"]]:[]),["서비스 구조","d-arch"],["기술 스택","d-stack"],["데이터 구조","d-data"],["기술 선택 이유","d-why"],["문제 해결","d-issue"],...(p.adminInfo?[["관리자","d-admin"]]:[]),["배운 점","d-learn"]]
+  $("#sheetTabs").innerHTML = [["개요","top"],...(FEATS[p.id]?[["기능 화면","d-feat"]]:[]),...(p.keys?[["주요 기여","d-key"]]:[]),["서비스 구조","d-arch"],["기술 스택","d-stack"],["데이터 구조","d-data"],["기술 선택 이유","d-why"],["문제 해결","d-issue"],...(p.adminInfo?[["관리자","d-admin"]]:[]),["배운 점","d-learn"]]
     .map(([l,t])=>`<a href="#${t}" data-jump="${t}">${l}</a>`).join("");
   const body = $("#sheetBody"); body.innerHTML = detail(p); labelTables(body); body.scrollTop = 0;
   root.hidden = false; document.body.style.overflow = "hidden";
