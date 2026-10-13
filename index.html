@@ -546,10 +546,33 @@ details.more>.table-wrap,details.more>.aig{margin-inline:16px}
 .sheet-body.focus>.blk.is-near.is-below{opacity:.45;transform:translateY(12px)}
 .sheet-body.focus>.blk.is-near.is-above{opacity:.45;transform:translateY(-8px)}
 /* 상세보기: 섹션 하나가 화면 한 장. 스크롤하면 다음 섹션이 통째로 넘어온다 */
-.sheet-body.focus>.blk{flex-shrink:0;min-height:var(--page-h,100%);padding-block:36px 48px;margin:0;border-top:0}
+.sheet-body.focus>.blk{flex-shrink:0;min-height:var(--page-h,100%);padding-block:36px 48px;margin-block:0;border-top:0}
 .sheet-body.focus>.blk.ovblk{padding-top:12px}
 .sheet-body.focus>.blk.learn{margin-top:0;background:transparent;padding:36px 0 48px;border-top:0}
 .sheet-body.focus>.blk.learn>p,.sheet-body.focus>.blk.learn>div{background:var(--soft);border-radius:14px;padding:24px 28px}
+/* 상세보기 개요: 제목 문장 → (왼쪽 화면 + 핵심 수치 | 오른쪽 선정 이유 · 담당 · 링크) */
+.ov2{display:flex;flex-direction:column;gap:22px}
+.ov-head{display:flex;flex-direction:column;gap:8px;max-width:920px}
+.ov-head .sub{color:var(--point);font-size:14px;font-weight:700}
+.ov2 .ov-desc{font-size:clamp(19px,1.9vw,23px);line-height:1.6;font-weight:500;color:var(--ink)}
+.ov-grid{display:grid;grid-template-columns:minmax(0,7fr) minmax(0,5fr);gap:36px;align-items:start}
+.ov-media{display:flex;flex-direction:column;gap:18px;min-width:0}
+.ov-shots{position:relative}
+.ov2 .shot{border:1px solid var(--line);border-radius:14px;overflow:hidden;box-shadow:0 14px 34px rgba(31,58,104,.12);background:var(--surface)}
+.ov2 .shot .bar{display:flex;gap:6px;padding:9px 12px;background:var(--soft);border-bottom:1px solid var(--line)}
+.ov2 .shot .bar i{width:10px;height:10px;border-radius:50%;background:#E8A598}.ov2 .shot .bar i:nth-child(2){background:#EBCB8B}.ov2 .shot .bar i:nth-child(3){background:#A9C9A4}
+.ov2 .shot img{width:100%;aspect-ratio:2/1;object-fit:cover;object-position:top}
+.ov-shots.two{padding:0 12% 96px 0}
+.ov-shots.two .shot:nth-child(2){position:absolute;right:0;bottom:0;width:42%;box-shadow:0 18px 40px rgba(18,24,38,.22)}
+.ov-shots.two .shot:nth-child(2) img{aspect-ratio:16/10}
+.ov-kpi{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.ov-kpi div{padding:12px 14px;border:1px solid var(--line);border-radius:12px;background:var(--surface)}
+.ov-kpi strong{display:block;font-size:22px;font-weight:800;color:var(--point);line-height:1.2;font-variant-numeric:tabular-nums}
+.ov-kpi span{display:block;font-size:13px;color:var(--muted);margin-top:2px;line-height:1.35}
+.ov-info{display:flex;flex-direction:column;gap:16px;min-width:0}
+.ov-info .why{margin:0}
+@media (max-width:900px){.ov-grid{grid-template-columns:minmax(0,1fr);gap:22px}}
+@media (max-width:520px){.ov-kpi{grid-template-columns:minmax(0,1fr)}.ov-kpi div{display:flex;align-items:baseline;gap:10px}.ov-kpi span{margin-top:0}.ov-shots.two{padding:0 0 48px}.ov-shots.two .shot:nth-child(2){width:58%}}
 .sheet-tabs a.on{color:var(--point);font-weight:700;background:var(--point-soft)}
 @media (prefers-reduced-motion:reduce){.sheet-body.focus>.blk{transition:opacity .2s}.sheet-body.focus>.blk.is-above,.sheet-body.focus>.blk.is-below{transform:none}}
 </style>
@@ -1129,13 +1152,23 @@ function detail(p){
   const shot = `<div class="shot"><div class="bar"><i></i><i></i><i></i></div><img src="${p.img}" alt="${esc(p.name)} 화면"></div>`
     + (p.img2 ? `<div class="shot"><div class="bar"><i></i><i></i><i></i></div><img src="${p.img2}" alt="${esc(p.name)} 관리자 화면"></div>` : "");
   return `
-  <div class="blk ovblk"><div class="ov"><div class="info">
+  <div class="blk ovblk"><div class="ov2">
+    <div class="ov-head">
       <span class="sub">${esc(p.meta)}</span>
       <p class="ov-desc">${p.desc}</p>
-      ${p.why?`<div class="why"><span class="why-h">도메인 선정 이유</span><p>${p.why}</p></div>`:""}
-      <div class="facts"><div><span>담당</span><p>${esc(p.role)}</p></div><div><span>기여</span><p>${esc(p.contrib)}</p></div><div><span>스택</span><p>${esc(p.stack)}</p></div></div>
-      <div class="actions" style="display:flex;gap:10px;flex-wrap:wrap">${p.links.map(([l,u])=>`<a class="btn ghost" href="${u}" target="_blank" rel="noopener">${esc(l)}</a>`).join("")}</div>${repoHTML(p)}${p.adminInfo?'':adminHTML(p)}
-    </div><div class="${p.img2?'shots2':''}">${shot}</div></div></div>
+    </div>
+    <div class="ov-grid">
+      <div class="ov-media">
+        <div class="ov-shots${p.img2?' two':''}">${shot}</div>
+        ${p.kpi?`<div class="ov-kpi">${p.kpi.map(([n,l])=>`<div><strong>${esc(n)}</strong><span>${esc(l)}</span></div>`).join("")}</div>`:""}
+      </div>
+      <div class="ov-info">
+        ${p.why?`<div class="why"><span class="why-h">도메인 선정 이유</span><p>${p.why}</p></div>`:""}
+        <div class="facts"><div><span>담당</span><p>${esc(p.role)}</p></div><div><span>기여</span><p>${esc(p.contrib)}</p></div><div><span>스택</span><p>${esc(p.stack)}</p></div></div>
+        <div class="actions" style="display:flex;gap:10px;flex-wrap:wrap">${p.links.map(([l,u])=>`<a class="btn ghost" href="${u}" target="_blank" rel="noopener">${esc(l)}</a>`).join("")}</div>${repoHTML(p)}${p.adminInfo?'':adminHTML(p)}
+      </div>
+    </div>
+  </div></div>
   ${featHTML(p)}
   ${keyHTML(p)}
   <div class="blk"><h3 id="d-arch">서비스 구조</h3>${archHTML(p.arch)}</div>
