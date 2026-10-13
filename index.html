@@ -545,6 +545,11 @@ details.more>.table-wrap,details.more>.aig{margin-inline:16px}
 .sheet-body.focus>.blk.is-active{opacity:1;transform:none;filter:none}
 .sheet-body.focus>.blk.is-near.is-below{opacity:.45;transform:translateY(12px)}
 .sheet-body.focus>.blk.is-near.is-above{opacity:.45;transform:translateY(-8px)}
+/* 상세보기: 섹션 하나가 화면 한 장. 스크롤하면 다음 섹션이 통째로 넘어온다 */
+.sheet-body.focus>.blk{flex-shrink:0;min-height:var(--page-h,100%);padding-block:36px 48px;margin:0;border-top:0}
+.sheet-body.focus>.blk.ovblk{padding-top:12px}
+.sheet-body.focus>.blk.learn{margin-top:0;background:transparent;padding:36px 0 48px;border-top:0}
+.sheet-body.focus>.blk.learn>p,.sheet-body.focus>.blk.learn>div{background:var(--soft);border-radius:14px;padding:24px 28px}
 .sheet-tabs a.on{color:var(--point);font-weight:700;background:var(--point-soft)}
 @media (prefers-reduced-motion:reduce){.sheet-body.focus>.blk{transition:opacity .2s}.sheet-body.focus>.blk.is-above,.sheet-body.focus>.blk.is-below{transform:none}}
 </style>
@@ -1148,6 +1153,7 @@ function detail(p){
 function blockOffset(el){ const m=getComputedStyle(el).transform; return m && m!=="none" ? new DOMMatrixReadOnly(m).m42 : 0; }
 function updateFocus(){
   const b=$("#sheetBody"); if(!b || !b.classList.contains("focus")) return;
+  b.style.setProperty("--page-h", b.clientHeight+"px");
   const blks=[...b.children].filter(x=>x.classList.contains("blk")); if(!blks.length) return;
   const top=b.getBoundingClientRect().top, line=top + b.clientHeight*0.35;
   let cur=0;
@@ -1192,8 +1198,8 @@ document.addEventListener("click", e=>{
   if (e.target.closest("[data-close]")) { closeSheet(); return; }
   const j = e.target.closest("[data-jump]");
   if (j) { e.preventDefault(); const b=$("#sheetBody"); const t = j.dataset.jump==="top" ? null : document.getElementById(j.dataset.jump);
-    const off = t ? blockOffset(t.closest(".blk")) : 0;
-    b.scrollTo({top: t ? b.scrollTop + t.getBoundingClientRect().top - off - b.getBoundingClientRect().top - 12 : 0, behavior:"smooth"}); }
+    const blk = t ? t.closest(".blk") : null;
+    b.scrollTo({top: blk ? blk.offsetTop - b.offsetTop : 0, behavior:"smooth"}); }
   const rv = e.target.closest("[data-reveal]");
   if (rv) { const code = rv.nextElementSibling; code.hidden = !code.hidden; rv.textContent = code.hidden ? "보기" : "숨기기"; return; }
   const c = e.target.closest("[data-copy]");
@@ -1203,6 +1209,48 @@ document.addEventListener("click", e=>{
 });
 function selectText(id){ const r=document.createRange(); r.selectNodeContents(document.getElementById(id)); const s=getSelection(); s.removeAllRanges(); s.addRange(r); }
 document.addEventListener("keydown", e=>{ if (e.key==="Escape" && !root.hidden) closeSheet(); });
+// 상세보기 페이지 넘김 (마우스 · 트랙패드 · PageUp/Down)
+// 섹션이 화면보다 길면 그 안에서는 평소처럼 스크롤하고, 섹션 끝에 닿은 뒤의 입력은 다음 섹션으로 통째로 넘긴다
+const FINE = matchMedia("(hover:hover) and (pointer:fine)").matches;
+let pageLock=0, wheelAcc=0, wheelTimer=0;
+function sheetBlocks(b){ return [...b.children].filter(x=>x.classList.contains("blk")); }
+function goBlock(b, el, toBottom){
+  const base = el.offsetTop - b.offsetTop;
+  const top = toBottom ? base + Math.max(0, el.offsetHeight - b.clientHeight) : base;
+  pageLock = Date.now() + 700; wheelAcc = 0;
+  b.scrollTo({top, behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth"});
+}
+function pageStep(b, dy){
+  const blks=sheetBlocks(b); if(!blks.length) return;
+  const cur=Math.max(0, blks.findIndex(x=>x.classList.contains("is-active")));
+  const el=blks[cur], r=el.getBoundingClientRect(), br=b.getBoundingClientRect();
+  if (dy>0){
+    const rest = r.bottom - br.bottom;
+    if (rest > 1) { b.scrollTop += Math.min(dy, rest); return; }
+    if (cur < blks.length-1 && Math.abs(wheelAcc += dy) > 40) goBlock(b, blks[cur+1], false);
+  } else {
+    const rest = br.top - r.top;
+    if (rest > 1) { b.scrollTop -= Math.min(-dy, rest); return; }
+    if (cur > 0 && Math.abs(wheelAcc += dy) > 40) goBlock(b, blks[cur-1], true);
+  }
+}
+const SB = document.getElementById("sheetBody");
+SB.addEventListener("wheel", e=>{
+  if (!FINE || e.ctrlKey || !SB.classList.contains("focus") || Math.abs(e.deltaX) > Math.abs(e.deltaY)) return;
+  if (e.target.closest(".erdx, .table-wrap") && e.shiftKey) return;
+  e.preventDefault();
+  if (Date.now() < pageLock) return;
+  clearTimeout(wheelTimer); wheelTimer = setTimeout(()=>{ wheelAcc = 0; }, 180);
+  const dy = e.deltaMode === 1 ? e.deltaY*32 : e.deltaY;
+  pageStep(SB, dy);
+}, {passive:false});
+document.addEventListener("keydown", e=>{
+  if (root.hidden || !FINE || Date.now() < pageLock) return;
+  const k = e.key; if (!["PageDown","PageUp"," "].includes(k) || e.target.closest("input,textarea,button,a")) return;
+  e.preventDefault(); const blks=sheetBlocks(SB); const cur=Math.max(0, blks.findIndex(x=>x.classList.contains("is-active")));
+  const down = k==="PageDown" || (k===" " && !e.shiftKey);
+  const nb = blks[cur + (down?1:-1)]; if (nb) goBlock(SB, nb, false);
+});
 
 // 표: 모바일에서 카드형으로 보일 때 쓸 열 이름 붙이기
 function labelTables(scope=document){ scope.querySelectorAll(".table-wrap table").forEach(t=>{ const h=[...t.rows[0].cells].map(c=>c.textContent.trim()); [...t.rows].slice(1).forEach(r=>[...r.cells].forEach((c,i)=>c.setAttribute("data-label",h[i]||""))); }); }
