@@ -512,6 +512,31 @@ footer p{color:var(--muted);margin-top:10px}
   .sheet-tabs{padding:8px 16px}
   .sheet-tabs a{padding:6px 10px}
 }
+
+/* 핵심 수치 (히어로 · 카드) */
+.hkpi{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:28px;max-width:640px}
+.hkpi div{padding:14px 16px;border:1px solid var(--line);border-radius:12px;background:var(--surface)}
+.hkpi strong{display:block;font-size:clamp(24px,3vw,30px);font-weight:800;color:var(--point);letter-spacing:-.02em;line-height:1.15;font-variant-numeric:tabular-nums}
+.hkpi span{display:block;font-size:13px;color:var(--muted);margin-top:4px}
+.hero .kw{margin-top:16px}
+.ckpi{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin:6px 0 4px}
+.ckpi div{padding:10px 12px;border-radius:10px;background:var(--tint)}
+.ckpi strong{display:block;font-size:19px;font-weight:800;color:var(--accent);line-height:1.2;font-variant-numeric:tabular-nums}
+.ckpi span{display:block;font-size:12.5px;color:var(--muted);margin-top:2px;line-height:1.35}
+@media (max-width:520px){.hkpi,.ckpi{grid-template-columns:minmax(0,1fr)}.hkpi div,.ckpi div{display:flex;align-items:baseline;gap:10px}.ckpi span,.hkpi span{margin-top:0}}
+.grid-about.one{grid-template-columns:minmax(0,1fr);max-width:760px}
+/* 일하는 방식 */
+.how-block+.how-block{margin-top:48px}
+.how-block .flow .step{flex-basis:110px;padding-inline:10px}
+.how-t{display:flex;align-items:baseline;gap:12px;font-size:clamp(18px,2.2vw,22px);font-weight:800;margin-bottom:16px}
+.how-t span{color:var(--point);font-size:15px;font-variant-numeric:tabular-nums}
+details.more{margin-top:4px;border:1px solid var(--line);border-radius:12px;background:var(--surface)}
+details.more>summary{cursor:pointer;list-style:none;padding:14px 18px;font-size:15px;font-weight:700;color:var(--accent);display:flex;align-items:center;gap:8px}
+details.more>summary::-webkit-details-marker{display:none}
+details.more>summary::before{content:'+';display:inline-grid;place-items:center;width:20px;height:20px;border-radius:50%;background:var(--accent-soft);font-size:15px;line-height:1}
+details.more[open]>summary::before{content:'−'}
+details.more[open]{padding-bottom:16px}
+details.more>.table-wrap,details.more>.aig{margin-inline:16px}
 </style>
 </head><body>
 
@@ -519,12 +544,10 @@ footer p{color:var(--muted);margin-top:10px}
   <div class="wrap">
     <a class="brand" href="#top">허재성</a>
     <ul>
-      <li><a class="link" href="#toc">목차</a></li>
       <li><a class="link" href="#about">소개</a></li>
-      <li><a class="link" href="#skills">기술</a></li>
-      <li><a class="link" href="#ai">AI 활용</a></li>
-      <li><a class="link" href="#verify">검증</a></li>
       <li><a class="link" href="#projects">프로젝트</a></li>
+      <li><a class="link" href="#how">일하는 방식</a></li>
+      <li><a class="link" href="#skills">기술</a></li>
       <li><a class="link" href="#others">그 밖의 작업</a></li>
       <li><a class="link" href="#contact">연락처</a></li>
     </ul>
@@ -538,8 +561,13 @@ footer p{color:var(--muted);margin-top:10px}
     <span class="eyebrow line-in d1">포트폴리오 2026</span>
     <h1 class="line-in d2">허재성</h1>
     <p class="role line-in d3">AI 서비스 개발자 (LLM · RAG)</p>
-    <p class="intro line-in d4"><b>LLM</b>과 <b>RAG</b>로 사용자의 문제를 푸는 <b>서비스를 설계</b>합니다.<br>답변 품질은 <b>평가셋과 교차 모델 검증</b>으로 관리하고, 반복 작업은 자동화해 <b>작업 효율</b>을 높입니다.</p>
-    <div class="kw line-in d5"><span>LangGraph</span><span>pgvector</span><span>FastAPI</span><span>Agentic RAG</span><span>Hallucination 제어</span><span>RAG 평가 · Benchmark</span><span>Claude Code · Codex</span></div>
+    <p class="intro line-in d4"><b>RAG 검색 품질</b>을 Golden Set으로 측정해 개선하고,<br>LLM 답변은 <b>할루시네이션 검증과 가드레일</b>로 지킵니다.</p>
+    <div class="hkpi line-in d5">
+      <div><strong>3개</strong><span>LLM 서비스 직접 배포 · 운영</span></div>
+      <div><strong>2배</strong><span>검색 recall@3</span></div>
+      <div><strong>−90%</strong><span>LLM 입력 토큰</span></div>
+    </div>
+    <div class="kw line-in d5"><span>Agentic RAG</span><span>LangGraph</span><span>Function Calling</span><span>pgvector</span><span>FastAPI</span><span>Golden Set</span><span>LLM-as-a-Judge</span></div>
     <div class="contact-row line-in d6">
       <span><em class="cl">Email</em>t55300354@gmail.com</span>
       <a href="https://github.com/pj002321" target="_blank" rel="noopener"><em class="cl">GitHub</em>github.com/pj002321</a>
@@ -550,22 +578,8 @@ footer p{color:var(--muted);margin-top:10px}
   </div>
 </header>
 
-<section class="toc" id="toc" aria-label="목차">
-  <div class="wrap">
-    <h2 class="toc-title rv">목차</h2>
-    <ol class="toc-list">
-      <li class="rv"><a href="#about"><span class="n">01</span><b>소개</b><small>관심 분야 · 프로젝트 · 이력</small></a></li>
-      <li class="rv"><a href="#skills"><span class="n">02</span><b>기술 스택</b><small>언어 · LLM · Backend · Vision · Robotics</small></a></li>
-      <li class="rv"><a href="#ai"><span class="n">03</span><b>AI 활용 방식</b><small>Agent Harness · Multi-Agent · Cross-model Review</small></a></li>
-      <li class="rv"><a href="#verify"><span class="n">04</span><b>검증 방식</b><small>Eval Set · Benchmark · Regression Test</small></a></li>
-      <li class="rv"><a href="#projects"><span class="n">05</span><b>프로젝트</b><small>Safe-Farm · 오늘뭐멍냥 · LIFE,FIT · K-NAVI</small></a></li>
-      <li class="rv"><a href="#others"><span class="n">06</span><b>그 밖의 작업</b><small>CosmoDev · PentaShield · DucoTown</small></a></li>
-      <li class="rv"><a href="#contact"><span class="n">07</span><b>연락처</b><small>메일 · GitHub · 블로그</small></a></li>
-    </ol>
-  </div>
-</section>
 <nav class="dots" aria-label="섹션 이동">
-  <a href="#top" data-t="처음"></a><a href="#about" data-t="소개"></a><a href="#skills" data-t="기술"></a><a href="#ai" data-t="AI 활용"></a><a href="#verify" data-t="검증"></a><a href="#projects" data-t="프로젝트"></a><a href="#others" data-t="그 밖의 작업"></a><a href="#contact" data-t="연락처"></a>
+  <a href="#top" data-t="처음"></a><a href="#about" data-t="소개"></a><a href="#projects" data-t="프로젝트"></a><a href="#how" data-t="일하는 방식"></a><a href="#skills" data-t="기술"></a><a href="#others" data-t="그 밖의 작업"></a><a href="#contact" data-t="연락처"></a>
 </nav>
 
 <main>
@@ -581,16 +595,7 @@ footer p{color:var(--muted);margin-top:10px}
         <div><b>백엔드</b><span><b>FastAPI 계층 설계</b>, DB 세션 · <b>쿼리 최적화</b>, 배포</span></div>
       </div>
     </div>
-    <div class="grid-about">
-      <div class="rv"><h3 class="sub">프로젝트</h3>
-        <div class="table-wrap"><table>
-          <tr><th>프로젝트</th><th>기간 · 인원</th><th>구분</th><th>담당</th></tr>
-          <tr><td>Safe-Farm</td><td>2026.09 · 4인</td><td>원티드 AI 챔피언십 출품</td><td>팀장, AI 서버, RAG, 기상 파이프라인</td></tr>
-          <tr><td>오늘뭐멍냥</td><td>2026.08 · 5인</td><td>삼성 AXI 팀 프로젝트</td><td>팀장, 백엔드 리드, RAG 파이프라인</td></tr>
-          <tr><td>LIFE,FIT</td><td>2026.08 – 09 · 3인</td><td>사이드 프로젝트</td><td>API 서버, 인증, 배포, 채팅</td></tr>
-          <tr><td>K-NAVI</td><td>2026.07 · 5인</td><td>삼성 AXI 팀 프로젝트</td><td>팀장, 수신호 인식, YOLO 장애물 인식</td></tr>
-        </table></div>
-      </div>
+    <div class="grid-about one">
       <div class="rv"><h3 class="sub">이력</h3>
         <div class="table-wrap"><table class="t-plain">
           <tr><th>구분</th><th>내용</th></tr>
@@ -605,35 +610,54 @@ footer p{color:var(--muted);margin-top:10px}
   </div>
 </section>
 
-<section class="sec alt" id="skills">
+
+
+
+<section class="sec alt" id="projects">
   <div class="wrap">
-    <div class="sec-head rv"><span class="label">SKILLS</span><h2>기술 스택</h2><p>프로젝트에서 직접 써 본 것만 적었습니다.</p></div>
-    <div class="skills">
-      <div class="skill rv"><h4>Languages</h4><ul><li>Python</li><li>TypeScript</li><li>C · C++</li><li>C#</li><li>Swift</li></ul></div>
-      <div class="skill rv"><h4>LLM · RAG</h4><ul><li>LangGraph</li><li>LangChain</li><li>pgvector</li><li>Agentic RAG</li><li>Tool Use · Function Calling</li><li>Structured Output</li><li>RAGAS</li></ul></div>
-      <div class="skill rv"><h4>LLM 품질 · 평가</h4><ul><li>Hallucination 제어</li><li>LLM-as-a-Judge</li><li>Guardrail</li><li>Recall@k · MRR</li><li>Bootstrap 신뢰구간</li></ul></div>
-      <div class="skill rv"><h4>Backend</h4><ul><li>FastAPI</li><li>SQLAlchemy 2</li><li>PostgreSQL</li><li>Supabase</li></ul></div>
-      <div class="skill rv"><h4>Frontend · App</h4><ul><li>Next.js 16</li><li>React 19</li><li>Flutter</li><li>Unity</li></ul></div>
-      <div class="skill rv"><h4>ML · Vision</h4><ul><li>PyTorch</li><li>scikit-learn</li><li>YOLOv8</li><li>MediaPipe</li><li>OpenCV</li></ul></div>
-      <div class="skill rv"><h4>Robotics · Simulation</h4><ul><li>ROS 2 Jazzy</li><li>Gazebo Harmonic</li></ul></div>
-      <div class="skill rv"><h4>Infra · 배포</h4><ul><li>Docker</li><li>Railway</li><li>Vercel</li></ul></div>
-      <div class="skill rv"><h4>협업 · AI 도구</h4><ul><li>Git</li><li>Jira</li><li>Claude Code</li><li>Codex</li></ul></div>
-    </div>
+    <div class="sec-head rv"><span class="label">PROJECTS</span><h2>프로젝트</h2><p>카드의 상세보기에서 서비스 구조, 데이터 구조, 기술 선택 이유, 문제 해결, 배운 점을 볼 수 있습니다.</p></div>
+    <div class="cards" id="cards"></div>
   </div>
 </section>
 
-<section class="sec" id="ai">
+<section class="sec" id="how">
   <div class="wrap">
-    <div class="sec-head rv"><span class="label">AI WORKFLOW</span><h2>AI 활용 방식</h2><p>규칙으로 선을 긋고, 나눠 맡기고, 만든 모델이 아닌 다른 모델로 검증합니다. 반복은 자동화하고, 결정은 기록해 다시 규칙에 반영합니다.</p></div>
-    <div class="flow rv" data-flow>
+    <div class="sec-head rv"><span class="label">HOW I WORK</span><h2>일하는 방식</h2><p>결과를 보기 전에 기준을 정하고, 만든 모델이 아닌 다른 모델로 검증합니다. AI 코딩 도구도 같은 원칙으로 규칙과 게이트를 걸어 씁니다.</p></div>
+
+    <div class="how-block" id="verify">
+      <h3 class="how-t rv"><span>01</span>검증 — 지표는 먼저 정하고, 차이는 통계로 확인합니다</h3>
+      <div class="flow rv" data-flow>
+      <div class="step">기준 먼저<small>Metric 설계</small></div><span class="arrow">→</span>
+      <div class="step">평가셋 구축<small>Golden Set · Holdout</small></div><span class="arrow">→</span>
+      <div class="step">같은 조건 측정<small>재현 가능한 Benchmark</small></div><span class="arrow">→</span>
+      <div class="step">통계로 비교<small>Bootstrap 신뢰구간</small></div><span class="arrow">→</span>
+      <div class="step">채택 · 기각 기록<small>실험 로그</small></div><span class="arrow">→</span>
+      <div class="step">테스트로 고정<small>Regression Test</small></div>
+    </div>
+      <details class="more rv"><summary>단계별 실제 예 보기</summary>
+      <div class="table-wrap rv"><table>
+      <tr><th>단계</th><th>평소 하는 일</th><th>실제 예</th></tr>
+      <tr><td>기준 먼저<br><small>Metric 설계</small></td><td>측정 전에 <b>주지표와 판정 규칙</b>을 정하고, 품질 지표와 <b>'0이어야 하는' 안전 지표</b>를 나눕니다</td><td>MRR 주지표, 구간이 겹치면 동률 / 알레르기 위반은 0건이어야 함</td></tr>
+      <tr><td>평가셋 구축<br><small>Golden Set · Holdout</small></td><td>정답을 아는 <b>골든셋</b>을 만들고 골든셋 자체도 먼저 검증합니다. 악조건은 별도 셋으로 분리합니다</td><td>홀드아웃 275건, 질문 22문항 (자가검증 0 / 22), 악조건 5종</td></tr>
+      <tr><td>같은 조건 측정<br><small>재현 가능한 Benchmark</small></td><td><b>서비스와 똑같은 필터 · 조건</b>으로 재고, 날짜 · 표본 수 · 모델 · 신뢰구간을 함께 기록합니다</td><td>평가 스크립트의 축종 필터 누락을 찾아 수정 (18.2 → 21.2%)</td></tr>
+      <tr><td>통계로 비교<br><small>Bootstrap 신뢰구간</small></td><td>차이가 <b>신뢰구간 안이면 개선이 아니라 운</b>으로 봅니다. 모델 비교는 같은 표본으로 짝지어 봅니다</td><td>임베딩 3종 부트스트랩 4,000회 → 동률, 9.5배 빠른 모델 채택</td></tr>
+      <tr><td>채택 · 기각 기록<br><small>실험 로그</small></td><td>효과가 없거나 나빠진 결과도 <b>지우지 않고 이유와 함께</b> 남깁니다</td><td>인덱스 24 → 53ms 미채택, OpenAI 전환 시 hit@5 하락 기록</td></tr>
+      <tr><td>테스트로 고정<br><small>Regression Test</small></td><td>고친 버그는 <b>회귀 테스트</b>로, LLM 답변은 <b>다른 모델의 교차 검증</b>으로, 작업 완료는 '어떻게 확인했나'로 확인합니다</td><td>태풍 라우팅 회귀 테스트, 할루시네이션 검증 오탐 제거 후 정확도 0.9 ~ 1.0</td></tr>
+    </table></div>
+      </details>
+    </div>
+
+    <div class="how-block" id="ai">
+      <h3 class="how-t rv"><span>02</span>AI 활용 — 규칙으로 선을 긋고, 교차 모델로 리뷰합니다</h3>
+      <div class="flow rv" data-flow>
       <div class="step">01 규칙<small>Agent Guardrail · 완료 게이트</small></div><span class="arrow">→</span>
       <div class="step">02 위임<small>Multi-Agent 병렬 위임</small></div><span class="arrow">→</span>
       <div class="step">03 검증<small>Cross-model Review (Claude ↔ Codex)</small></div><span class="arrow">→</span>
       <div class="step">04 자동화<small>작업 메뉴 · 검사 러너</small></div><span class="arrow">→</span>
       <div class="step">05 기록<small>결정 기록 → 규칙 갱신</small></div>
     </div>
-
-    <div class="aig">
+      <details class="more rv"><summary>단계별 쓰는 방법 · 남기는 결과물 보기</summary>
+      <div class="aig">
       <div class="aig-g rv">
         <div class="aig-h"><span class="aig-n">01</span><h3>규칙</h3><p>AI에게 부탁하지 않고, 지켜야 할 선을 먼저 긋습니다</p></div>
         <div class="table-wrap"><table class="t2">
@@ -680,38 +704,28 @@ footer p{color:var(--muted);margin-top:10px}
         </table></div>
       </div>
     </div>
-  </div>
-</section>
-
-<section class="sec alt" id="verify">
-  <div class="wrap">
-    <div class="sec-head rv"><span class="label">VERIFICATION</span><h2>검증 방식</h2><p>결과를 보기 전에 기준을 정하고, 같은 조건에서 재고, 차이가 우연이 아닌지 확인한 뒤에 채택합니다.</p></div>
-    <div class="flow rv" data-flow>
-      <div class="step">기준 먼저<small>Metric 설계</small></div><span class="arrow">→</span>
-      <div class="step">평가셋 구축<small>Golden Set · Holdout</small></div><span class="arrow">→</span>
-      <div class="step">같은 조건 측정<small>재현 가능한 Benchmark</small></div><span class="arrow">→</span>
-      <div class="step">통계로 비교<small>Bootstrap 신뢰구간</small></div><span class="arrow">→</span>
-      <div class="step">채택 · 기각 기록<small>실험 로그</small></div><span class="arrow">→</span>
-      <div class="step">테스트로 고정<small>Regression Test</small></div>
+      </details>
     </div>
-    <div class="table-wrap rv"><table>
-      <tr><th>단계</th><th>평소 하는 일</th><th>실제 예</th></tr>
-      <tr><td>기준 먼저<br><small>Metric 설계</small></td><td>측정 전에 <b>주지표와 판정 규칙</b>을 정하고, 품질 지표와 <b>'0이어야 하는' 안전 지표</b>를 나눕니다</td><td>MRR 주지표, 구간이 겹치면 동률 / 알레르기 위반은 0건이어야 함</td></tr>
-      <tr><td>평가셋 구축<br><small>Golden Set · Holdout</small></td><td>정답을 아는 <b>골든셋</b>을 만들고 골든셋 자체도 먼저 검증합니다. 악조건은 별도 셋으로 분리합니다</td><td>홀드아웃 275건, 질문 22문항 (자가검증 0 / 22), 악조건 5종</td></tr>
-      <tr><td>같은 조건 측정<br><small>재현 가능한 Benchmark</small></td><td><b>서비스와 똑같은 필터 · 조건</b>으로 재고, 날짜 · 표본 수 · 모델 · 신뢰구간을 함께 기록합니다</td><td>평가 스크립트의 축종 필터 누락을 찾아 수정 (18.2 → 21.2%)</td></tr>
-      <tr><td>통계로 비교<br><small>Bootstrap 신뢰구간</small></td><td>차이가 <b>신뢰구간 안이면 개선이 아니라 운</b>으로 봅니다. 모델 비교는 같은 표본으로 짝지어 봅니다</td><td>임베딩 3종 부트스트랩 4,000회 → 동률, 9.5배 빠른 모델 채택</td></tr>
-      <tr><td>채택 · 기각 기록<br><small>실험 로그</small></td><td>효과가 없거나 나빠진 결과도 <b>지우지 않고 이유와 함께</b> 남깁니다</td><td>인덱스 24 → 53ms 미채택, OpenAI 전환 시 hit@5 하락 기록</td></tr>
-      <tr><td>테스트로 고정<br><small>Regression Test</small></td><td>고친 버그는 <b>회귀 테스트</b>로, LLM 답변은 <b>다른 모델의 반증</b>으로, 작업 완료는 '어떻게 확인했나'로 확인합니다</td><td>태풍 라우팅 회귀 테스트, 반증 오탐 제거 후 정확도 0.9 ~ 1.0</td></tr>
-    </table></div>
   </div>
 </section>
 
-<section class="sec" id="projects">
+<section class="sec alt" id="skills">
   <div class="wrap">
-    <div class="sec-head rv"><span class="label">PROJECTS</span><h2>프로젝트</h2><p>카드의 상세보기에서 서비스 구조, 데이터 구조, 기술 선택 이유, 문제 해결, 배운 점을 볼 수 있습니다.</p></div>
-    <div class="cards" id="cards"></div>
+    <div class="sec-head rv"><span class="label">SKILLS</span><h2>기술 스택</h2><p>프로젝트에서 직접 써 본 것만 적었습니다.</p></div>
+    <div class="skills">
+      <div class="skill rv"><h4>LLM · RAG</h4><ul><li>LangGraph</li><li>LangChain</li><li>Agentic RAG</li><li>Function Calling</li><li>pgvector</li><li>Structured Output</li></ul></div>
+      <div class="skill rv"><h4>LLM 평가 · 안전</h4><ul><li>Golden Set</li><li>RAGAS</li><li>recall@k · MRR</li><li>LLM-as-a-Judge</li><li>Guardrail</li><li>Bootstrap 신뢰구간</li></ul></div>
+      <div class="skill rv"><h4>Languages</h4><ul><li>Python</li><li>TypeScript</li><li>C · C++</li><li>C#</li><li>Swift</li></ul></div>
+      <div class="skill rv"><h4>Backend</h4><ul><li>FastAPI</li><li>PostgreSQL</li><li>SQLAlchemy 2</li><li>Docker</li></ul></div>
+      <div class="skill rv"><h4>ML · CV</h4><ul><li>PyTorch</li><li>OpenCV</li><li>YOLO</li><li>MediaPipe</li><li>scikit-learn</li></ul></div>
+      <div class="skill rv"><h4>Frontend · App</h4><ul><li>Next.js 16</li><li>React 19</li><li>Flutter</li><li>Unity</li></ul></div>
+      <div class="skill rv"><h4>Deploy</h4><ul><li>Railway</li><li>Vercel</li><li>Supabase</li></ul></div>
+      <div class="skill rv"><h4>Robotics · Sim</h4><ul><li>ROS 2 Jazzy</li><li>Gazebo Harmonic</li></ul></div>
+      <div class="skill rv"><h4>AI Tools</h4><ul><li>Claude Code</li><li>Codex</li><li>Cursor</li><li>MCP</li></ul></div>
+    </div>
   </div>
 </section>
+
 <section class="sec" id="others">
   <div class="wrap">
     <div class="sec-head rv"><span class="label">OTHER PROJECTS</span><h2>그 밖의 작업</h2><p>AI 서비스 프로젝트 밖에서 직접 만들고 출시해 온 작업입니다.</p></div>
@@ -781,7 +795,7 @@ footer p{color:var(--muted);margin-top:10px}
 <script>
 const P = [
 {
-  id:"safe-farm", stackx:{"cats": [["AI / RAG", [["Python", "python"], ["LangGraph", "langgraph"], ["LangChain", "langchain"], ["OpenAI", "openai"]], "질문을 <b>계획 · 문서 검색 · 밭 정보 조회</b> 그래프로 처리하고, 답변은 SSE로 흘려보냅니다"], ["Vector DB", [["PostgreSQL", "postgresql"], ["pgvector", ""], ["tiktoken", ""]], "농업 문서를 <b>토큰 기준으로 잘라 임베딩</b>하고, 밭 데이터와 같은 DB에서 검색합니다"], ["AI 서버", [["FastAPI", "fastapi"], ["SQLAlchemy", "sqlalchemy"], ["Pydantic", "pydantic"]], "LLM 비용이 드는 서버라 <b>내부망 + 서비스 토큰</b>으로만 호출받습니다"], ["Frontend", [["Next.js", "nextdotjs"], ["React", "react"], ["TypeScript", "typescript"], ["Tailwind", "tailwindcss"], ["Three.js", "threedotjs"]], "밭 등록 · 지도 레이어 · 3D 지구본 화면. <b>서버 라우트가 AI 서버를 대신 호출</b>합니다"], ["Data / 배치", [["기상청 API", ""], ["Open-Meteo", ""], ["Sentinel Hub", ""], ["NCPMS", ""], ["pg_cron", ""]], "관측 · 예보 · 특보 · 위성 · 병해충 데이터를 적재하고, <b>자정 배치로 오늘 할 일</b>을 만듭니다"], ["Auth · Infra", [["Supabase", "supabase"], ["Railway", "railway"], ["Docker", "docker"], ["Vitest", "vitest"], ["pytest", "pytest"]], "<b>Supabase Auth + RLS</b>로 본인 데이터만 열고, 웹 · AI 서버를 따로 배포합니다"]], "summary": "Next.js가 화면과 인증을 맡고, <b>비공개 FastAPI AI 서버</b>가 LangGraph로 RAG를 돌립니다. 데이터는 <b>Supabase Postgres 한 곳</b>(pgvector · RLS · pg_cron)에 둡니다.", "stats": [["250개", "시군구 매핑"], ["32개", "DB 마이그레이션"]]}, why:"서리나 태풍 한 번에 <b>한 해 농사가 끝날 만큼</b> 기상 리스크가 큽니다. 그런데 판단 근거는 기상청 · 농촌진흥청 · 위성에 <b>흩어져 있어</b>, 귀농 초보와 주말농장 사용자는 스스로 해석하기 어렵습니다.", name:"Safe-Farm", img:"assets/safefarm.jpg",
+  id:"safe-farm", kpi:[["250개","시군구 전체 매핑"],["439개","AI 서버 테스트"],["145건","커밋 · 팀장"]], stackx:{"cats": [["AI / RAG", [["Python", "python"], ["LangGraph", "langgraph"], ["LangChain", "langchain"], ["OpenAI", "openai"]], "질문을 <b>계획 · 문서 검색 · 밭 정보 조회</b> 그래프로 처리하고, 답변은 SSE로 흘려보냅니다"], ["Vector DB", [["PostgreSQL", "postgresql"], ["pgvector", ""], ["tiktoken", ""]], "농업 문서를 <b>토큰 기준으로 잘라 임베딩</b>하고, 밭 데이터와 같은 DB에서 검색합니다"], ["AI 서버", [["FastAPI", "fastapi"], ["SQLAlchemy", "sqlalchemy"], ["Pydantic", "pydantic"]], "LLM 비용이 드는 서버라 <b>내부망 + 서비스 토큰</b>으로만 호출받습니다"], ["Frontend", [["Next.js", "nextdotjs"], ["React", "react"], ["TypeScript", "typescript"], ["Tailwind", "tailwindcss"], ["Three.js", "threedotjs"]], "밭 등록 · 지도 레이어 · 3D 지구본 화면. <b>서버 라우트가 AI 서버를 대신 호출</b>합니다"], ["Data / 배치", [["기상청 API", ""], ["Open-Meteo", ""], ["Sentinel Hub", ""], ["NCPMS", ""], ["pg_cron", ""]], "관측 · 예보 · 특보 · 위성 · 병해충 데이터를 적재하고, <b>자정 배치로 오늘 할 일</b>을 만듭니다"], ["Auth · Infra", [["Supabase", "supabase"], ["Railway", "railway"], ["Docker", "docker"], ["Vitest", "vitest"], ["pytest", "pytest"]], "<b>Supabase Auth + RLS</b>로 본인 데이터만 열고, 웹 · AI 서버를 따로 배포합니다"]], "summary": "Next.js가 화면과 인증을 맡고, <b>비공개 FastAPI AI 서버</b>가 LangGraph로 RAG를 돌립니다. 데이터는 <b>Supabase Postgres 한 곳</b>(pgvector · RLS · pg_cron)에 둡니다.", "stats": [["250개", "시군구 매핑"], ["32개", "DB 마이그레이션"]]}, why:"서리나 태풍 한 번에 <b>한 해 농사가 끝날 만큼</b> 기상 리스크가 큽니다. 그런데 판단 근거는 기상청 · 농촌진흥청 · 위성에 <b>흩어져 있어</b>, 귀농 초보와 주말농장 사용자는 스스로 해석하기 어렵습니다.", name:"Safe-Farm", img:"assets/safefarm.jpg",
   meta:"2026 원티드 AI 챔피언십 출품 · 2026.09.09 – 09.22 · 4인 · 팀장",
   desc:"기상청 · 농촌진흥청 · 위성에 흩어진 데이터를 <b>밭 좌표 하나로 묶어</b>, 내 밭 작물의 <b>생육 단계와 오늘 할 일</b>을 알려주는 AI 서비스입니다.",
   tags:["Agentic RAG","Guardrail","LangGraph","pgvector","FastAPI"],
@@ -819,13 +833,13 @@ const P = [
   learn:"기상청 · 농촌진흥청 · 위성 데이터가 관측소 · 격자 · 행정코드 단위로 제각각이라, 밭 하나에 정확한 날씨를 연결하는 일부터 쉽지 않았습니다. GDD와 파종일, 조 · 중 · 만생 같은 개념을 직접 공부하며 작물이 날씨에 따라 어떻게 자라는지 이해하게 되었고, AI 서비스의 답변 품질은 모델보다 <b>그 앞에서 연결해 주는 데이터의 정확도</b>가 결정한다는 것을 느꼈습니다."
 },
 {
-  id:"twd", stackx:{"cats": [["AI / RAG", [["Python", "python"], ["LangGraph", "langgraph"], ["LangChain", "langchain"], ["OpenAI", "openai"], ["Claude", "anthropic"]], "답변은 <b>OpenAI</b>, 반증은 <b>Claude</b>. 그래프로 <b>검색 → 답변 → 반증</b> 순서를 고정합니다"], ["Vector DB", [["PostgreSQL", "postgresql"], ["pgvector", ""], ["SQLAlchemy", "sqlalchemy"], ["Alembic", ""]], "후기 벡터 · 상품 · 알레르기를 한 DB에 두고, <b>SQL 선필터 후 벡터 검색</b>합니다"], ["Backend", [["FastAPI", "fastapi"], ["Uvicorn", ""], ["Pydantic", "pydantic"], ["JWT", "jsonwebtokens"], ["bcrypt", ""]], "추천 · 질문 · 인증 · 구매 · 관리자 API. 답변은 <b>NDJSON 스트림</b>으로 근거부터 보냅니다"], ["Frontend", [["Next.js", "nextdotjs"], ["React", "react"], ["Chart.js", "chartdotjs"]], "고객 화면과 <b>관리자 대시보드</b>(검증 탭 · 판매 전략 차트)"], ["Evaluation", [["RAGAS", ""], ["tiktoken", ""], ["NumPy", "numpy"]], "골든셋 recall@k · MRR, <b>부트스트랩 신뢰구간</b>, 토큰 수 측정"], ["Infra", [["Docker", "docker"], ["Railway", "railway"], ["Vercel", "vercel"], ["Supabase", "supabase"]], "API는 Railway, 화면은 Vercel, DB는 Supabase. <b>이미지 503MB</b>로 경량화"]], "summary": "FastAPI 백엔드가 <b>SQL로 후보를 먼저 거르고</b> pgvector로 후기를 찾은 뒤, <b>OpenAI가 답하고 Claude가 반증</b>합니다.", "stats": [["−90%", "LLM 입력 토큰"], ["25.8%", "recall@3 (12.7%에서)"]]}, why:"사료는 축종이나 알레르기 성분이 <b>한 번만 어긋나도 건강 문제</b>로 이어집니다. 보호자는 수많은 리뷰 속에서 우리 아이 조건에 맞는 근거를 직접 찾아야 해, <b>안전을 먼저 보장하는 추천</b>이 필요했습니다.", name:"오늘뭐멍냥", img:"assets/twd_hero.jpg", img2:"assets/twd_customer.jpg",
+  id:"twd", kpi:[["−90%","LLM 입력 토큰"],["2배","검색 recall@3"],["0 / 20","알레르기 위반"]], stackx:{"cats": [["AI / RAG", [["Python", "python"], ["LangGraph", "langgraph"], ["LangChain", "langchain"], ["OpenAI", "openai"], ["Claude", "anthropic"]], "답변은 <b>OpenAI</b>, 검증은 <b>Claude</b>. 그래프로 <b>검색 → 답변 → 검증</b> 순서를 고정합니다"], ["Vector DB", [["PostgreSQL", "postgresql"], ["pgvector", ""], ["SQLAlchemy", "sqlalchemy"], ["Alembic", ""]], "후기 벡터 · 상품 · 알레르기를 한 DB에 두고, <b>SQL 선필터 후 벡터 검색</b>합니다"], ["Backend", [["FastAPI", "fastapi"], ["Uvicorn", ""], ["Pydantic", "pydantic"], ["JWT", "jsonwebtokens"], ["bcrypt", ""]], "추천 · 질문 · 인증 · 구매 · 관리자 API. 답변은 <b>NDJSON 스트림</b>으로 근거부터 보냅니다"], ["Frontend", [["Next.js", "nextdotjs"], ["React", "react"], ["Chart.js", "chartdotjs"]], "고객 화면과 <b>관리자 대시보드</b>(검증 탭 · 판매 전략 차트)"], ["Evaluation", [["RAGAS", ""], ["tiktoken", ""], ["NumPy", "numpy"]], "골든셋 recall@k · MRR, <b>부트스트랩 신뢰구간</b>, 토큰 수 측정"], ["Infra", [["Docker", "docker"], ["Railway", "railway"], ["Vercel", "vercel"], ["Supabase", "supabase"]], "API는 Railway, 화면은 Vercel, DB는 Supabase. <b>이미지 503MB</b>로 경량화"]], "summary": "FastAPI 백엔드가 <b>SQL로 후보를 먼저 거르고</b> pgvector로 후기를 찾은 뒤, <b>OpenAI가 답하고 Claude가 검증</b>합니다.", "stats": [["−90%", "LLM 입력 토큰"], ["25.8%", "recall@3 (12.7%에서)"]]}, why:"사료는 축종이나 알레르기 성분이 <b>한 번만 어긋나도 건강 문제</b>로 이어집니다. 보호자는 수많은 리뷰 속에서 우리 아이 조건에 맞는 근거를 직접 찾아야 해, <b>안전을 먼저 보장하는 추천</b>이 필요했습니다.", name:"오늘뭐멍냥", img:"assets/twd_hero.jpg", img2:"assets/twd_customer.jpg",
   meta:"삼성 AXI 팀 프로젝트 · 2026.08 · 5인 · 팀장 · 백엔드 리드",
   desc:"반려동물의 <b>알레르기 · 체급 · 구매 이력</b>을 바탕으로, 비슷한 보호자의 <b>실제 후기를 근거로</b> 사료 · 간식을 추천하고 질문에 답하는 AI 서비스입니다.",
   tags:["Hallucination 제어","LLM-as-a-Judge","Hybrid Retrieval","pgvector","FastAPI"],
-  links:[["GitHub 조직","https://github.com/TodayWhatDish"],["서비스","https://twd-web.vercel.app/"]], repos:[["추천 데이터 · RAG 파이프라인","https://github.com/TodayWhatDish/dev-data-embed"],["웹 서비스 · 관리자 페이지","https://github.com/TodayWhatDish/dev-web"]], admin:"https://twd-web.vercel.app/admin", adminInfo:{mine:["<b>검증 탭</b>: 답변과 다른 모델의 반증 정확도 · 근거를 나란히 확인","고객 분석 · <b>판매 전략</b>: LLM이 인용한 근거 구매를 SQL로 대조","고객 질문 기록 (관리자 테스트 질문은 제외) · 운영 상태","회원 추가 · 수정 · 탈퇴"],team:["차트 번들링 정리"]},
-  role:"팀장 · 일정 관리, LLM 답변 반증(교차 모델 채점) 설계 · 구현, RAG 파이프라인 설계, FastAPI 백엔드, 인증, 배포, 운영 장애 대응",
- keys:[{"title": "Hallucination 제어 — Cross-model LLM-as-a-Judge", "flow": [["답변 생성", "OpenAI · 근거 후기 · 후보 상품"], ["1차 문자열 대조", "펫 이름 언급 여부 · 비용 0"], ["2차 교차 채점", "Claude · 고객 정보 · 후보 상품 · 성분표와 대조"], ["화면 표시", "정확도 · 근거를 스트림 마지막에 전송"]], "points": [["Self-preference Bias 회피", "같은 모델이 자기 답을 채점하면 틀린 답도 맞다고 하는 <b>자기평가 편향</b>이 생겨, 답변(OpenAI)과 반증(Claude)을 분리하고 설정 하나로 교체되게 함"], ["항상 검사로 전환", "처음엔 '의심될 때만' 키워드로 검사했지만 질문 종류가 늘 때마다 키워드를 추가해야 해서, <b>대조할 고객 정보가 있으면 항상</b> LLM 채점"], ["문자열 대조의 한계", "아직 안 산 <b>추천 후보</b>를 언급하는 게 정상이라 상품명 대조로는 정답과 오답을 못 가름 → 상품 판단은 LLM 채점에 맡김"], ["False Positive 제거", "반증 모델에 상품 자료가 없어 <b>정상 추천을 0점</b> 처리 → 답변과 같은 후보 · 성분표를 제공. 닭고기 알러지에 오리 · 계란 추천을 '교차반응'으로 감점 → 규칙 명시"], ["결과", "구조화 출력 + 재시도 3회로 채점 형식을 고정, 수정 후 스모크 테스트 반증 정확도 <b>0.9 ~ 1.0</b> (소수 질문 기준)"]]}, {"title": "Hybrid Retrieval (Metadata Pre-filter + Vector)", "flow": [["고객 정보", "반려동물 · 알레르기 · 설문 메모"], ["SQL 선필터", "축종 · 체급 · 알레르기"], ["벡터 검색", "후기 상위 20개 (pgvector)"], ["답변 스트림", "근거 → 답변 → 반증"]], "points": [["Context 최적화 (입력 토큰 −90%)", "상품 자료를 통째로 넣지 않고 SQL로 먼저 걸러 LLM 입력 토큰 <b>약 90% 감소</b>"], ["Retrieval 품질 (Recall@3)", "공통 문구 제거 · 원료 정보 추가 · 재색인으로 recall@3 <b>12.7% → 25.8%</b>"], ["Query Decomposition", "메모별로 따로 검색해 후기 매칭률 <b>25% → 70%</b>"], ["Streaming · TTFT 단축", "NDJSON으로 근거를 먼저 보내 첫 근거 <b>1.2초</b>, 첫 글자 <b>2.9초</b> (중앙값)"]]}, {"title": "배포 · 백엔드 구조", "flow": [], "points": [["Docker 이미지 경량화", "로컬 임베딩 의존성(torch)을 선택 설치로 분리해 Docker 이미지 <b>2.16GB → 503MB</b>"], ["pgvector 이관", "벡터 검색을 Postgres(pgvector)로 옮기고 Railway · Vercel로 배포"], ["리팩터링 관리", "리뷰 결과를 40개 항목 체크리스트로 관리, 요청 단위 DB 세션 · 예외 원문 비노출 등 처리"], ["의존 방향", "api → services → repositories 단방향 규칙을 <b>import 검사 테스트</b>로 강제"]]}],
+  links:[["GitHub 조직","https://github.com/TodayWhatDish"],["서비스","https://twd-web.vercel.app/"]], repos:[["추천 데이터 · RAG 파이프라인","https://github.com/TodayWhatDish/dev-data-embed"],["웹 서비스 · 관리자 페이지","https://github.com/TodayWhatDish/dev-web"]], admin:"https://twd-web.vercel.app/admin", adminInfo:{mine:["<b>검증 탭</b>: 답변과 다른 모델의 교차 검증 정확도 · 근거를 나란히 확인","고객 분석 · <b>판매 전략</b>: LLM이 인용한 근거 구매를 SQL로 대조","고객 질문 기록 (관리자 테스트 질문은 제외) · 운영 상태","회원 추가 · 수정 · 탈퇴"],team:["차트 번들링 정리"]},
+  role:"팀장 · 일정 관리, 할루시네이션 검증(교차 모델 LLM-as-a-Judge) 설계 · 구현, RAG 파이프라인 설계, FastAPI 백엔드, 인증, 배포, 운영 장애 대응",
+ keys:[{"title": "Hallucination 제어 — Cross-model LLM-as-a-Judge", "flow": [["답변 생성", "OpenAI · 근거 후기 · 후보 상품"], ["1차 문자열 대조", "펫 이름 언급 여부 · 비용 0"], ["2차 교차 채점", "Claude · 고객 정보 · 후보 상품 · 성분표와 대조"], ["화면 표시", "정확도 · 근거를 스트림 마지막에 전송"]], "points": [["Self-preference Bias 회피", "같은 모델이 자기 답을 채점하면 틀린 답도 맞다고 하는 <b>자기평가 편향</b>이 생겨, 답변(OpenAI)과 검증(Claude)을 분리하고 설정 하나로 교체되게 함"], ["항상 검사로 전환", "처음엔 '의심될 때만' 키워드로 검사했지만 질문 종류가 늘 때마다 키워드를 추가해야 해서, <b>대조할 고객 정보가 있으면 항상</b> LLM 채점"], ["문자열 대조의 한계", "아직 안 산 <b>추천 후보</b>를 언급하는 게 정상이라 상품명 대조로는 정답과 오답을 못 가름 → 상품 판단은 LLM 채점에 맡김"], ["False Positive 제거", "검증 모델에 상품 자료가 없어 <b>정상 추천을 0점</b> 처리 → 답변과 같은 후보 · 성분표를 제공. 닭고기 알러지에 오리 · 계란 추천을 '교차반응'으로 감점 → 규칙 명시"], ["결과", "구조화 출력 + 재시도 3회로 채점 형식을 고정, 수정 후 스모크 테스트 검증 정확도 <b>0.9 ~ 1.0</b> (소수 질문 기준)"]]}, {"title": "Hybrid Retrieval (Metadata Pre-filter + Vector)", "flow": [["고객 정보", "반려동물 · 알레르기 · 설문 메모"], ["SQL 선필터", "축종 · 체급 · 알레르기"], ["벡터 검색", "후기 상위 20개 (pgvector)"], ["답변 스트림", "근거 → 답변 → 검증"]], "points": [["Context 최적화 (입력 토큰 −90%)", "상품 자료를 통째로 넣지 않고 SQL로 먼저 걸러 LLM 입력 토큰 <b>약 90% 감소</b>"], ["Retrieval 품질 (Recall@3)", "공통 문구 제거 · 원료 정보 추가 · 재색인으로 recall@3 <b>12.7% → 25.8%</b>"], ["Query Decomposition", "메모별로 따로 검색해 후기 매칭률 <b>25% → 70%</b>"], ["Streaming · TTFT 단축", "NDJSON으로 근거를 먼저 보내 첫 근거 <b>1.2초</b>, 첫 글자 <b>2.9초</b> (중앙값)"]]}, {"title": "배포 · 백엔드 구조", "flow": [], "points": [["Docker 이미지 경량화", "로컬 임베딩 의존성(torch)을 선택 설치로 분리해 Docker 이미지 <b>2.16GB → 503MB</b>"], ["pgvector 이관", "벡터 검색을 Postgres(pgvector)로 옮기고 Railway · Vercel로 배포"], ["리팩터링 관리", "리뷰 결과를 40개 항목 체크리스트로 관리, 요청 단위 DB 세션 · 예외 원문 비노출 등 처리"], ["의존 방향", "api → services → repositories 단방향 규칙을 <b>import 검사 테스트</b>로 강제"]]}],
 
   contrib:"백엔드 커밋 200건, 팀 내 1위",
   stack:"FastAPI, LangGraph, pgvector, Claude · OpenAI, Next.js 16, Docker",
@@ -833,7 +847,7 @@ const P = [
     ["웹",[["브라우저"],["Next.js 16 (Vercel)","고객 · 관리자 화면",1]]],
     ["API",[["FastAPI (Railway)","JWT · NDJSON 스트림",1],["SQL 선필터","축종 · 체급 · 알레르기",1]]],
     ["검색 · 데이터",[["리뷰 벡터 검색","상위 20개 (pgvector)",1],["데이터 파이프라인","적재 · 검사 · 청킹 · 임베딩",1]]],
-    ["LLM",[["추천 · 상담 답변","OpenAI",1],["답변 반증","Claude",1]]]
+    ["LLM",[["추천 · 상담 답변","OpenAI",1],["할루시네이션 검증","Claude",1]]]
   ],
   erd2:{"tables": [["user", "회원", "rec", 0, 0, [["int", "user_id", "PK"], ["text", "email"], ["text", "name"], ["text", "auth_provider"]]], ["pet", "반려동물", "rec", 1, 0, [["int", "pet_id", "PK", 1], ["int", "user_id", "FK"], ["text", "name"], ["int", "size"], ["float", "weight_kg"]]], ["pet_allergy", "반려동물 알레르기", "rec", 2, 0, [["int", "pet_id", "PK·FK", 1], ["int", "allergen_id", "PK·FK", 1]]], ["allergen", "알레르기 성분", "ref", 3, 0, [["int", "allergen_id", "PK", 1], ["int", "parent_id", "FK"], ["text", "name_ko"]]], ["ingredient_allergen", "원료별 알레르기", "ref", 4, 0, [["int", "ingredient_id", "PK·FK", 1], ["int", "allergen_id", "PK·FK", 1]]], ["purchase", "구매", "rec", 1, 1, [["int", "purchase_id", "PK"], ["int", "pet_id", "FK"], ["int", "product_id", "FK"], ["text", "purchased_at"]]], ["product", "상품", "ref", 2, 1, [["int", "product_id", "PK", 1], ["text", "brand"], ["text", "name"], ["int", "price_krw"], ["int", "target_size_min"]]], ["product_ingredient", "상품 원료", "ref", 3, 1, [["int", "product_id", "PK·FK", 1], ["int", "ingredient_id", "PK·FK", 1]]], ["ingredient", "원료", "ref", 4, 1, [["int", "ingredient_id", "PK", 1], ["text", "name_ko"]]], ["review", "후기", "rec", 1, 2, [["int", "purchase_id", "PK·FK"], ["int", "rating"], ["text", "body"], ["int", "is_holdout"]]], ["chunk_vectors", "후기 벡터", "vec", 2, 2, [["int", "purchase_id", "PK"], ["int", "chunk_index", "PK"], ["vec", "vector"], ["text", "source_hash"]]]], "rels": [["user", "user_id", "pet", "user_id", "1N", {}], ["pet", "pet_id", "pet_allergy", "pet_id", "1N", {}], ["allergen", "allergen_id", "pet_allergy", "allergen_id", "1N", {}], ["allergen", "allergen_id", "ingredient_allergen", "allergen_id", "1N", {}], ["ingredient", "ingredient_id", "ingredient_allergen", "ingredient_id", "1N", {"side": "R", "off": 14}], ["ingredient", "ingredient_id", "product_ingredient", "ingredient_id", "1N", {}], ["product", "product_id", "product_ingredient", "product_id", "1N", {}], ["pet", "pet_id", "purchase", "pet_id", "1N", {"side": "L", "off": 9}], ["product", "product_id", "purchase", "product_id", "1N", {}], ["purchase", "purchase_id", "review", "purchase_id", "11", {"side": "L", "off": 17}], ["review", "purchase_id", "chunk_vectors", "purchase_id", "dash", {}]], "legend": "노란 행: 반려동물 → 알레르기 → 원료 → 상품을 SQL로 따라가 후보에서 먼저 빼는 알레르기 선필터 경로"},
   erd:[
@@ -852,11 +866,11 @@ const P = [
   rels:["user 1→N pet","pet 1→N pet_allergy","allergen 1→N pet_allergy","allergen 1→N ingredient_allergen","ingredient 1→N ingredient_allergen","ingredient 1→N product_ingredient","product 1→N product_ingredient","pet 1→N purchase","product 1→N purchase","purchase 1→1 review","review ⇢ chunk_vectors"],
   notes:["allergen은 parent_id로 상위 · 하위 계층","임베딩은 구매 후기 단위, source_hash로 바뀐 후기만 재임베딩","is_holdout 후기는 평가용으로 분리"],
   reasons:[["Metadata Pre-filter 후 LLM","알레르기 성분이 든 후보는 순위로 되돌릴 수 없어 SQL이 먼저 거름. LLM 입력 토큰 약 90% 감소","전체 상품을 LLM에 전달"],["답변 · 검증 모델 분리 (LLM-as-a-Judge)","같은 모델이 자기 답을 채점하면 틀린 답도 맞다고 할 수 있어 다른 모델로 대조","자체 채점"],["OpenAI 임베딩","배포 이미지를 2.16GB → 503MB로 줄이려 전환, 로컬 대비 품질 차이는 기록","로컬 e5-small"]],
-  issues:[["반증 모델이 <b>정상 추천을 0점</b> 처리","반증 모델에 상품 자료를 주지 않아, 추천 상품을 '고객 정보에 없는 상품'으로 판단","답변 모델이 본 것과 <b>같은 후보 상품 · 성분표</b>를 함께 전달, 교차반응 규칙 명시","오탐 제거, 스모크 테스트 반증 정확도 0.9 ~ 1.0"],["동시 접속 시 서버 정지","커넥션 하나를 스레드 40개가 함께 쓰고, 끝난 요청도 연결을 반납하지 않음","요청 단위로 세션을 열고 닫고, 풀 크기 · 연결 확인 설정","반납 안 된 연결 0건"],["추천 1회에 DB 조회 최대 40회","후보 20개마다 구매 → 상품을 따로 조회하는 N+1 쿼리","JOIN 한 번으로 묶어 조회","DB 조회 40회 → 1회"],["알레르기 필터가 동작하지 않음","'닭'을 입력하면 '닭고기'와 매칭되지 않는 완전 일치 방식","정규화 후 부분 일치로 변경, 미적용 시 안내","평가셋 알레르기 위반 0 / 20"],["보호자 메모로 찾은 <b>후기가 엉뚱함</b>","식성 · 피부 메모 두 개를 <b>한 문장으로 합쳐</b> 검색해, 두 주제를 다 담은 후기가 없어 어느 쪽과도 어중간하게 닮음","<b>메모마다 따로 검색</b>하고 증상을 '이런 아이에게 좋은 사료 추천' 문장으로 감싼 뒤, 같은 상품은 최고 점수만 남김","메모 → 후기 매칭률 <b>25 → 70%</b>, 0 → 61%"]],
+  issues:[["검증 모델이 <b>정상 추천을 0점</b> 처리","검증 모델에 상품 자료를 주지 않아, 추천 상품을 '고객 정보에 없는 상품'으로 판단","답변 모델이 본 것과 <b>같은 후보 상품 · 성분표</b>를 함께 전달, 교차반응 규칙 명시","오탐 제거, 스모크 테스트 검증 정확도 0.9 ~ 1.0"],["동시 접속 시 서버 정지","커넥션 하나를 스레드 40개가 함께 쓰고, 끝난 요청도 연결을 반납하지 않음","요청 단위로 세션을 열고 닫고, 풀 크기 · 연결 확인 설정","반납 안 된 연결 0건"],["추천 1회에 DB 조회 최대 40회","후보 20개마다 구매 → 상품을 따로 조회하는 N+1 쿼리","JOIN 한 번으로 묶어 조회","DB 조회 40회 → 1회"],["알레르기 필터가 동작하지 않음","'닭'을 입력하면 '닭고기'와 매칭되지 않는 완전 일치 방식","정규화 후 부분 일치로 변경, 미적용 시 안내","평가셋 알레르기 위반 0 / 20"],["보호자 메모로 찾은 <b>후기가 엉뚱함</b>","식성 · 피부 메모 두 개를 <b>한 문장으로 합쳐</b> 검색해, 두 주제를 다 담은 후기가 없어 어느 쪽과도 어중간하게 닮음","<b>메모마다 따로 검색</b>하고 증상을 '이런 아이에게 좋은 사료 추천' 문장으로 감싼 뒤, 같은 상품은 최고 점수만 남김","메모 → 후기 매칭률 <b>25 → 70%</b>, 0 → 61%"]],
   learn:"같은 알레르기도 데이터마다 '닭고기 알레르기', '닭고기'처럼 표기가 달라 <b>288건 중 205건</b>이 서로 매칭되지 않았고, 성분 매핑 기준을 직접 만들어야 했습니다. 원료와 알레르기의 상하위 관계를 정리하며 반려동물에게 무엇이 위험한지 이해하게 되었고, AI에게 맡기기 전에 <b>위험한 후보는 규칙으로 먼저 거르고 답변은 다른 모델로 검증하는 구조</b>가 중요하다는 것을 느꼈습니다."
 },
 {
-  id:"lifefit", stackx:{"cats": [["AI / LLM", [["Python", "python"], ["LangGraph", "langgraph"], ["Claude", "anthropic"], ["OpenAI", "openai"]], "채팅은 <b>plan 노드 + Tool Use</b>로 시설 · 시세 · 생활 조건을 DB에서 조회해 답합니다"], ["Vector DB", [["PostgreSQL", "postgresql"], ["pgvector", ""], ["Supabase", "supabase"]], "427개 행정동 지표 · 회원 페르소나 · 동네 지식을 한 DB에 두고 <b>DB 안에서 검색</b>합니다"], ["엔진 서버", [["FastAPI", "fastapi"], ["Uvicorn", ""], ["SQLAlchemy", "sqlalchemy"], ["Pydantic", "pydantic"]], "추천 · 채팅 · 관리자 API. <b>웹과 분리</b>해 임베딩 연산이 로그인 · CRUD를 막지 않게 했습니다"], ["웹 서버", [["FastAPI", "fastapi"], ["HTTPX", ""], ["JavaScript", "javascript"]], "화면 · 인증 담당. 엔진은 <b>httpx로 호출</b>하고 함수 계약은 그대로 유지합니다"], ["Auth · Infra", [["Supabase Auth", "supabase"], ["Google 로그인", "google"], ["Railway", "railway"], ["Docker", "docker"]], "이메일 · 구글 로그인, <b>웹 · 엔진 서버를 따로 배포</b>합니다"]], "summary": "<b>웹 서버(화면 · 인증)</b>와 <b>엔진 서버(추천 · 채팅)</b>를 나누고 httpx로 연결했습니다. 채팅은 Claude가 도구를 골라 DB를 조회합니다.", "stats": [["427개", "행정동"], ["7개", "생활 지표 가중치"]]}, why:"기존 동네 추천은 '3인 가구 40대'처럼 <b>인구통계로 사람을 나눕니다</b>. 같은 조건이어도 원하는 생활은 조용한 공원일 수도, 학원가일 수도 있어 <b>라이프스타일 기준의 추천</b>이 필요했습니다.", name:"LIFE,FIT", img:"assets/lifefit.jpg",
+  id:"lifefit", kpi:[["427개","서울 행정동 채점"],["7 → 1","회원 처리 DB 왕복"],["12개 병렬","대시보드 집계 쿼리"]], stackx:{"cats": [["AI / LLM", [["Python", "python"], ["LangGraph", "langgraph"], ["Claude", "anthropic"], ["OpenAI", "openai"]], "채팅은 <b>plan 노드 + Tool Use</b>로 시설 · 시세 · 생활 조건을 DB에서 조회해 답합니다"], ["Vector DB", [["PostgreSQL", "postgresql"], ["pgvector", ""], ["Supabase", "supabase"]], "427개 행정동 지표 · 회원 페르소나 · 동네 지식을 한 DB에 두고 <b>DB 안에서 검색</b>합니다"], ["엔진 서버", [["FastAPI", "fastapi"], ["Uvicorn", ""], ["SQLAlchemy", "sqlalchemy"], ["Pydantic", "pydantic"]], "추천 · 채팅 · 관리자 API. <b>웹과 분리</b>해 임베딩 연산이 로그인 · CRUD를 막지 않게 했습니다"], ["웹 서버", [["FastAPI", "fastapi"], ["HTTPX", ""], ["JavaScript", "javascript"]], "화면 · 인증 담당. 엔진은 <b>httpx로 호출</b>하고 함수 계약은 그대로 유지합니다"], ["Auth · Infra", [["Supabase Auth", "supabase"], ["Google 로그인", "google"], ["Railway", "railway"], ["Docker", "docker"]], "이메일 · 구글 로그인, <b>웹 · 엔진 서버를 따로 배포</b>합니다"]], "summary": "<b>웹 서버(화면 · 인증)</b>와 <b>엔진 서버(추천 · 채팅)</b>를 나누고 httpx로 연결했습니다. 채팅은 Claude가 도구를 골라 DB를 조회합니다.", "stats": [["427개", "행정동"], ["7개", "생활 지표 가중치"]]}, why:"기존 동네 추천은 '3인 가구 40대'처럼 <b>인구통계로 사람을 나눕니다</b>. 같은 조건이어도 원하는 생활은 조용한 공원일 수도, 학원가일 수도 있어 <b>라이프스타일 기준의 추천</b>이 필요했습니다.", name:"LIFE,FIT", img:"assets/lifefit.jpg",
   meta:"사이드 프로젝트 · 2026.08 – 09 · 3인",
   desc:"원하는 생활을 <b>자연어로</b> 말하면 서울 <b>427개 행정동</b> 중 맞는 동네 5곳을 추천하고, <b>그 이유를 지표로 설명</b>하는 서비스입니다.",
   tags:["AI Agent","Function Calling","LangGraph","pgvector","FastAPI"],
@@ -889,7 +903,7 @@ const P = [
   learn:"427개 행정동 지표가 구 단위 · 동 단위 · 밀도처럼 출처마다 기준이 달라, 같은 잣대로 비교할 수 있게 맞추는 일이 어려웠습니다. 녹지 · 안전 · 교통 같은 지표를 백분위로 바꾸며 '살기 좋은 동네'의 기준이 사람마다 다르다는 것을 이해하게 되었고, LLM이 데이터에 없는 조건을 지어내지 않도록 <b>답할 수 있는 범위를 분명히 정해 주는 것</b>이 중요하다는 것을 느꼈습니다."
 },
 {
-  id:"knavi", stackx:{"cats": [["수신호 인식", [["Python", "python"], ["MediaPipe", "mediapipe"], ["OpenCV", "opencv"], ["PyTorch", "pytorch"], ["scikit-learn", "scikitlearn"]], "손 · 상체 랜드마크 <b>150차원 × 30프레임</b>을 LSTM으로 분류하고 안정화 필터로 확정합니다"], ["장애물 인식", [["YOLOv8", ""], ["OpenCV", "opencv"], ["Kaggle", "kaggle"]], "<b>Gazebo 화면으로 학습</b>하고 Kaggle T4에서 50 epoch를 7분에 돌립니다"], ["로봇 · 시뮬레이션", [["ROS 2", "ros"], ["Gazebo", ""], ["rosbridge", ""], ["twist_mux", ""]], "수신호 · 순찰 · 비상정지 명령을 <b>우선순위로 중재</b>하고, 끊기면 자동으로 빠집니다"], ["배포 · 협업", [["pip 패키지", "pypi"], ["Git", "git"], ["Jira", "jira"]], "인식 모듈을 <b>버전 태그 pip 패키지</b>로 배포해 시뮬레이션 저장소가 설치해 씁니다"]], "summary": "웹캠 → MediaPipe → LSTM이 수신호를 정하면 <b>rosbridge로 ROS 2에 전달</b>하고, 로봇 카메라는 YOLO로 장애물을 봅니다. <b>LiDAR 비상정지</b>가 모든 명령보다 우선합니다.", "stats": [["93.8%", "수신호 7종 정확도"], ["0.95", "시뮬레이터 탐지 신뢰도"]]}, why:"공장에서는 <b>신호수의 손동작을 보지 못해</b> 사고가 납니다. 별도 컨트롤러 없이 사람이 손으로 로봇에 명령하고, <b>인식이 불확실하면 멈추는</b> 안전한 방식이 필요했습니다.", name:"K-NAVI", img:"assets/knavi.jpg",
+  id:"knavi", kpi:[["0.95","시뮬레이터 탐지 신뢰도"],["0.89","원거리 탐지"],["93.8%","수신호 7종 정확도"]], stackx:{"cats": [["수신호 인식", [["Python", "python"], ["MediaPipe", "mediapipe"], ["OpenCV", "opencv"], ["PyTorch", "pytorch"], ["scikit-learn", "scikitlearn"]], "손 · 상체 랜드마크 <b>150차원 × 30프레임</b>을 LSTM으로 분류하고 안정화 필터로 확정합니다"], ["장애물 인식", [["YOLOv8", ""], ["OpenCV", "opencv"], ["Kaggle", "kaggle"]], "<b>Gazebo 화면으로 학습</b>하고 Kaggle T4에서 50 epoch를 7분에 돌립니다"], ["로봇 · 시뮬레이션", [["ROS 2", "ros"], ["Gazebo", ""], ["rosbridge", ""], ["twist_mux", ""]], "수신호 · 순찰 · 비상정지 명령을 <b>우선순위로 중재</b>하고, 끊기면 자동으로 빠집니다"], ["배포 · 협업", [["pip 패키지", "pypi"], ["Git", "git"], ["Jira", "jira"]], "인식 모듈을 <b>버전 태그 pip 패키지</b>로 배포해 시뮬레이션 저장소가 설치해 씁니다"]], "summary": "웹캠 → MediaPipe → LSTM이 수신호를 정하면 <b>rosbridge로 ROS 2에 전달</b>하고, 로봇 카메라는 YOLO로 장애물을 봅니다. <b>LiDAR 비상정지</b>가 모든 명령보다 우선합니다.", "stats": [["93.8%", "수신호 7종 정확도"], ["0.95", "시뮬레이터 탐지 신뢰도"]]}, why:"공장에서는 <b>신호수의 손동작을 보지 못해</b> 사고가 납니다. 별도 컨트롤러 없이 사람이 손으로 로봇에 명령하고, <b>인식이 불확실하면 멈추는</b> 안전한 방식이 필요했습니다.", name:"K-NAVI", img:"assets/knavi.jpg",
   meta:"삼성 AXI 팀 프로젝트 · 2026.07 · 5인 · 팀장",
   desc:"작업자의 <b>수신호로 물류 로봇을 제어</b>하고, 주행 중 <b>장애물을 인식해 멈추거나 서행</b>하는 ROS 2 · Gazebo 시뮬레이션 시스템입니다.",
   tags:["Action Recognition","Synthetic Data","YOLOv8","PyTorch","ROS 2"],
@@ -906,7 +920,8 @@ const P = [
   ],
   data:true,
   reasons:[["랜드마크 + LSTM","수신호는 자세가 아니라 팔의 궤적이라 30프레임으로 분류, 장갑 낀 손은 상체 포즈로 보완","이미지 CNN, 손만 쓰는 126차원"],["Gazebo 직접 캡처","로봇이 보는 렌더러 · 조명으로 학습해야 화면 차이가 없음","COCO 실사진, Blender 렌더"],["Kaggle GPU 학습","로컬 Mac에서 50 epoch 32분이라 반복 실험이 어려워 T4로 이전 (7분)","로컬 학습"]],
-  issues:[["시뮬레이터 화면에서 <b>탐지 신뢰도 급감</b>","Blender 렌더로 학습해 Gazebo 화면과 <b>렌더러 · 조명이 다름</b> (신뢰도 0.27 ~ 0.46, 중복 박스)","<b>Gazebo 카메라로 직접 캡처</b>하고 라벨링을 자동화","신뢰도 0.95, 단일 박스"],["<b>멀리 있는 물체</b>를 탐지하지 못함","학습 이미지 속 물체가 화면의 <b>30 ~ 50% 크기에만</b> 몰려 있었음 (거리 8배에서 탐지 0건)","캡처 거리를 넓혀 화면의 <b>5 ~ 55% 크기</b>까지 학습","같은 조건에서 신뢰도 0.89"],["수신호를 동작이 아니라 <b>화면 위치로 분류</b>","랜드마크를 화면 기준 <b>절대좌표</b>로 저장","<b>어깨 중심 · 어깨너비 기준으로 정규화</b>하고 데이터 증강 기준점도 함께 수정","악조건 5종 정확도 하락 2%p 이내"],["팀원 환경에서 <b>인식 모듈 설치 실패</b>","최신 OpenCV가 <b>numpy 2를 몰래 요구</b>, 안 쓰는 roboflow가 OpenCV를 하나 더 끌어옴. MediaPipe 최신판은 <b>ARM 리눅스용 패키지 없음</b>","미사용 의존성 제거, <b>OpenCV · numpy · MediaPipe 버전 고정</b>, 버전 태그를 올려 pip 재설치 문제 해결","빈 가상환경에서 설치 · import 통과"],["재학습했는데 <b>결과가 소수점까지 똑같음</b>","데이터셋 분할이 폴더를 비우지 않고 <b>파일만 추가</b>, 2,160장이 <b>3,328장으로 누적</b>된 채 업로드됨","복사 전에 폴더를 비우도록 수정, 분할 수(1,728 / 432)를 확인한 뒤 재학습","학습 데이터 2,160장으로 정상화, 이후 결과가 같으면 가중치 md5부터 확인"]],
+  issues:[["시뮬레이터 화면에서 <b>탐지 신뢰도 급감</b>","Blender 렌더로 학습해 Gazebo 화면과 <b>렌더러 · 조명이 다름</b> (신뢰도 0.27 ~ 0.46, 중복 박스)","<b>Gazebo 카메라로 직접 캡처</b>하고 라벨링을 자동화","신뢰도 0.95, 단일 박스"],["<b>멀리 있는 물체</b>를 탐지하지 못함","학습 이미지 속 물체가 화면의 <b>30 ~ 50% 크기에만</b> 몰려 있었음 (거리 8배에서 탐지 0건)","캡처 거리를 넓혀 화면의 <b>5 ~ 55% 크기</b>까지 학습","같은 조건에서 신뢰도 0.89"],["렌즈가 흐리거나 반쯤 가려져도 <b>'정상'으로 판정</b>","기동 시 기준치 대비 선명도 하나만 봐서, <b>처음부터 흐린 화면</b>이 기준치가 되고 저조도 노이즈와 <b>부분 가림</b>을 놓침","같은 웹캠 원본 프레임으로 지표를 실측해 <b>기준치 없는 절대 축 + 기준치 대비 상대 축</b>으로 재설계, 화면을 <b>4×4 타일</b>로 나눠 부분 가림 판정","저조도 · 빛반사 · 가림 · 화면 정지 등 <b>9종 이상 감지</b>"],
+    ["수신호를 동작이 아니라 <b>화면 위치로 분류</b>","랜드마크를 화면 기준 <b>절대좌표</b>로 저장","<b>어깨 중심 · 어깨너비 기준으로 정규화</b>하고 데이터 증강 기준점도 함께 수정","악조건 5종 정확도 하락 2%p 이내"],["팀원 환경에서 <b>인식 모듈 설치 실패</b>","최신 OpenCV가 <b>numpy 2를 몰래 요구</b>, 안 쓰는 roboflow가 OpenCV를 하나 더 끌어옴. MediaPipe 최신판은 <b>ARM 리눅스용 패키지 없음</b>","미사용 의존성 제거, <b>OpenCV · numpy · MediaPipe 버전 고정</b>, 버전 태그를 올려 pip 재설치 문제 해결","빈 가상환경에서 설치 · import 통과"],["재학습했는데 <b>결과가 소수점까지 똑같음</b>","데이터셋 분할이 폴더를 비우지 않고 <b>파일만 추가</b>, 2,160장이 <b>3,328장으로 누적</b>된 채 업로드됨","복사 전에 폴더를 비우도록 수정, 분할 수(1,728 / 432)를 확인한 뒤 재학습","학습 데이터 2,160장으로 정상화, 이후 결과가 같으면 가중치 md5부터 확인"]],
   learn:"공장 수신호 데이터가 없어 동작을 직접 촬영해 모으고, 시뮬레이터 화면도 직접 캡처해 학습 데이터를 만들어야 했습니다. 산업 수신호 체계와 장갑 · 분진 같은 현장 악조건을 공부하며 작업 현장의 안전 기준을 이해하게 되었고, AI 모델은 정확도보다 <b>실제 환경과 같은 데이터</b>, 그리고 <b>불확실할 때 멈추는 안전장치</b>가 먼저라는 것을 느꼈습니다."
 }];
 
@@ -921,6 +936,7 @@ $("#cards").innerHTML = P.map(p => `
       <span class="meta">${esc(p.meta)}</span>
       <h3>${esc(p.name)}</h3>
       <p class="desc">${p.desc}</p>
+      ${p.kpi?`<div class="ckpi">${p.kpi.map(([n,l])=>`<div><strong>${esc(n)}</strong><span>${esc(l)}</span></div>`).join("")}</div>`:""}
       <div class="tags">${p.tags.map(t=>`<span>${esc(t)}</span>`).join("")}</div>
       <div class="actions">
         <button class="btn" type="button" data-open="${p.id}">상세보기</button>
