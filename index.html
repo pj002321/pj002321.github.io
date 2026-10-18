@@ -667,15 +667,15 @@ details.more>.table-wrap,details.more>.aig{margin-inline:16px}
 .fl-svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
 .fl-svg path{fill:none;stroke:currentColor;stroke-width:1.5}
 .fl-svg path.dash{stroke-dasharray:5 5}
-.fn{position:absolute;display:flex;flex-direction:column;gap:5px;padding:13px 14px;border:1.5px solid #C9CFD8;border-radius:12px;background:var(--surface);text-align:center;box-shadow:0 1px 2px rgba(20,30,50,.04)}
-.fn b{font-family:var(--mono);font-size:15px;color:var(--ink);font-weight:700}
-.fn small{font-size:12.5px;line-height:1.45;color:var(--body);word-break:keep-all}
-.fn.k-llm{border-color:#F0A27F}.fn.k-llm b{color:#C2410C}
-.fn.k-rag{border-color:#9DB8F2}.fn.k-rag b{color:#1D4ED8}
-.fn.k-graph{border-color:#C3B1EE}.fn.k-graph b{color:#6D28D9}
-.fn.k-guard{border-color:#F2A9A9}.fn.k-guard b{color:#B91C1C}
-.fn.k-end{padding:16px 6px;background:var(--soft)}
-.fn.k-end b{font-size:14px;color:var(--muted)}
+.fnode{position:absolute;display:flex;flex-direction:column;gap:5px;padding:13px 14px;border:1.5px solid #C9CFD8;border-radius:12px;background:var(--surface);text-align:center;box-shadow:0 1px 2px rgba(20,30,50,.04)}
+.fnode b{font-family:var(--mono);font-size:15px;color:var(--ink);font-weight:700}
+.fnode small{font-size:12.5px;line-height:1.45;color:var(--body);word-break:keep-all}
+.fnode.k-llm{border-color:#F0A27F}.fnode.k-llm b{color:#C2410C}
+.fnode.k-rag{border-color:#9DB8F2}.fnode.k-rag b{color:#1D4ED8}
+.fnode.k-graph{border-color:#C3B1EE}.fnode.k-graph b{color:#6D28D9}
+.fnode.k-guard{border-color:#F2A9A9}.fnode.k-guard b{color:#B91C1C}
+.fnode.k-end{padding:16px 6px;background:var(--soft)}
+.fnode.k-end b{font-size:14px;color:var(--muted)}
 .fl-l{position:absolute;transform:translate(-50%,-50%);white-space:nowrap;padding:1px 6px;border-radius:5px;background:var(--surface);font-family:var(--mono);font-size:11.5px;font-weight:700;color:#5B6576}
 .fl-l.l{transform:translate(0,-50%)}
 .fl-l.dash{color:var(--muted);font-weight:600}
@@ -1313,7 +1313,7 @@ function flowHTML(p){
     <div class="fl-legend">${["llm","rag","graph","guard"].filter(k=>f.graphs.some(g=>g.nodes.some(n=>n[5]===k))).map(k=>`<span class="ptag ${FLOW_TAG[k][1]}">${FLOW_TAG[k][0]}</span>`).join("")}${f.graphs.some(g=>g.edges.some(e=>e[3].dash))?`<span class="fl-dash">┄ 조기 종료</span>`:""}</div>
     ${f.graphs.map((g,gi)=>`${g.title?`<span class="fl-title">${esc(g.title)}</span>`:""}<div class="fl-wrap"><div class="fl" data-p="${p.id}" data-g="${gi}">
       <svg class="fl-svg" aria-hidden="true"></svg>
-      ${g.nodes.map(([id,c,r,n,d,k])=>`<div class="fn k-${k}" data-id="${id}" data-c="${c}" data-r="${r}">${k==="end"?`<b>END</b>`:`<b>${esc(n)}</b>${d?`<small>${esc(d)}</small>`:""}`}</div>`).join("")}
+      ${g.nodes.map(([id,c,r,n,d,k])=>`<div class="fnode k-${k}" data-id="${id}" data-c="${c}" data-r="${r}">${k==="end"?`<b>END</b>`:`<b>${esc(n)}</b>${d?`<small>${esc(d)}</small>`:""}`}</div>`).join("")}
     </div></div>`).join("")}
   </div>`;
 }
@@ -1325,7 +1325,7 @@ function drawFlows(root){
     const bottom=g.edges.some(e=>e[3].out==="b"&&e[3].in==="b");
     box.style.height=(T+g.rows*RH+(bottom?34:0))+"px";
     const P={};
-    box.querySelectorAll(".fn").forEach(n=>{
+    box.querySelectorAll(".fnode").forEach(n=>{
       const c=+n.dataset.c, r=+n.dataset.r, end=n.classList.contains("k-end"), w=end?64:NW;
       const cx=c*(W-NW)/(g.cols-1)+NW/2;
       n.style.width=w+"px"; n.style.left=(cx-w/2)+"px";
