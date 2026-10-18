@@ -624,6 +624,73 @@ details.more>.table-wrap,details.more>.aig{margin-inline:16px}
 .pg-l{position:absolute;top:4px;left:10px;font-size:11px;font-weight:700;color:#6D28D9}
 .sheet-tabs a.on{color:var(--point);font-weight:700;background:var(--point-soft)}
 @media (prefers-reduced-motion:reduce){.sheet-body.focus>.blk{transition:opacity .2s}.sheet-body.focus>.blk.is-above,.sheet-body.focus>.blk.is-below{transform:none}}
+/* ===== 발표 슬라이드 스타일 (2026-10-19) ===== */
+.sheet-body>.blk:not(.ovblk):not(.learn)>h3::before{content:none}
+.sheet-body>.blk{position:relative}
+.sheet-body.focus>.blk{padding-bottom:88px}
+.sheet-body.focus>.blk.learn{padding-bottom:88px}
+.sheet-body>.blk>h3.sl-h{display:flex;flex-direction:column;align-items:flex-start;gap:8px;margin-bottom:26px}
+.sl-eb{display:block;font-family:var(--mono);font-size:12.5px;font-weight:700;letter-spacing:.08em;color:#2563EB;text-transform:uppercase}
+.sl-t{font-size:clamp(24px,2.5vw,32px);font-weight:800;color:var(--ink);letter-spacing:-.02em;line-height:1.3}
+.sl-t em{font-style:normal;color:var(--point)}
+.sl-lead{margin:-12px 0 22px;font-size:16px;line-height:1.7;color:var(--body);max-width:880px}
+.ov-head .sl-eb{margin-bottom:2px}
+.sl-ft{position:absolute;left:0;right:0;bottom:22px;display:flex;justify-content:space-between;padding-top:12px;border-top:1px solid var(--line);font-family:var(--mono);font-size:12px;color:var(--muted);letter-spacing:.04em}
+.sheet-body:not(.focus) .sl-ft{display:none}
+/* 서비스 개요 */
+.svc{display:flex;flex-direction:column;gap:14px}
+.svc-3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.svc-c{display:flex;flex-direction:column;gap:8px;padding:22px 24px;border-radius:16px;background:var(--soft)}
+.svc-c.on{background:#EEF4FF;box-shadow:inset 0 0 0 1.5px #BFD3FB}
+.svc-l{font-size:12.5px;font-weight:800;color:var(--muted);letter-spacing:.02em}
+.svc-c.on .svc-l{color:#2563EB}
+.svc-who{font-size:19px;color:var(--ink)}
+.svc-c p{margin:0;font-size:15.5px;line-height:1.75;color:var(--body)}
+.svc-sub{margin-top:16px;font-size:13px;font-weight:700;color:var(--muted)}
+.svc-flow{display:flex;align-items:stretch}
+.svc-a{flex:none;align-self:center;width:32px;text-align:center;color:var(--muted)}
+.svc-s{flex:1 1 0;min-width:0;display:flex;flex-direction:column;gap:4px;padding:18px 20px;border-radius:14px;background:var(--soft)}
+.svc-s span{font-family:var(--mono);font-size:12px;font-weight:700;color:var(--muted)}
+.svc-s b{font-size:16.5px;color:var(--ink)}
+.svc-s small{font-size:13.5px;color:var(--body);line-height:1.5}
+.svc-s.last{background:#1D5BD8}
+.svc-s.last span,.svc-s.last b,.svc-s.last small{color:#fff}
+.svc-s.last span{opacity:.75}
+@media (max-width:760px){.svc-3{grid-template-columns:minmax(0,1fr)}.svc-flow{flex-direction:column}.svc-a{width:auto;transform:rotate(90deg);padding:2px 0}}
+/* 에이전트 흐름도 */
+.fl-legend{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin-bottom:14px}
+.fl-dash{font-size:12px;color:var(--muted);margin-left:6px;font-family:var(--mono)}
+.t-guard{background:#FDECEC;color:#B91C1C}
+.fl-title{display:block;margin:18px 0 6px;font-family:var(--mono);font-size:13.5px;font-weight:700;color:var(--ink)}
+.fl-wrap{overflow-x:auto;padding:4px 2px 2px;scrollbar-width:thin}
+.fl{position:relative;min-width:900px;color:#9AA3B2}
+.fl-svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
+.fl-svg path{fill:none;stroke:currentColor;stroke-width:1.5}
+.fl-svg path.dash{stroke-dasharray:5 5}
+.fn{position:absolute;display:flex;flex-direction:column;gap:5px;padding:13px 14px;border:1.5px solid #C9CFD8;border-radius:12px;background:var(--surface);text-align:center;box-shadow:0 1px 2px rgba(20,30,50,.04)}
+.fn b{font-family:var(--mono);font-size:15px;color:var(--ink);font-weight:700}
+.fn small{font-size:12.5px;line-height:1.45;color:var(--body);word-break:keep-all}
+.fn.k-llm{border-color:#F0A27F}.fn.k-llm b{color:#C2410C}
+.fn.k-rag{border-color:#9DB8F2}.fn.k-rag b{color:#1D4ED8}
+.fn.k-graph{border-color:#C3B1EE}.fn.k-graph b{color:#6D28D9}
+.fn.k-guard{border-color:#F2A9A9}.fn.k-guard b{color:#B91C1C}
+.fn.k-end{padding:16px 6px;background:var(--soft)}
+.fn.k-end b{font-size:14px;color:var(--muted)}
+.fl-l{position:absolute;transform:translate(-50%,-50%);white-space:nowrap;padding:1px 6px;border-radius:5px;background:var(--surface);font-family:var(--mono);font-size:11.5px;font-weight:700;color:#5B6576}
+.fl-l.l{transform:translate(0,-50%)}
+.fl-l.dash{color:var(--muted);font-weight:600}
+/* 트러블슈팅 카드 */
+.iss-top{display:flex;justify-content:space-between;align-items:center}
+.iss-cat{font-size:12px;font-weight:700;color:#2563EB}
+.sheet-body .iss-n{font-family:var(--mono);font-size:12px;color:var(--muted)}
+.iss-t{margin:-4px 0 2px;font-size:17px;font-weight:800;line-height:1.45;color:var(--ink)}
+.iss-c{border-radius:16px;padding:22px 24px;background:#FAFBFD}
+.iss-c dl{grid-template-columns:36px minmax(0,1fr)}
+.iss-c dt{color:var(--muted)!important}
+.iss-c dt.fix{color:#2563EB!important}
+.sheet-body .iss-r{display:flex;gap:12px;align-items:baseline;margin-top:auto;padding:11px 16px;border:0;border-radius:10px;background:#EEF4FF;color:#1E40AF}
+.sheet-body .iss-r span{flex:none;font-size:12px;font-weight:800;color:#2563EB;margin:0}
+.iss-r p{margin:0;font-size:14.5px;font-weight:700;line-height:1.55}
 </style>
 </head><body>
 
@@ -1223,6 +1290,88 @@ function pipeHTML(p){
         : pipeNode(st)).join('<span class="pa" aria-hidden="true">→</span>')}</div></div>`).join("")}
   </div></div>`;
 }
+const SVC = {"safe-farm": {"who": ["귀농 초보 · 주말농장 사용자", "작물이 날씨에 어떻게 반응하는지 스스로 해석하기 어려운 사람"], "pain": "서리 · 태풍 한 번에 <b>한 해 농사가 끝날 만큼</b> 기상 리스크가 크지만, 판단 근거는 기상청 · 농촌진흥청 · 위성에 <b>흩어져 있음</b>", "solve": "<b>밭 좌표 하나로</b> 관측 · 예보 · 위성 · 병해충 데이터를 묶어 생육 단계와 오늘 할 일을 알려주고, 질문에는 <b>근거 문서로</b> 답함", "flow": [["밭 등록", "지도에서 좌표 · 작물 · 파종일"], ["데이터 연결", "가까운 관측소 · 위성 · 특보"], ["자정 배치", "생육 단계(GDD) · 오늘 할 일"], ["AI 질문", "근거 문서 + 내 밭 정보로 답변"]]}, "twd": {"who": ["반려견 · 반려묘 보호자", "알레르기 · 체급 조건이 있는 아이를 키우는 사람"], "pain": "사료는 축종 · 알레르기 성분이 <b>한 번만 어긋나도 건강 문제</b>로 이어지는데, 수많은 리뷰에서 우리 아이에게 맞는 근거를 <b>직접 찾아야 함</b>", "solve": "위험한 후보는 <b>SQL로 먼저 거르고</b>, 비슷한 보호자의 <b>실제 후기를 근거로</b> 추천 · 답변한 뒤 <b>다른 모델로 검증</b>", "flow": [["반려동물 등록", "축종 · 체급 · 알레르기"], ["첫 화면 추천", "구매 이력 기반"], ["자연어 질문", "후기 근거 카드 먼저"], ["답변 검증", "다른 회사 모델이 채점"]]}, "lifefit": {"who": ["서울에서 살 동네를 찾는 사람", "인구통계보다 원하는 생활이 기준인 사람"], "pain": "기존 동네 추천은 '3인 가구 40대'처럼 <b>인구통계로 사람을 나눠</b>, 같은 조건이어도 다른 생활(조용한 공원 · 학원가)을 구분하지 못함", "solve": "원하는 생활을 <b>자연어로</b> 받아 7개 생활 지표 가중치로 바꾸고, 427개 행정동을 채점해 <b>TOP 5와 지표 근거</b>를 설명", "flow": [["조건 · 문장 입력", "예산 · 지역 · 원하는 생활"], ["가중치 변환", "Claude → 7개 지표"], ["427개 동 채점", "TOP 5 + 추천 이유"], ["후속 질문", "도구로 시설 · 시세 조회"]]}, "knavi": {"who": ["공장 · 물류 현장의 작업자", "로봇 옆에서 함께 일하는 신호수"], "pain": "공장에서는 <b>신호수의 손동작을 보지 못해</b> 사고가 나고, 로봇을 움직이려면 <b>별도 컨트롤러</b>가 필요함", "solve": "웹캠으로 <b>수신호 7종</b>을 인식해 로봇에 명령하고, 주행 중 장애물을 보면 멈추거나 서행. <b>인식이 불확실하면 멈춤</b>", "flow": [["수신호", "웹캠 → MediaPipe"], ["동작 판정", "LSTM 30프레임 + 안정화"], ["로봇 명령", "rosbridge → ROS 2"], ["안전 정지", "LiDAR 비상정지 최우선"]]}};
+const FLOW = {"safe-farm": {"lead": "질문은 가드레일을 지나 <b>plan과 retrieve가 동시에</b> 출발하고, generate가 두 갈래를 모두 기다렸다 답합니다.", "graphs": [{"cols": 6, "rows": 3, "nodes": [["api", 0, 1, "POST /v1/ask", "세션 · 서비스 토큰 · 일일 한도", "web"], ["guard", 1, 1, "guardrail", "금지 농약 · 희석배수 질문은 LLM 전에 차단", "guard"], ["plan", 2, 0, "plan", "주제어 규칙 우선, 그 외 LLM Function Calling", "llm"], ["retrieve", 2, 2, "retrieve", "pgvector 후보 50 → 소스당 2 → 상위 5", "rag"], ["tools", 3, 0, "run_tools", "밭 작물 · 생육단계(GDD) · 최근 기상", "graph"], ["gen", 4, 1, "generate", "근거 12,000자 + 밭 정보 → SSE 답변", "llm"], ["end", 5, 1, "END", "", "end"]], "edges": [["api", "guard", "", {}], ["guard", "plan", "동시 실행", {}], ["guard", "retrieve", "", {}], ["plan", "tools", "tool", {}], ["plan", "gen", "rag (밭 정보 불필요)", {"mx": "src"}], ["tools", "gen", "", {"in": "t"}], ["retrieve", "gen", "근거 조각", {"in": "b"}], ["gen", "end", "", {}], ["guard", "end", "차단 시 정해진 안내로 END", {"out": "b", "in": "b", "dash": 1}]]}]}, "twd": {"lead": "plan과 retrieve가 <b>동시에</b> 돌고, 답변 모델과 <b>다른 회사 모델</b>이 근거와 대조해 검증합니다.", "graphs": [{"cols": 6, "rows": 3, "nodes": [["api", 0, 1, "POST /ask", "로그인 고객은 반려동물 정보 자동 반영", "web"], ["plan", 1, 0, "plan", "질문만 보고 도구(성분표) 선택", "llm"], ["retrieve", 1, 2, "retrieve", "SQL 선필터(축종 · 알레르기) → 벡터 상위 20", "rag"], ["tools", 2, 1, "run_tools", "두 갈래 합류 · 후보 상품 성분표 조회", "graph"], ["gen", 3, 1, "generate", "후보 20개 근거만 입력 · 근거 카드 먼저", "llm"], ["check", 4, 1, "check", "다른 회사 모델이 후기 · 성분표와 대조 채점", "llm"], ["end", 5, 1, "END", "", "end"]], "edges": [["api", "plan", "동시 실행", {}], ["api", "retrieve", "", {}], ["plan", "tools", "", {"in": "t"}], ["retrieve", "tools", "", {"in": "b"}], ["tools", "gen", "", {}], ["gen", "check", "", {}], ["check", "end", "", {}], ["tools", "end", "후보 0건이면 END (지어내지 않음)", {"out": "b", "in": "b", "dash": 1}]]}]}, "lifefit": {"lead": "추천은 <b>LLM이 가중치만 정하고 채점은 코드</b>가, 채팅은 <b>Function Calling</b>으로 도구 경로와 맥락 경로 중 하나를 고릅니다.", "graphs": [{"title": "search_graph · 동네 추천", "cols": 5, "rows": 2, "nodes": [["web", 0, 0, "/recommend", "Life-Web → httpx → 엔진", "web"], ["weights", 1, 0, "weights", "Claude Haiku: 검색어 → 7개 지표 가중치 · 예산 · 지역", "llm"], ["member", 1, 1, "회원 RAG", "persona_query로 비슷한 회원 검색", "rag"], ["rec", 2, 0, "recommend", "427개 동 채점 → TOP 5 (LLM 없음)", "graph"], ["exp", 3, 0, "explain", "비슷한 사례 + 점수로 추천 이유 작성", "llm"], ["end", 4, 0, "END", "", "end"]], "edges": [["web", "weights", "", {}], ["member", "weights", "회원 가중치 blend", {"out": "t", "in": "b"}], ["weights", "rec", "", {}], ["rec", "exp", "", {}], ["exp", "end", "", {}]]}, {"title": "chat_graph · 후속 질문", "cols": 5, "rows": 3, "nodes": [["in", 0, 1, "/chat", "질문 + 직전 추천 결과", "web"], ["plan", 1, 1, "plan", "Claude Function Calling · 도구 7종 (비회원은 회원 도구 제외)", "llm"], ["tools", 2, 0, "run_tools", "시설 · 시세 · 생활 조건 · 회원 비교", "graph"], ["ctx", 2, 2, "context", "직전 추천 결과 · 대화 기록", "rag"], ["gen", 3, 1, "generate", "Claude Haiku · 600토큰 · 대화 저장", "llm"], ["end", 4, 1, "END", "", "end"]], "edges": [["in", "plan", "", {}], ["plan", "tools", "tool", {}], ["plan", "ctx", "context", {}], ["tools", "gen", "", {"in": "t"}], ["ctx", "gen", "", {"in": "b"}], ["gen", "end", "", {}]]}]}};
+const ISSUE_CAT = {"safe-farm": ["질문 라우팅", "가드레일", "데이터 매핑", "할루시네이션", "추천 로직"], "twd": ["할루시네이션 검증", "DB 커넥션", "쿼리 성능", "안전 필터", "RAG 검색 품질"], "lifefit": ["배포 · 메모리", "쿼리 성능", "쿼리 성능", "DB 커넥션", "보안 · LLM 비용"], "knavi": ["Sim-to-Real 데이터", "학습 데이터 분포", "카메라 품질 감시"]};
+const SEC = {"top": ["OVERVIEW", ""], "d-svc": ["SERVICE", "<em>서비스</em> 개요"], "d-feat": ["FEATURES", "<em>기능</em> 화면"], "d-key": ["KEY CONTRIBUTIONS", "주요 <em>기여</em>"], "d-arch": ["ARCHITECTURE", "<em>서비스</em> 구조"], "d-flow": ["AGENT OVERVIEW", "<em>에이전트</em> 전체 흐름"], "d-pipe": ["PIPELINE", ""], "d-stack": ["TECH STACK", "<em>기술 스택</em> 구조"], "d-data": ["DATA MODEL", "<em>데이터</em> 구조"], "d-why": ["DECISIONS", "기술 <em>선택 이유</em>"], "d-issue": ["TROUBLESHOOTING", "<em>트러블슈팅</em> 및 고도화"], "d-admin": ["ADMIN", "<em>관리자</em> 대시보드"], "d-learn": ["RETROSPECTIVE", "이 프로젝트로 <em>배운 것</em>"]};
+function svcHTML(p){
+  const v=SVC[p.id]; if(!v) return "";
+  return `<div class="blk"><h3 id="d-svc">서비스 개요</h3><div class="svc">
+    <div class="svc-3">
+      <div class="svc-c"><span class="svc-l">대상 사용자</span><b class="svc-who">${esc(v.who[0])}</b><p>${esc(v.who[1])}</p></div>
+      <div class="svc-c"><span class="svc-l">문제</span><p>${v.pain}</p></div>
+      <div class="svc-c on"><span class="svc-l">해결</span><p>${v.solve}</p></div>
+    </div>
+    <span class="svc-sub">사용 흐름</span>
+    <div class="svc-flow">${v.flow.map(([t,d],i)=>`${i?'<span class="svc-a" aria-hidden="true">→</span>':''}<div class="svc-s${i===v.flow.length-1?' last':''}"><span>${String(i+1).padStart(2,"0")}</span><b>${esc(t)}</b><small>${esc(d)}</small></div>`).join("")}</div>
+  </div></div>`;
+}
+const FLOW_TAG={llm:["LLM","t-llm"],rag:["RAG","t-rag"],graph:["노드","t-graph"],web:["API","t-web"],guard:["가드레일","t-guard"]};
+function flowHTML(p){
+  const f=FLOW[p.id]; if(!f) return "";
+  return `<div class="blk"><h3 id="d-flow">에이전트 흐름</h3>${f.lead?`<p class="sl-lead">${f.lead}</p>`:""}
+    <div class="fl-legend">${["llm","rag","graph","guard"].filter(k=>f.graphs.some(g=>g.nodes.some(n=>n[5]===k))).map(k=>`<span class="ptag ${FLOW_TAG[k][1]}">${FLOW_TAG[k][0]}</span>`).join("")}${f.graphs.some(g=>g.edges.some(e=>e[3].dash))?`<span class="fl-dash">┄ 조기 종료</span>`:""}</div>
+    ${f.graphs.map((g,gi)=>`${g.title?`<span class="fl-title">${esc(g.title)}</span>`:""}<div class="fl-wrap"><div class="fl" data-p="${p.id}" data-g="${gi}">
+      <svg class="fl-svg" aria-hidden="true"></svg>
+      ${g.nodes.map(([id,c,r,n,d,k])=>`<div class="fn k-${k}" data-id="${id}" data-c="${c}" data-r="${r}">${k==="end"?`<b>END</b>`:`<b>${esc(n)}</b>${d?`<small>${esc(d)}</small>`:""}`}</div>`).join("")}
+    </div></div>`).join("")}
+  </div>`;
+}
+function drawFlows(root){
+  root.querySelectorAll(".fl").forEach(box=>{
+    const g=FLOW[box.dataset.p].graphs[+box.dataset.g];
+    const W=box.clientWidth; if(!W) return;
+    const NW=Math.min(180,W/g.cols*0.76), RH=118, T=8;
+    const bottom=g.edges.some(e=>e[3].out==="b"&&e[3].in==="b");
+    box.style.height=(T+g.rows*RH+(bottom?34:0))+"px";
+    const P={};
+    box.querySelectorAll(".fn").forEach(n=>{
+      const c=+n.dataset.c, r=+n.dataset.r, end=n.classList.contains("k-end"), w=end?64:NW;
+      const cx=c*(W-NW)/(g.cols-1)+NW/2;
+      n.style.width=w+"px"; n.style.left=(cx-w/2)+"px";
+      const h=n.offsetHeight; n.style.top=(T+r*RH+(RH-18-h)/2)+"px";
+      P[n.dataset.id]={x:cx-w/2,y:n.offsetTop,w,h};
+    });
+    const svg=box.querySelector(".fl-svg"); box.querySelectorAll(".fl-l").forEach(x=>x.remove());
+    svg.setAttribute("viewBox",`0 0 ${W} ${box.clientHeight}`);
+    let d=`<defs><marker id="ah-${box.dataset.p}-${box.dataset.g}" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="currentColor"/></marker></defs>`;
+    const yb=box.clientHeight-12;
+    g.edges.forEach(([a,b,lab,o])=>{
+      const A=P[a],B=P[b]; const out=o.out||"r", inn=o.in||"l";
+      const p= out==="r"?[A.x+A.w,A.y+A.h/2]: out==="b"?[A.x+A.w/2,A.y+A.h]:[A.x+A.w/2,A.y];
+      const q= inn==="l"?[B.x,B.y+B.h/2]: inn==="t"?[B.x+B.w/2,B.y]:[B.x+B.w/2,B.y+B.h];
+      let path, lp, side="c";
+      if(out==="r"&&inn==="l"){
+        const mx = o.mx==="src" ? p[0]+16 : (p[0]+q[0])/2;
+        path = Math.abs(p[1]-q[1])<1 ? `M${p[0]} ${p[1]}H${q[0]-2}` : `M${p[0]} ${p[1]}H${mx}V${q[1]}H${q[0]-2}`;
+        lp = Math.abs(p[1]-q[1])<1 ? [(p[0]+q[0])/2,p[1]-11] : o.mx==="src" ? [(mx+q[0])/2,q[1]-11] : [mx+6,(p[1]+q[1])/2]; if(!(Math.abs(p[1]-q[1])<1)&&o.mx!=="src") side="l";
+      } else if(out==="r"){
+        path=`M${p[0]} ${p[1]}H${q[0]}V${inn==="t"?q[1]-2:q[1]+2}`; lp=[(p[0]+q[0])/2,p[1]-11];
+      } else if(out==="t"&&inn==="b"){
+        path=`M${p[0]} ${p[1]}V${q[1]+2}`; lp=[p[0]+8,(p[1]+q[1])/2]; side="l";
+      } else {
+        path=`M${p[0]} ${p[1]}V${yb}H${q[0]}V${q[1]+2}`; lp=[(p[0]+q[0])/2,yb];
+      }
+      d+=`<path d="${path}" class="${o.dash?'dash':''}" marker-end="url(#ah-${box.dataset.p}-${box.dataset.g})"/>`;
+      if(lab){ const l=document.createElement("span"); l.className="fl-l"+(side==="l"?" l":"")+(o.dash?" dash":""); l.textContent=lab; l.style.left=lp[0]+"px"; l.style.top=lp[1]+"px"; box.appendChild(l); }
+    });
+    svg.innerHTML=d;
+  });
+}
+function slideify(body,p){
+  const blks=[...body.children].filter(x=>x.classList.contains("blk")), N=blks.length;
+  blks.forEach((b,i)=>{
+    const num=String(i+1).padStart(2,"0"), h=b.querySelector(":scope>h3[id]"), key=h?h.id:"top";
+    const sec=SEC[key]||["",""];
+    if(h){
+      const title = sec[1] || (key==="d-pipe" && p.pipe ? esc(p.pipe.title).replace(/^(RAG|파이프라인|[^ ]+)/,"<em>$1</em>") : h.innerHTML);
+      h.classList.add("sl-h"); h.innerHTML=`<span class="sl-eb">${num} · ${sec[0]}</span><span class="sl-t">${title}</span>`;
+    } else if(b.classList.contains("ovblk")){
+      const hd=b.querySelector(".ov-head"); if(hd) hd.insertAdjacentHTML("afterbegin",`<span class="sl-eb">${num} · OVERVIEW</span>`);
+    }
+    b.insertAdjacentHTML("beforeend",`<div class="sl-ft"><span>${esc(p.name)} · ${sec[0]||""}</span><span>${num} / ${String(N).padStart(2,"0")}</span></div>`);
+  });
+}
 function detail(p){
   const shot = `<div class="shot"><div class="bar"><i></i><i></i><i></i></div><img src="${p.img}" alt="${esc(p.name)} 화면"></div>`
     + (p.img2 ? `<div class="shot"><div class="bar"><i></i><i></i><i></i></div><img src="${p.img2}" alt="${esc(p.name)} 관리자 화면"></div>` : "");
@@ -1244,9 +1393,11 @@ function detail(p){
       </div>
     </div>
   </div></div>
+  ${svcHTML(p)}
   ${featHTML(p)}
   ${keyHTML(p)}
   <div class="blk"><h3 id="d-arch">서비스 구조</h3>${archHTML(p.arch)}</div>
+  ${flowHTML(p)}
   ${pipeHTML(p)}
   ${stackHTML(p)}
   <div class="blk"><h3 id="d-data">${p.data?'데이터 구조':'데이터 구조 (ERD)'}</h3>${dataHTML(p)}</div>
@@ -1257,9 +1408,11 @@ function detail(p){
       <div class="rsn2-row proof"><span class="rsn2-l">근거</span><p>${r.proof}</p></div>
       <div class="rsn2-row cost"><span class="rsn2-l">감수한 점</span><p>${esc(r.cost)}</p></div>
     </div>`).join("")}</div></div>
-  <div class="blk"><h3 id="d-issue">문제 해결</h3><div class="iss">${p.issues.map((r,i)=>`<div class="iss-c"><div class="iss-h"><span class="iss-n">${String(i+1).padStart(2,"0")}</span><p>${r[0]}</p></div>
-      <dl><dt class="c-amber">원인</dt><dd>${r[1]}</dd><dt class="c-navy">해결</dt><dd>${r[2]}</dd></dl>
-      <div class="iss-r"><span>결과</span>${r[3]}</div></div>`).join("")}</div></div>
+  <div class="blk"><h3 id="d-issue">문제 해결</h3><div class="iss">${p.issues.map((r,i)=>`<div class="iss-c">
+      <div class="iss-top"><span class="iss-cat">${esc((ISSUE_CAT[p.id]||[])[i]||"")}</span><span class="iss-n">${String(i+1).padStart(2,"0")}</span></div>
+      <p class="iss-t">${r[0]}</p>
+      <dl><dt>원인</dt><dd>${r[1]}</dd><dt class="fix">대응</dt><dd>${r[2]}</dd></dl>
+      <div class="iss-r"><span>효과</span><p>${r[3]}</p></div></div>`).join("")}</div></div>
   ${adminInfoHTML(p)}
   <div class="blk learn"><h3 id="d-learn">이 프로젝트로 배운 것</h3><p>${p.learn}</p></div>`;
 }
@@ -1287,20 +1440,20 @@ function updateFocus(){
 }
 let focusRaf=0;
 document.getElementById("sheetBody").addEventListener("scroll", ()=>{ if(!focusRaf) focusRaf=requestAnimationFrame(()=>{ focusRaf=0; updateFocus(); }); }, {passive:true});
-addEventListener("resize", updateFocus);
+addEventListener("resize", ()=>{ updateFocus(); const b=$("#sheetBody"); if(b) drawFlows(b); });
 // sheet
 const root = $("#sheetRoot"); let lastFocus = null;
 function openSheet(id){
   const p = P.find(x=>x.id===id); if(!p) return;
   lastFocus = document.activeElement;
   $("#sheetTitle").textContent = p.name;
-  $("#sheetTabs").innerHTML = [["개요","top"],...(FEATS[p.id]?[["기능 화면","d-feat"]]:[]),...(p.keys?[["주요 기여","d-key"]]:[]),["서비스 구조","d-arch"],...(p.pipe?[[p.id==="knavi"?"파이프라인":"RAG · 파이프라인","d-pipe"]]:[]),["기술 스택","d-stack"],["데이터 구조","d-data"],["기술 선택 이유","d-why"],["문제 해결","d-issue"],...(p.adminInfo?[["관리자","d-admin"]]:[]),["배운 점","d-learn"]]
+  $("#sheetTabs").innerHTML = [["개요","top"],...(SVC[p.id]?[["서비스 개요","d-svc"]]:[]),...(FEATS[p.id]?[["기능 화면","d-feat"]]:[]),...(p.keys?[["주요 기여","d-key"]]:[]),["서비스 구조","d-arch"],...(FLOW[p.id]?[["에이전트 흐름","d-flow"]]:[]),...(p.pipe?[[p.id==="knavi"?"파이프라인":"RAG · 파이프라인","d-pipe"]]:[]),["기술 스택","d-stack"],["데이터 구조","d-data"],["기술 선택 이유","d-why"],["문제 해결","d-issue"],...(p.adminInfo?[["관리자","d-admin"]]:[]),["배운 점","d-learn"]]
     .map(([l,t])=>`<a href="#${t}" data-jump="${t}">${l}</a>`).join("");
-  const body = $("#sheetBody"); body.innerHTML = detail(p); labelTables(body); body.scrollTop = 0;
+  const body = $("#sheetBody"); body.innerHTML = detail(p); slideify(body,p); labelTables(body); body.scrollTop = 0;
   body.classList.add("focus");
   root.hidden = false; document.body.style.overflow = "hidden";
   CUR_P = p; layoutERD(body); (document.fonts ? document.fonts.ready : Promise.resolve()).then(()=>layoutERD(body));
-  updateFocus(); requestAnimationFrame(()=>requestAnimationFrame(()=>root.classList.add("sheet-open")));
+  updateFocus(); drawFlows(body); (document.fonts ? document.fonts.ready : Promise.resolve()).then(()=>drawFlows(body)); requestAnimationFrame(()=>requestAnimationFrame(()=>root.classList.add("sheet-open")));
   $(".close", root).focus();
 }
 function closeSheet(){
