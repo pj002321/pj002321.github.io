@@ -691,6 +691,24 @@ details.more>.table-wrap,details.more>.aig{margin-inline:16px}
 .sheet-body .iss-r{display:flex;gap:12px;align-items:baseline;margin-top:auto;padding:11px 16px;border:0;border-radius:10px;background:#EEF4FF;color:#1E40AF}
 .sheet-body .iss-r span{flex:none;font-size:12px;font-weight:800;color:#2563EB;margin:0}
 .iss-r p{margin:0;font-size:14.5px;font-weight:700;line-height:1.55}
+/* 관리자 장 (앞단 승격) */
+.svc-u{display:flex;flex-direction:column;gap:4px}
+.svc-u.op{margin-top:10px;padding-top:12px;border-top:1px dashed #D5DAE2}
+.svc-u p{margin:0}
+.svc-tag{display:inline-block;margin-right:8px;padding:1px 8px;border-radius:999px;background:#1F2937;color:#fff;font-size:11.5px;font-weight:700;vertical-align:3px}
+.svc-sub.op{margin-top:10px}
+.adm2{display:grid;grid-template-columns:minmax(0,7fr) minmax(0,5fr);gap:32px;align-items:start}
+.adm2-shot{margin:0;display:flex;flex-direction:column;gap:10px}
+.adm2-shot img{display:block;width:100%}
+.adm2-shot figcaption{font-size:14px;color:var(--muted);line-height:1.6}
+.adm2-info{display:flex;flex-direction:column;gap:10px}
+.adm2-list{list-style:none;margin:0 0 8px;padding:0;display:flex;flex-direction:column;gap:8px;counter-reset:adm}
+.adm2-list li{counter-increment:adm;display:grid;grid-template-columns:26px minmax(0,1fr);column-gap:10px;row-gap:2px;padding:12px 14px;border-radius:12px;background:var(--soft);font-size:14.5px;line-height:1.6;color:var(--body)}
+.adm2-list li::before{content:counter(adm,decimal-leading-zero);grid-row:span 2;font-family:var(--mono);font-size:12px;font-weight:700;color:#2563EB;padding-top:2px}
+.adm2-k{font-weight:800;color:var(--ink)}
+.adm2-team{margin:0 0 6px;font-size:14px;line-height:1.6;color:var(--muted)}
+.adm2-info .admin-row{border-top:0;padding-top:4px}
+@media (max-width:860px){.adm2{grid-template-columns:minmax(0,1fr)}}
 </style>
 </head><body>
 
@@ -1110,11 +1128,17 @@ function repoHTML(p){
 }
 function adminInfoHTML(p){
   if(!p.adminInfo) return "";
-  const a=p.adminInfo;
-  return `<div class="blk"><h3 id="d-admin">관리자 대시보드</h3><div class="adm">
-    <div class="adm-col"><span class="adm-h mine">직접 구현</span><ul>${a.mine.map(x=>`<li>${x}</li>`).join("")}</ul></div>
-    ${a.team&&a.team.length?`<div class="adm-col"><span class="adm-h">팀원 담당</span><ul class="team">${a.team.map(x=>`<li>${x}</li>`).join("")}</ul></div>`:""}
-  </div>${adminHTML(p)}</div>`;
+  const a=p.adminInfo, o=OPS[p.id]||{}, shot=(FEATS[p.id]||[]).find(f=>f[1].startsWith("관리자"));
+  const item=x=>{ const m=x.match(/^(.{1,24}?)\s*:\s*(.+)$/); return m?`<li><span class="adm2-k">${m[1]}</span><span>${m[2]}</span></li>`:`<li><span>${x}</span></li>`; };
+  return `<div class="blk"><h3 id="d-admin">관리자</h3>${o.lead?`<p class="sl-lead">${o.lead}</p>`:""}
+  <div class="adm2">
+    ${shot?`<figure class="adm2-shot"><a href="${shot[0]}" target="_blank" rel="noopener" aria-label="관리자 화면 크게 보기"><div class="shot"><div class="bar"><i></i><i></i><i></i></div><img src="${shot[0]}" alt="${esc(p.name)} 관리자 화면" loading="lazy"></div></a><figcaption>${esc(shot[2])}</figcaption></figure>`:""}
+    <div class="adm2-info">
+      <span class="adm-h mine">직접 구현</span><ol class="adm2-list">${a.mine.map(item).join("")}</ol>
+      ${a.team&&a.team.length?`<span class="adm-h">팀원 담당</span><p class="adm2-team">${a.team.join(" · ")}</p>`:""}
+      ${adminHTML(p)}
+    </div>
+  </div></div>`;
 }
 function keyHTML(p){
   if(!p.keys) return "";
@@ -1263,7 +1287,7 @@ const FEATS={
     ["assets/kn_f_yolo.jpg","장애물 인식 모델 결과","Gazebo에서 직접 찍고 자동 라벨링한 데이터로 학습한 YOLO가 팰릿잭 · 버킷 · 적재물을 구분합니다."]]
 };
 function featHTML(p){
-  const f=FEATS[p.id]; if(!f||!f.length) return "";
+  const f=(FEATS[p.id]||[]).filter(x=>!(p.adminInfo&&x[1].startsWith("관리자"))); if(!f.length) return "";
   return `<div class="blk"><h3 id="d-feat">기능 화면</h3><div class="feats${f.length%2?' odd':''}">${f.map(([src,t,d],i)=>`<figure class="feat">
     <a href="${src}" target="_blank" rel="noopener" aria-label="${esc(t)} 크게 보기"><img src="${src}" alt="${esc(p.name)} · ${esc(t)}" loading="lazy"></a>
     <figcaption><span class="fn">${String(i+1).padStart(2,"0")}</span><span class="ft">${esc(t)}</span><p class="fd">${esc(d)}</p></figcaption></figure>`).join("")}</div></div>`;
@@ -1293,17 +1317,22 @@ function pipeHTML(p){
 const SVC = {"safe-farm": {"who": ["귀농 초보 · 주말농장 사용자", "작물이 날씨에 어떻게 반응하는지 스스로 해석하기 어려운 사람"], "pain": "서리 · 태풍 한 번에 <b>한 해 농사가 끝날 만큼</b> 기상 리스크가 크지만, 판단 근거는 기상청 · 농촌진흥청 · 위성에 <b>흩어져 있음</b>", "solve": "<b>밭 좌표 하나로</b> 관측 · 예보 · 위성 · 병해충 데이터를 묶어 생육 단계와 오늘 할 일을 알려주고, 질문에는 <b>근거 문서로</b> 답함", "flow": [["밭 등록", "지도에서 좌표 · 작물 · 파종일"], ["데이터 연결", "가까운 관측소 · 위성 · 특보"], ["자정 배치", "생육 단계(GDD) · 오늘 할 일"], ["AI 질문", "근거 문서 + 내 밭 정보로 답변"]]}, "twd": {"who": ["반려견 · 반려묘 보호자", "알레르기 · 체급 조건이 있는 아이를 키우는 사람"], "pain": "사료는 축종 · 알레르기 성분이 <b>한 번만 어긋나도 건강 문제</b>로 이어지는데, 수많은 리뷰에서 우리 아이에게 맞는 근거를 <b>직접 찾아야 함</b>", "solve": "위험한 후보는 <b>SQL로 먼저 거르고</b>, 비슷한 보호자의 <b>실제 후기를 근거로</b> 추천 · 답변한 뒤 <b>다른 모델로 검증</b>", "flow": [["반려동물 등록", "축종 · 체급 · 알레르기"], ["첫 화면 추천", "구매 이력 기반"], ["자연어 질문", "후기 근거 카드 먼저"], ["답변 검증", "다른 회사 모델이 채점"]]}, "lifefit": {"who": ["서울에서 살 동네를 찾는 사람", "인구통계보다 원하는 생활이 기준인 사람"], "pain": "기존 동네 추천은 '3인 가구 40대'처럼 <b>인구통계로 사람을 나눠</b>, 같은 조건이어도 다른 생활(조용한 공원 · 학원가)을 구분하지 못함", "solve": "원하는 생활을 <b>자연어로</b> 받아 7개 생활 지표 가중치로 바꾸고, 427개 행정동을 채점해 <b>TOP 5와 지표 근거</b>를 설명", "flow": [["조건 · 문장 입력", "예산 · 지역 · 원하는 생활"], ["가중치 변환", "Claude → 7개 지표"], ["427개 동 채점", "TOP 5 + 추천 이유"], ["후속 질문", "도구로 시설 · 시세 조회"]]}, "knavi": {"who": ["공장 · 물류 현장의 작업자", "로봇 옆에서 함께 일하는 신호수"], "pain": "공장에서는 <b>신호수의 손동작을 보지 못해</b> 사고가 나고, 로봇을 움직이려면 <b>별도 컨트롤러</b>가 필요함", "solve": "웹캠으로 <b>수신호 7종</b>을 인식해 로봇에 명령하고, 주행 중 장애물을 보면 멈추거나 서행. <b>인식이 불확실하면 멈춤</b>", "flow": [["수신호", "웹캠 → MediaPipe"], ["동작 판정", "LSTM 30프레임 + 안정화"], ["로봇 명령", "rosbridge → ROS 2"], ["안전 정지", "LiDAR 비상정지 최우선"]]}};
 const FLOW = {"safe-farm": {"lead": "질문은 가드레일을 지나 <b>plan과 retrieve가 동시에</b> 출발하고, generate가 두 갈래를 모두 기다렸다 답합니다.", "graphs": [{"cols": 6, "rows": 3, "nodes": [["api", 0, 1, "POST /v1/ask", "세션 · 서비스 토큰 · 일일 한도", "web"], ["guard", 1, 1, "guardrail", "금지 농약 · 희석배수 질문은 LLM 전에 차단", "guard"], ["plan", 2, 0, "plan", "주제어 규칙 우선, 그 외 LLM Function Calling", "llm"], ["retrieve", 2, 2, "retrieve", "pgvector 후보 50 → 소스당 2 → 상위 5", "rag"], ["tools", 3, 0, "run_tools", "밭 작물 · 생육단계(GDD) · 최근 기상", "graph"], ["gen", 4, 1, "generate", "근거 12,000자 + 밭 정보 → SSE 답변", "llm"], ["end", 5, 1, "END", "", "end"]], "edges": [["api", "guard", "", {}], ["guard", "plan", "동시 실행", {}], ["guard", "retrieve", "", {}], ["plan", "tools", "tool", {}], ["plan", "gen", "rag (밭 정보 불필요)", {"mx": "src"}], ["tools", "gen", "", {"in": "t"}], ["retrieve", "gen", "근거 조각", {"in": "b"}], ["gen", "end", "", {}], ["guard", "end", "차단 시 정해진 안내로 END", {"out": "b", "in": "b", "dash": 1}]]}]}, "twd": {"lead": "plan과 retrieve가 <b>동시에</b> 돌고, 답변 모델과 <b>다른 회사 모델</b>이 근거와 대조해 검증합니다.", "graphs": [{"cols": 6, "rows": 3, "nodes": [["api", 0, 1, "POST /ask", "로그인 고객은 반려동물 정보 자동 반영", "web"], ["plan", 1, 0, "plan", "질문만 보고 도구(성분표) 선택", "llm"], ["retrieve", 1, 2, "retrieve", "SQL 선필터(축종 · 알레르기) → 벡터 상위 20", "rag"], ["tools", 2, 1, "run_tools", "두 갈래 합류 · 후보 상품 성분표 조회", "graph"], ["gen", 3, 1, "generate", "후보 20개 근거만 입력 · 근거 카드 먼저", "llm"], ["check", 4, 1, "check", "다른 회사 모델이 후기 · 성분표와 대조 채점", "llm"], ["end", 5, 1, "END", "", "end"]], "edges": [["api", "plan", "동시 실행", {}], ["api", "retrieve", "", {}], ["plan", "tools", "", {"in": "t"}], ["retrieve", "tools", "", {"in": "b"}], ["tools", "gen", "", {}], ["gen", "check", "", {}], ["check", "end", "", {}], ["tools", "end", "후보 0건이면 END (지어내지 않음)", {"out": "b", "in": "b", "dash": 1}]]}]}, "lifefit": {"lead": "추천은 <b>LLM이 가중치만 정하고 채점은 코드</b>가, 채팅은 <b>Function Calling</b>으로 도구 경로와 맥락 경로 중 하나를 고릅니다.", "graphs": [{"title": "search_graph · 동네 추천", "cols": 5, "rows": 2, "nodes": [["web", 0, 0, "/recommend", "Life-Web → httpx → 엔진", "web"], ["weights", 1, 0, "weights", "Claude Haiku: 검색어 → 7개 지표 가중치 · 예산 · 지역", "llm"], ["member", 1, 1, "회원 RAG", "persona_query로 비슷한 회원 검색", "rag"], ["rec", 2, 0, "recommend", "427개 동 채점 → TOP 5 (LLM 없음)", "graph"], ["exp", 3, 0, "explain", "비슷한 사례 + 점수로 추천 이유 작성", "llm"], ["end", 4, 0, "END", "", "end"]], "edges": [["web", "weights", "", {}], ["member", "weights", "회원 가중치 blend", {"out": "t", "in": "b"}], ["weights", "rec", "", {}], ["rec", "exp", "", {}], ["exp", "end", "", {}]]}, {"title": "chat_graph · 후속 질문", "cols": 5, "rows": 3, "nodes": [["in", 0, 1, "/chat", "질문 + 직전 추천 결과", "web"], ["plan", 1, 1, "plan", "Claude Function Calling · 도구 7종 (비회원은 회원 도구 제외)", "llm"], ["tools", 2, 0, "run_tools", "시설 · 시세 · 생활 조건 · 회원 비교", "graph"], ["ctx", 2, 2, "context", "직전 추천 결과 · 대화 기록", "rag"], ["gen", 3, 1, "generate", "Claude Haiku · 600토큰 · 대화 저장", "llm"], ["end", 4, 1, "END", "", "end"]], "edges": [["in", "plan", "", {}], ["plan", "tools", "tool", {}], ["plan", "ctx", "context", {}], ["tools", "gen", "", {"in": "t"}], ["ctx", "gen", "", {"in": "b"}], ["gen", "end", "", {}]]}]}};
 const ISSUE_CAT = {"safe-farm": ["질문 라우팅", "가드레일", "데이터 매핑", "할루시네이션", "추천 로직"], "twd": ["할루시네이션 검증", "DB 커넥션", "쿼리 성능", "안전 필터", "RAG 검색 품질"], "lifefit": ["배포 · 메모리", "쿼리 성능", "쿼리 성능", "DB 커넥션", "보안 · LLM 비용"], "knavi": ["Sim-to-Real 데이터", "학습 데이터 분포", "카메라 품질 감시"]};
-const SEC = {"top": ["OVERVIEW", ""], "d-svc": ["SERVICE", "<em>서비스</em> 개요"], "d-feat": ["FEATURES", "<em>기능</em> 화면"], "d-key": ["KEY CONTRIBUTIONS", "주요 <em>기여</em>"], "d-arch": ["ARCHITECTURE", "<em>서비스</em> 구조"], "d-flow": ["AGENT OVERVIEW", "<em>에이전트</em> 전체 흐름"], "d-pipe": ["PIPELINE", ""], "d-stack": ["TECH STACK", "<em>기술 스택</em> 구조"], "d-data": ["DATA MODEL", "<em>데이터</em> 구조"], "d-why": ["DECISIONS", "기술 <em>선택 이유</em>"], "d-issue": ["TROUBLESHOOTING", "<em>트러블슈팅</em> 및 고도화"], "d-admin": ["ADMIN", "<em>관리자</em> 대시보드"], "d-learn": ["RETROSPECTIVE", "이 프로젝트로 <em>배운 것</em>"]};
+const SEC = {"top": ["OVERVIEW", ""], "d-svc": ["SERVICE", "<em>서비스</em> 개요"], "d-feat": ["FEATURES", "<em>기능</em> 화면"], "d-key": ["KEY CONTRIBUTIONS", "주요 <em>기여</em>"], "d-arch": ["ARCHITECTURE", "<em>서비스</em> 구조"], "d-flow": ["AGENT OVERVIEW", "<em>에이전트</em> 전체 흐름"], "d-pipe": ["PIPELINE", ""], "d-stack": ["TECH STACK", "<em>기술 스택</em> 구조"], "d-data": ["DATA MODEL", "<em>데이터</em> 구조"], "d-why": ["DECISIONS", "기술 <em>선택 이유</em>"], "d-issue": ["TROUBLESHOOTING", "<em>트러블슈팅</em> 및 고도화"], "d-admin": ["ADMIN CONSOLE", "<em>관리자</em> · 운영 화면"], "d-learn": ["RETROSPECTIVE", "이 프로젝트로 <em>배운 것</em>"]};
+const OPS = {"safe-farm": {"who": "운영자", "desc": "답변 품질 · 차단 · 비용을 매일 확인하는 사람", "lead": "답변 평가 · <b>가드레일 차단 로그</b> · API 호출량 · 재색인까지, <b>LLM 서비스를 운영하는 데 필요한 화면</b>을 직접 만들었습니다. 주간 브리핑은 문장마다 쓴 지표를 표시해 숫자를 검증합니다.", "flow": [["AI 주간 브리핑", "운영 지표 → 문장별 근거 지표"], ["품질 점검", "답변 평가 · 가드레일 차단 로그"], ["데이터 · 검색", "데이터 신선도 · 재색인 · 검색 방식 비교"], ["시스템", "오류 재실행 · API 호출량"]]}, "twd": {"who": "운영자", "desc": "추천 답변이 맞았는지, 무엇을 팔지 판단하는 사람", "lead": "답변 모델의 결과를 <b>다른 회사 모델의 검증 점수 · 근거</b>와 나란히 확인하고, 고객 분석 · 판매 전략은 LLM이 인용한 근거 구매를 <b>SQL로 대조</b>해 지어낸 근거를 걸러냅니다.", "flow": [["검증 탭", "답변 vs 교차 검증 정확도 · 근거"], ["질문 기록", "관리자 테스트 질문 제외"], ["고객 AI 분석", "반려동물 정보 · 구매 이력"], ["판매 전략", "인용 근거 구매 SQL 대조"]]}, "lifefit": {"who": "운영자", "desc": "LLM 사용량과 회원 데이터를 관리하는 사람", "lead": "검색 · 질문마다 LLM이 호출되는 서비스라, <b>사람별 · 날짜별 AI 사용량</b>을 집계해 비용을 봅니다. 집계 쿼리 12개는 <b>동시에 실행</b>해 대시보드 로딩을 줄였습니다.", "flow": [["AI 사용량", "사람별 · 날짜별 검색 · 질문 수"], ["희망 조건", "회원들의 평균 희망 조건"], ["회원 관리", "추가 · 수정 · 삭제"]]}};
 function svcHTML(p){
-  const v=SVC[p.id]; if(!v) return "";
+  const v=SVC[p.id]; if(!v) return ""; const o=OPS[p.id];
+  const flow=(f)=>`<div class="svc-flow">${f.map(([t,d],i)=>`${i?'<span class="svc-a" aria-hidden="true">→</span>':''}<div class="svc-s${i===f.length-1?' last':''}"><span>${String(i+1).padStart(2,"0")}</span><b>${esc(t)}</b><small>${esc(d)}</small></div>`).join("")}</div>`;
   return `<div class="blk"><h3 id="d-svc">서비스 개요</h3><div class="svc">
     <div class="svc-3">
-      <div class="svc-c"><span class="svc-l">대상 사용자</span><b class="svc-who">${esc(v.who[0])}</b><p>${esc(v.who[1])}</p></div>
+      <div class="svc-c"><span class="svc-l">대상 사용자</span>
+        <div class="svc-u"><b class="svc-who">${esc(v.who[0])}</b><p>${esc(v.who[1])}</p></div>
+        ${o?`<div class="svc-u op"><b class="svc-who"><span class="svc-tag">운영</span>${esc(o.who)}</b><p>${esc(o.desc)}</p></div>`:""}
+      </div>
       <div class="svc-c"><span class="svc-l">문제</span><p>${v.pain}</p></div>
       <div class="svc-c on"><span class="svc-l">해결</span><p>${v.solve}</p></div>
     </div>
-    <span class="svc-sub">사용 흐름</span>
-    <div class="svc-flow">${v.flow.map(([t,d],i)=>`${i?'<span class="svc-a" aria-hidden="true">→</span>':''}<div class="svc-s${i===v.flow.length-1?' last':''}"><span>${String(i+1).padStart(2,"0")}</span><b>${esc(t)}</b><small>${esc(d)}</small></div>`).join("")}</div>
+    <span class="svc-sub">${o?"사용자 흐름":"사용 흐름"}</span>${flow(v.flow)}
+    ${o?`<span class="svc-sub op">운영자 흐름 · 관리자 화면</span>${flow(o.flow)}`:""}
   </div></div>`;
 }
 const FLOW_TAG={llm:["LLM","t-llm"],rag:["RAG","t-rag"],graph:["노드","t-graph"],web:["API","t-web"],guard:["가드레일","t-guard"]};
@@ -1395,6 +1424,7 @@ function detail(p){
   </div></div>
   ${svcHTML(p)}
   ${featHTML(p)}
+  ${adminInfoHTML(p)}
   ${keyHTML(p)}
   <div class="blk"><h3 id="d-arch">서비스 구조</h3>${archHTML(p.arch)}</div>
   ${flowHTML(p)}
@@ -1413,7 +1443,6 @@ function detail(p){
       <p class="iss-t">${r[0]}</p>
       <dl><dt>원인</dt><dd>${r[1]}</dd><dt class="fix">대응</dt><dd>${r[2]}</dd></dl>
       <div class="iss-r"><span>효과</span><p>${r[3]}</p></div></div>`).join("")}</div></div>
-  ${adminInfoHTML(p)}
   <div class="blk learn"><h3 id="d-learn">이 프로젝트로 배운 것</h3><p>${p.learn}</p></div>`;
 }
 
@@ -1447,7 +1476,7 @@ function openSheet(id){
   const p = P.find(x=>x.id===id); if(!p) return;
   lastFocus = document.activeElement;
   $("#sheetTitle").textContent = p.name;
-  $("#sheetTabs").innerHTML = [["개요","top"],...(SVC[p.id]?[["서비스 개요","d-svc"]]:[]),...(FEATS[p.id]?[["기능 화면","d-feat"]]:[]),...(p.keys?[["주요 기여","d-key"]]:[]),["서비스 구조","d-arch"],...(FLOW[p.id]?[["에이전트 흐름","d-flow"]]:[]),...(p.pipe?[[p.id==="knavi"?"파이프라인":"RAG · 파이프라인","d-pipe"]]:[]),["기술 스택","d-stack"],["데이터 구조","d-data"],["기술 선택 이유","d-why"],["문제 해결","d-issue"],...(p.adminInfo?[["관리자","d-admin"]]:[]),["배운 점","d-learn"]]
+  $("#sheetTabs").innerHTML = [["개요","top"],...(SVC[p.id]?[["서비스 개요","d-svc"]]:[]),...(FEATS[p.id]?[["기능 화면","d-feat"]]:[]),...(p.adminInfo?[["관리자 화면","d-admin"]]:[]),...(p.keys?[["주요 기여","d-key"]]:[]),["서비스 구조","d-arch"],...(FLOW[p.id]?[["에이전트 흐름","d-flow"]]:[]),...(p.pipe?[[p.id==="knavi"?"파이프라인":"RAG · 파이프라인","d-pipe"]]:[]),["기술 스택","d-stack"],["데이터 구조","d-data"],["기술 선택 이유","d-why"],["문제 해결","d-issue"],["배운 점","d-learn"]]
     .map(([l,t])=>`<a href="#${t}" data-jump="${t}">${l}</a>`).join("");
   const body = $("#sheetBody"); body.innerHTML = detail(p); slideify(body,p); labelTables(body); body.scrollTop = 0;
   body.classList.add("focus");
