@@ -720,12 +720,9 @@ details.more>.table-wrap,details.more>.aig{margin-inline:16px}
 .card.now{flex-direction:row;border-color:#F3C3AC}
 .card.now .thumb{flex:0 0 44%;aspect-ratio:auto;min-height:100%}
 .card.now .thumb img{object-position:12% center}
+.card.now .body{justify-content:center}
 .live{font-style:normal;display:inline-block;margin-right:8px;padding:1px 9px;border-radius:999px;background:var(--point);color:#fff;font-size:12px;font-weight:800}
-.prog{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:4px 0}
-.prog>div{display:flex;flex-direction:column;gap:4px;padding:12px 14px;border-radius:10px;background:var(--soft);font-size:13.5px;line-height:1.5;color:var(--body)}
-.prog b{font-size:12.5px;margin-bottom:2px}.prog b.ok{color:#15803D}.prog b.go{color:var(--point)}
-.prog span::before{content:'· ';color:var(--muted)}
-@media (max-width:860px){.card.now{flex-direction:column}.card.now .thumb{aspect-ratio:2/1}.prog{grid-template-columns:1fr}}
+@media (max-width:860px){.card.now{flex-direction:column}.card.now .thumb{aspect-ratio:2/1}}
 </style>
 </head><body>
 
@@ -794,11 +791,6 @@ details.more>.table-wrap,details.more>.aig{margin-inline:16px}
         <span class="meta"><em class="live">진행 중</em>개인 프로젝트 · 2026.10 –</span>
         <h3>BizDoctor (상권 신호등)</h3>
         <p class="desc">서울 상권 데이터로 동네의 폐업 위험 신호를 보여 주고, 내 가게 진단 결과에 맞는 정책자금을 RAG로 찾아 주는 서비스입니다.</p>
-        <div class="ckpi"><div><strong>38만 건</strong><span>서울 상권 패널 데이터</span></div><div><strong>25개</strong><span>자치구 상권 지도</span></div><div><strong>8 / 13</strong><span>RAG 파이프라인 단계 완료</span></div></div>
-        <div class="prog">
-          <div><b class="ok">완료</b><span>공고 항목 단위 청킹 · 임베딩 (재실행 시 변경 0건)</span><span>마감 공고 제외 + 위기 유형 태그 우선 + 벡터 · 키워드 RRF 검색</span><span>규칙 가드레일 + Claude 교차 검증, 실패 시 1회 재생성</span></div>
-          <div><b class="go">진행 중</b><span>웹 화면 — 목업에서 실서비스로 (Next.js)</span><span>LangGraph 리포트 · 챗봇 그래프, FastAPI 연결</span><span>골든셋 hit@3 기준선 → CI 관문, MCP 서버 · Langfuse 관측</span></div>
-        </div>
         <div class="actions"><a class="btn" href="https://github.com/pj002321/BizDoctor/tree/dev/web-design" target="_blank" rel="noopener">GitHub →</a></div>
       </div>
     </article>
