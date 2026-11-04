@@ -712,6 +712,10 @@ details.more>.table-wrap,details.more>.aig{margin-inline:16px}
 /* 정돈: 카드·흐름도 밀도 낮춤 */
 .card .desc b{font-weight:inherit;color:inherit}
 #how .flow[data-flow] .step small{display:none}
+#how .how-block .flow{margin-bottom:14px}
+.how-ex{display:flex;gap:14px;align-items:baseline;margin:0 0 12px;padding:14px 18px;border-radius:12px;background:var(--soft);font-size:15px;line-height:1.7;color:var(--body)}
+.how-ex>span{flex:none;font-size:12.5px;font-weight:800;color:var(--point)}
+.how-ex p{margin:0}
 </style>
 </head><body>
 
@@ -779,40 +783,18 @@ details.more>.table-wrap,details.more>.aig{margin-inline:16px}
 
 <section class="sec" id="how">
   <div class="wrap">
-    <div class="sec-head rv"><span class="label">HOW I WORK</span><h2>일하는 방식</h2><p>결과를 보기 전에 기준을 정하고, 만든 모델이 아닌 다른 모델로 검증합니다. AI 코딩 도구도 같은 원칙으로 규칙과 게이트를 걸어 씁니다.</p></div>
-
-    <div class="how-block" id="verify">
-      <h3 class="how-t rv"><span>01</span>검증 — 지표는 먼저 정하고, 차이는 통계로 확인합니다</h3>
-      <div class="flow rv" data-flow>
-      <div class="step">기준 먼저<small>Metric 설계</small></div><span class="arrow">→</span>
-      <div class="step">Golden Set 구축<small>Golden Set · held-out</small></div><span class="arrow">→</span>
-      <div class="step">같은 조건 측정<small>재현 가능한 Benchmark</small></div><span class="arrow">→</span>
-      <div class="step">통계로 비교<small>부트스트랩 신뢰구간</small></div><span class="arrow">→</span>
-      <div class="step">채택 · 기각 기록<small>실험 로그</small></div><span class="arrow">→</span>
-      <div class="step">테스트로 고정<small>Regression Test</small></div>
-    </div>
-      <details class="more rv"><summary>단계별 실제 예 보기</summary>
-      <div class="table-wrap rv"><table>
-      <tr><th>단계</th><th>평소 하는 일</th><th>실제 예</th></tr>
-      <tr><td>기준 먼저<br><small>Metric 설계</small></td><td>측정 전에 <b>주지표와 판정 규칙</b>을 정하고, 품질 지표와 <b>'0이어야 하는' 안전 지표</b>를 나눕니다</td><td>MRR 주지표, 구간이 겹치면 동률 / 알레르기 위반은 0건이어야 함</td></tr>
-      <tr><td>Golden Set 구축<br><small>Golden Set · held-out</small></td><td>정답을 아는 <b>Golden Set</b>을 만들고 Golden Set 자체도 먼저 검증합니다. 악조건은 별도 셋으로 분리합니다</td><td>held-out 275건, 질문 22문항 (자가검증 0 / 22), 악조건 5종</td></tr>
-      <tr><td>같은 조건 측정<br><small>재현 가능한 Benchmark</small></td><td><b>서비스와 똑같은 필터 · 조건</b>으로 재고, 날짜 · 표본 수 · 모델 · 신뢰구간을 함께 기록합니다</td><td>평가 스크립트의 축종 필터 누락을 찾아 수정 (18.2 → 21.2%)</td></tr>
-      <tr><td>통계로 비교<br><small>부트스트랩 신뢰구간</small></td><td>차이가 <b>신뢰구간 안이면 개선이 아니라 운</b>으로 봅니다. 모델 비교는 같은 표본으로 짝지어 봅니다</td><td>임베딩 3종 부트스트랩 4,000회 → 동률, 9.5배 빠른 모델 채택</td></tr>
-      <tr><td>채택 · 기각 기록<br><small>실험 로그</small></td><td>효과가 없거나 나빠진 결과도 <b>지우지 않고 이유와 함께</b> 남깁니다</td><td>인덱스 24 → 53ms 미채택, OpenAI 전환 시 hit@5 하락 기록</td></tr>
-      <tr><td>테스트로 고정<br><small>Regression Test</small></td><td>고친 버그는 <b>회귀 테스트</b>로, LLM 답변은 <b>다른 모델의 교차 검증</b>으로, 작업 완료는 '어떻게 확인했나'로 확인합니다</td><td>태풍 라우팅 회귀 테스트, 할루시네이션 검증 오탐 제거 후 정확도 0.9 ~ 1.0</td></tr>
-    </table></div>
-      </details>
-    </div>
+    <div class="sec-head rv"><span class="label">HOW I WORK</span><h2>일하는 방식</h2><p>AI 도구를 어떻게 쓰고, 결과를 어떻게 검증하며, 낯선 기술과 어려운 문제를 어떻게 풀어 가는지 실제 사례로 정리했습니다.</p></div>
 
     <div class="how-block" id="ai">
-      <h3 class="how-t rv"><span>02</span>AI 활용 — 규칙으로 선을 긋고, 교차 모델로 리뷰합니다</h3>
+      <h3 class="how-t rv"><span>01</span>AI 도구 — AI가 만들고, 다른 AI가 검사하고, 테스트가 통과해야 끝납니다</h3>
       <div class="flow rv" data-flow>
-      <div class="step">01 규칙<small>에이전트 가드레일 · 완료 게이트</small></div><span class="arrow">→</span>
-      <div class="step">02 위임<small>Multi-Agent 병렬 위임</small></div><span class="arrow">→</span>
-      <div class="step">03 검증<small>교차 검증 (Claude ↔ Codex)</small></div><span class="arrow">→</span>
-      <div class="step">04 자동화<small>작업 메뉴 · 검사 러너</small></div><span class="arrow">→</span>
-      <div class="step">05 기록<small>결정 기록 → 규칙 갱신</small></div>
+      <div class="step">규칙 문서 먼저</div><span class="arrow">→</span>
+      <div class="step">Claude Code 구현</div><span class="arrow">→</span>
+      <div class="step">Codex 교차 리뷰</div><span class="arrow">→</span>
+      <div class="step">테스트 통과해야 완료</div><span class="arrow">→</span>
+      <div class="step">결정 기록</div>
     </div>
+      <div class="how-ex rv"><span>실제 예</span><p>AI 작업 규칙을 도구(harness-kit)로 만들어 실제 작업에 걸어 보니, AI가 <b>테스트를 깬 채 작업을 끝내려 하자 2번 막혔고</b>, "검사를 꺼라"는 지시도 권한 거부로 막혔습니다.</p></div>
       <details class="more rv"><summary>단계별 쓰는 방법 · 남기는 결과물 보기</summary>
       <div class="aig">
       <div class="aig-g rv">
@@ -861,6 +843,73 @@ details.more>.table-wrap,details.more>.aig{margin-inline:16px}
         </table></div>
       </div>
     </div>
+      </details>
+    </div>
+
+    <div class="how-block" id="verify">
+      <h3 class="how-t rv"><span>02</span>검증 — 기준은 먼저 정하고, 차이는 통계로 확인합니다</h3>
+      <div class="flow rv" data-flow>
+      <div class="step">기준 먼저<small>Metric 설계</small></div><span class="arrow">→</span>
+      <div class="step">Golden Set 구축<small>Golden Set · held-out</small></div><span class="arrow">→</span>
+      <div class="step">같은 조건 측정<small>재현 가능한 Benchmark</small></div><span class="arrow">→</span>
+      <div class="step">통계로 비교<small>부트스트랩 신뢰구간</small></div><span class="arrow">→</span>
+      <div class="step">채택 · 기각 기록<small>실험 로그</small></div><span class="arrow">→</span>
+      <div class="step">테스트로 고정<small>Regression Test</small></div>
+    </div>
+      <div class="how-ex rv"><span>실제 예</span><p>임베딩 모델 3종을 같은 문제로 4,000번 다시 뽑아 비교(부트스트랩)했더니 <b>점수 차이가 우연 범위 안</b>이었습니다. 그래서 "가장 높은 점수" 대신 <b>9.5배 빠른 모델</b>을 골랐습니다.</p></div>
+      <details class="more rv"><summary>단계별 실제 예 보기</summary>
+      <div class="table-wrap rv"><table>
+      <tr><th>단계</th><th>평소 하는 일</th><th>실제 예</th></tr>
+      <tr><td>기준 먼저<br><small>Metric 설계</small></td><td>측정 전에 <b>주지표와 판정 규칙</b>을 정하고, 품질 지표와 <b>'0이어야 하는' 안전 지표</b>를 나눕니다</td><td>MRR 주지표, 구간이 겹치면 동률 / 알레르기 위반은 0건이어야 함</td></tr>
+      <tr><td>Golden Set 구축<br><small>Golden Set · held-out</small></td><td>정답을 아는 <b>Golden Set</b>을 만들고 Golden Set 자체도 먼저 검증합니다. 악조건은 별도 셋으로 분리합니다</td><td>held-out 275건, 질문 22문항 (자가검증 0 / 22), 악조건 5종</td></tr>
+      <tr><td>같은 조건 측정<br><small>재현 가능한 Benchmark</small></td><td><b>서비스와 똑같은 필터 · 조건</b>으로 재고, 날짜 · 표본 수 · 모델 · 신뢰구간을 함께 기록합니다</td><td>평가 스크립트의 축종 필터 누락을 찾아 수정 (18.2 → 21.2%)</td></tr>
+      <tr><td>통계로 비교<br><small>부트스트랩 신뢰구간</small></td><td>차이가 <b>신뢰구간 안이면 개선이 아니라 운</b>으로 봅니다. 모델 비교는 같은 표본으로 짝지어 봅니다</td><td>임베딩 3종 부트스트랩 4,000회 → 동률, 9.5배 빠른 모델 채택</td></tr>
+      <tr><td>채택 · 기각 기록<br><small>실험 로그</small></td><td>효과가 없거나 나빠진 결과도 <b>지우지 않고 이유와 함께</b> 남깁니다</td><td>인덱스 24 → 53ms 미채택, OpenAI 전환 시 hit@5 하락 기록</td></tr>
+      <tr><td>테스트로 고정<br><small>Regression Test</small></td><td>고친 버그는 <b>회귀 테스트</b>로, LLM 답변은 <b>다른 모델의 교차 검증</b>으로, 작업 완료는 '어떻게 확인했나'로 확인합니다</td><td>태풍 라우팅 회귀 테스트, 할루시네이션 검증 오탐 제거 후 정확도 0.9 ~ 1.0</td></tr>
+    </table></div>
+      </details>
+    </div>
+
+    <div class="how-block" id="learn">
+      <h3 class="how-t rv"><span>03</span>처음 접하는 기술 — 현장 기준부터 익히고, 원리는 글로 정리합니다</h3>
+      <div class="flow rv" data-flow>
+      <div class="step">현장 기준부터 공부</div><span class="arrow">→</span>
+      <div class="step">없는 데이터는 직접 만들기</div><span class="arrow">→</span>
+      <div class="step">작동 원리 다시 공부</div><span class="arrow">→</span>
+      <div class="step">블로그에 정리</div>
+    </div>
+      <div class="how-ex rv"><span>실제 예</span><p>처음 다룬 로봇 · 시뮬레이션 프로젝트(K-NAVI)에서 공장 수신호 데이터가 없어 <b>동작을 직접 촬영</b>하고 <b>시뮬레이터 화면을 캡처</b>해 학습 데이터를 만들었습니다. 산업 수신호 체계와 장갑 · 분진 같은 현장 악조건도 함께 공부했습니다. AI 도구로 빠르게 만든 부분은 원리를 다시 공부해 <b>기술 블로그</b>에 정리합니다.</p></div>
+    </div>
+
+    <div class="how-block" id="issue">
+      <h3 class="how-t rv"><span>04</span>어려운 이슈 — 증상을 확인하고, 원인을 좁히고, 다시 안 생기게 막습니다</h3>
+      <div class="flow rv" data-flow>
+      <div class="step">증상을 숫자로 확인</div><span class="arrow">→</span>
+      <div class="step">원인 후보 세우기</div><span class="arrow">→</span>
+      <div class="step">하나씩 좁히기</div><span class="arrow">→</span>
+      <div class="step">고치고 확인</div><span class="arrow">→</span>
+      <div class="step">재발 방지 장치</div>
+    </div>
+      <div class="how-ex rv"><span>실제 예</span><p>재학습을 했는데 <b>결과가 소수점까지 똑같았습니다</b>. 모델이 아니라 데이터를 의심해 확인하니, 데이터를 나누는 단계가 폴더를 비우지 않아 <b>2,160장이 3,328장으로 쌓여</b> 있었습니다. 폴더를 비우도록 고치고 장수를 확인한 뒤 재학습했고, 이후엔 결과가 같으면 <b>모델 파일 지문(md5)부터</b> 확인합니다.</p></div>
+    </div>
+
+    <div class="how-block" id="team">
+      <h3 class="how-t rv"><span>05</span>팀 협업 — 일을 나누고, 진행을 보이게 합니다</h3>
+      <div class="flow rv" data-flow>
+      <div class="step">Jira로 업무 배분</div><span class="arrow">→</span>
+      <div class="step">Jira로 일정 관리</div><span class="arrow">→</span>
+      <div class="step">Git 기능 단위 커밋</div><span class="arrow">→</span>
+      <div class="step">Slack으로 공유</div><span class="arrow">→</span>
+      <div class="step">작업 메뉴로 환경 통일</div>
+    </div>
+      <details class="more rv"><summary>단계별 하는 일 보기</summary>
+      <div class="table-wrap rv"><table>
+      <tr><th>단계</th><th>평소 하는 일</th><th>실제 예</th></tr>
+      <tr><td>업무 배분 · 일정 관리<br><small>Jira · WBS</small></td><td>팀장으로서 <b>WBS로 업무를 나누고</b> Jira로 담당자와 일정을 관리합니다</td><td>Safe-Farm · 오늘뭐멍냥 · K-NAVI 팀장</td></tr>
+      <tr><td>기능 단위 개발<br><small>Git</small></td><td>기능 하나를 커밋 하나로 묶어, 리뷰와 되돌리기가 쉽게 합니다</td><td>기능 1개 = 커밋 1개</td></tr>
+      <tr><td>공유<br><small>Slack</small></td><td>진행 상황과 막힌 문제를 Slack으로 공유합니다</td><td>—</td></tr>
+      <tr><td>환경 통일<br><small>VS Code 작업 메뉴</small></td><td>가상환경 생성 → 설치 → 환경 검증을 메뉴 하나로 묶어, 팀원이 명령을 외울 필요가 없게 합니다</td><td>Safe-Farm 13개 · 오늘뭐멍냥 19개 작업 메뉴</td></tr>
+    </table></div>
       </details>
     </div>
   </div>
