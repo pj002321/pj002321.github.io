@@ -713,6 +713,11 @@ details.more>.table-wrap,details.more>.aig{margin-inline:16px}
 .card .desc b{font-weight:inherit;color:inherit}
 #how .flow[data-flow] .step small{display:none}
 #how .how-block .flow{margin-bottom:14px}
+.ai3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin:0 0 12px}
+.ai3>div{padding:14px 16px;border:1px solid var(--line);border-radius:12px;background:var(--surface)}
+.ai3 b{display:block;font-size:15px;color:var(--ink);margin-bottom:4px}
+.ai3 p{margin:0 0 8px;font-size:14px;line-height:1.6;color:var(--body)}
+@media (max-width:860px){.ai3{grid-template-columns:1fr}}
 .how-ex{display:flex;gap:14px;align-items:baseline;margin:0 0 12px;padding:14px 18px;border-radius:12px;background:var(--soft);font-size:15px;line-height:1.7;color:var(--body)}
 .how-ex>span{flex:none;font-size:12.5px;font-weight:800;color:var(--point)}
 .how-ex p{margin:0}
@@ -762,7 +767,7 @@ details.more>.table-wrap,details.more>.aig{margin-inline:16px}
 <main>
 <section class="sec" id="about">
   <div class="wrap">
-    <div class="sec-head rv"><span class="label">ABOUT</span><h2>소개</h2><p>모바일 앱과 게임을 직접 출시하며 <b>사용자가 실제로 쓰는 화면</b>을 끝까지 다듬어 왔습니다. 메타버스 앱에 MediaPipe 아바타 트래킹과 온디바이스 LLM을 붙이며 모델을 서비스에 녹이는 일을 시작했고, 지금은 <b>LLM · RAG · 비전 모델</b>을 사용자가 믿고 쓸 수 있는 서비스로 만들고 있습니다.<br>웹 서비스로 끝까지 내려면 모델만으로는 부족해서, <b>FastAPI 계층 설계 · DB 쿼리 최적화 · Docker 배포</b>까지 함께 다룹니다. 그중에서도 <b>RAG 검색 품질 측정</b>(Golden Set · 부트스트랩 검증)과 <b>LLM 답변 검증</b>(교차 모델 채점)을 가장 깊게 파고 있습니다.</p></div>
+    <div class="sec-head rv"><span class="label">ABOUT</span><h2>소개</h2><p>모바일 앱과 게임을 직접 출시하며 <b>사용자가 실제로 쓰는 화면</b>을 다듬어 왔고, 지금은 <b>LLM · RAG · 비전 모델</b>을 서비스로 만들고 있습니다.<br>모델뿐 아니라 <b>FastAPI 백엔드 · DB · Docker 배포</b>까지 직접 다룹니다.</p></div>
     <div class="grid-about one">
       <div class="rv"><h3 class="sub">이력</h3>
         <div class="table-wrap"><table class="t-plain">
@@ -801,71 +806,26 @@ details.more>.table-wrap,details.more>.aig{margin-inline:16px}
 
 <section class="sec" id="how">
   <div class="wrap">
-    <div class="sec-head rv"><span class="label">HOW I WORK</span><h2>일하는 방식</h2><p>AI 도구를 어떻게 쓰고, 결과를 어떻게 검증하며, 낯선 기술과 어려운 문제를 어떻게 풀어 가는지 실제 사례로 정리했습니다.</p></div>
+    <div class="sec-head rv"><span class="label">HOW I WORK</span><h2>일하는 방식</h2><p>AI 도구 활용부터 검증 · 문제 해결 · 협업까지, 실제 사례로 정리했습니다.</p></div>
 
     <div class="how-block" id="ai">
-      <h3 class="how-t rv"><span>01</span>AI 도구 — AI가 만들고, 다른 AI가 검사하고, 테스트가 통과해야 끝납니다</h3>
+      <h3 class="how-t rv"><span>01</span>AI 도구 — 규칙은 md로 나누고, Skill · MCP로 작업합니다</h3>
       <div class="flow rv" data-flow>
-      <div class="step">규칙 문서 먼저</div><span class="arrow">→</span>
+      <div class="step">규칙을 md 파일로 나누기</div><span class="arrow">→</span>
+      <div class="step">Skill · MCP 연결</div><span class="arrow">→</span>
       <div class="step">Claude Code 구현</div><span class="arrow">→</span>
       <div class="step">Codex 교차 리뷰</div><span class="arrow">→</span>
-      <div class="step">테스트 통과해야 완료</div><span class="arrow">→</span>
-      <div class="step">결정 기록</div>
+      <div class="step">테스트 통과해야 완료</div>
     </div>
-      <div class="how-ex rv"><span>실제 예</span><p>AI 작업 규칙을 도구(harness-kit)로 만들어 실제 작업에 걸어 보니, AI가 <b>테스트를 깬 채 작업을 끝내려 하자 2번 막혔고</b>, "검사를 꺼라"는 지시도 권한 거부로 막혔습니다.</p></div>
-      <details class="more rv"><summary>단계별 쓰는 방법 · 남기는 결과물 보기</summary>
-      <div class="aig">
-      <div class="aig-g rv">
-        <div class="aig-h"><span class="aig-n">01</span><h3>규칙</h3><p>AI에게 부탁하지 않고, 지켜야 할 선을 먼저 긋습니다</p></div>
-        <div class="table-wrap"><table class="t2">
-          <tr><th>쓰는 방법</th><th>남기는 결과물</th></tr>
-          <tr><td>저장소마다 AI의 <b>작업 범위 · 실행 방법 · 금지 규칙</b>을 문서로 먼저 둡니다. 예: AI 서버를 공개 주소로 열지 않기, 로그인 확인은 서버 검증 함수로만 하기</td><td>저장소별 AI 작업 규칙 문서 (AGENTS.md · CLAUDE.md)</td></tr>
-          <tr><td>규칙을 문서에서 <b>강제 장치</b>로 옮겼습니다. 테스트가 통과하기 전에는 AI가 작업을 끝내지 못하는 완료 게이트, 수정 금지 경로 차단, 만드는 에이전트와 채점하는 에이전트 분리를 마법사로 설치합니다</td><td><a href="https://github.com/pj002321/harness-kit" target="_blank" rel="noopener">harness-kit</a> (직접 제작) · 실세션 검증: 테스트를 깨고 끝내려 하자 <b>2회 차단</b>, 게이트를 끄라는 지시는 <b>권한 거부</b></td></tr>
-        </table></div>
+      <div class="ai3 rv">
+        <div><b>규칙을 파일로 나눔</b><p>AGENTS.md · CLAUDE.md를 주제별 md로 나눠, 필요한 규칙만 읽게 합니다.</p></div>
+        <div><b>Skill · MCP 활용</b><div class="tags"><span>Figma MCP</span><span>headroom</span><span>ponytail</span><span>taste</span><span>graphy</span><span>Impeccable</span></div></div>
+        <div><b>다른 모델로 리뷰</b><p>Claude Code가 만들고 Codex가 리뷰합니다. 완료 기준은 테스트 통과입니다.</p></div>
       </div>
-
-      <div class="aig-g rv">
-        <div class="aig-h"><span class="aig-n">02</span><h3>위임</h3><p>큰 작업은 나누고, 화면은 도구로 점검합니다</p></div>
-        <div class="table-wrap"><table class="t2">
-          <tr><th>쓰는 방법</th><th>남기는 결과물</th></tr>
-          <tr><td>계획 담당 에이전트로 단계를 나눈 뒤, 조사 · 구현 · 리뷰를 <b>여러 하위 에이전트에 동시에</b> 맡기고 결과를 합쳐 판단합니다</td><td>기능 1개 = 커밋 1개, 커밋에 AI 공동 작성 표기</td></tr>
-          <tr><td><b>Impeccable</b> 디자인 스킬로 AI가 만든 화면에 흔한 패턴(과한 바운스, 사이드 탭 등)을 탐지합니다. 브랜드상 의도한 것은 <b>사유를 남기고 예외 처리</b>하고, 랜딩은 첫 화면 구성을 <b>여러 시안으로 비교</b>해 고릅니다</td><td>탐지 예외 기록 (오늘뭐멍냥), 랜딩 시안 비교 기록 (LIFE,FIT)</td></tr>
-        </table></div>
-      </div>
-
-      <div class="aig-g rv">
-        <div class="aig-h"><span class="aig-n">03</span><h3>검증</h3><p>만든 모델이 자기 결과를 채점하지 않게 합니다</p></div>
-        <div class="table-wrap"><table class="t2">
-          <tr><th>쓰는 방법</th><th>남기는 결과물</th></tr>
-          <tr><td>Claude Code가 구현하면 다른 회사 모델인 <b>Codex가 리뷰</b>하고, 지적 사항을 반영해 <b>테스트가 통과할 때까지 반복</b>합니다</td><td>두 모델 교차 리뷰 후 통과한 커밋</td></tr>
-          <tr><td>코드 리뷰 · 보안 점검 에이전트의 지적마다 번호와 <b>'어떻게 확인했나'를 완료 기준</b>으로 붙여 관리합니다</td><td>리팩터링 체크리스트 40개 항목</td></tr>
-        </table></div>
-      </div>
-
-      <div class="aig-g rv">
-        <div class="aig-h"><span class="aig-n">04</span><h3>자동화</h3><p>프로젝트마다 같은 원칙으로 반복 작업을 없앱니다</p></div>
-        <div class="table-wrap"><table>
-          <tr><th>원칙</th><th>하는 방법</th><th>프로젝트 예시</th></tr>
-          <tr><td><b>세 번 손으로 하면 메뉴로</b></td><td>가상환경 생성 → 패키지 설치 → 환경 검증을 VS Code 작업 메뉴 하나로 끝냅니다. 팀원도 명령을 외울 필요가 없습니다</td><td>Safe-Farm 13개 · 오늘뭐멍냥 19개 작업 메뉴 (팀 저장소)</td></tr>
-          <tr><td><b>순서가 있으면 번호를</b></td><td>여러 단계 데이터 작업은 번호 순서대로 누르면 끝나고, 중간 단계부터 다시 돌릴 수도 있게 나눕니다</td><td>YOLO: Gazebo 캡처 → 분할 · Kaggle 업로드 → 학습 → 모델 받기 (9단계)<br>RAG: 적재 → 청킹 → 색인 → 평가</td></tr>
-          <tr><td><b>검사는 무료 · 유료를 나눠서</b></td><td>기본 실행은 요금이 안 드는 검사만 돌리고 LLM 채점은 옵션으로 분리합니다. 검색이 통과해야 LLM을 재도록 순서를 고정합니다</td><td><code>python -m eval all [--with-llm]</code> · 품질 검사 4종 (오늘뭐멍냥)</td></tr>
-          <tr><td><b>AI 작업은 게이트로</b></td><td>사람이 매번 "테스트 돌렸어?"라고 묻지 않도록, 끝내기 전에 검사를 자동으로 돌리고 실패하면 막습니다</td><td>harness-kit 완료 게이트</td></tr>
-        </table></div>
-      </div>
-
-      <div class="aig-g rv">
-        <div class="aig-h"><span class="aig-n">05</span><h3>기록</h3><p>결정과 근거를 남겨 다음 작업의 규칙으로 씁니다</p></div>
-        <div class="table-wrap"><table class="t2">
-          <tr><th>쓰는 방법</th><th>남기는 결과물</th></tr>
-          <tr><td>결정은 <b>기각한 대안까지</b> 남기고, <b>근거 없이 정한 값</b>은 코드에 따로 표시해 나중에 검증합니다. 긴 작업은 대화 맥락 압축 도구와 코드 구조 그래프 도구로 이어갑니다</td><td>설계 결정 기록 15건, 근거 없이 정한 값 표시 24곳</td></tr>
-        </table></div>
-      </div>
-    </div>
-      </details>
     </div>
 
     <div class="how-block" id="verify">
-      <h3 class="how-t rv"><span>02</span>검증 — 기준은 먼저 정하고, 차이는 통계로 확인합니다</h3>
+      <h3 class="how-t rv"><span>02</span>검증 — 기준은 먼저, 차이는 통계로</h3>
       <div class="flow rv" data-flow>
       <div class="step">기준 먼저<small>Metric 설계</small></div><span class="arrow">→</span>
       <div class="step">Golden Set 구축<small>Golden Set · held-out</small></div><span class="arrow">→</span>
@@ -874,7 +834,7 @@ details.more>.table-wrap,details.more>.aig{margin-inline:16px}
       <div class="step">채택 · 기각 기록<small>실험 로그</small></div><span class="arrow">→</span>
       <div class="step">테스트로 고정<small>Regression Test</small></div>
     </div>
-      <div class="how-ex rv"><span>실제 예</span><p>임베딩 모델 3종을 같은 문제로 4,000번 다시 뽑아 비교(부트스트랩)했더니 <b>점수 차이가 우연 범위 안</b>이었습니다. 그래서 "가장 높은 점수" 대신 <b>9.5배 빠른 모델</b>을 골랐습니다.</p></div>
+      <div class="how-ex rv"><span>실제 예</span><p>임베딩 3종을 4,000번 재표본 비교 → 차이가 우연 범위 안이라 <b>9.5배 빠른 모델</b> 채택</p></div>
       <details class="more rv"><summary>단계별 실제 예 보기</summary>
       <div class="table-wrap rv"><table>
       <tr><th>단계</th><th>평소 하는 일</th><th>실제 예</th></tr>
@@ -889,18 +849,18 @@ details.more>.table-wrap,details.more>.aig{margin-inline:16px}
     </div>
 
     <div class="how-block" id="learn">
-      <h3 class="how-t rv"><span>03</span>처음 접하는 도메인 — 현장 기준부터 익히고, 데이터 구조로 옮깁니다</h3>
+      <h3 class="how-t rv"><span>03</span>처음 접하는 도메인 — 현장 기준부터, 데이터 구조로</h3>
       <div class="flow rv" data-flow>
       <div class="step">현장 기준 · 용어 익히기</div><span class="arrow">→</span>
       <div class="step">데이터 구조 설계</div><span class="arrow">→</span>
       <div class="step">없는 데이터는 직접 만들기</div><span class="arrow">→</span>
       <div class="step">원리는 블로그에 정리</div>
     </div>
-      <div class="how-ex rv"><span>실제 예</span><p>농업 서비스(Safe-Farm)에서는 <b>생육 단계 · 적산온도(GDD)</b> 같은 재배 기준부터 익힌 뒤, 기상청 · 농촌진흥청 · 위성에 흩어진 데이터를 <b>밭 좌표 하나로 묶는 구조</b>를 설계했습니다. 공장 수신호 데이터가 없던 K-NAVI에서는 <b>동작을 직접 촬영</b>하고 시뮬레이터 화면을 캡처해 학습 데이터를 만들었습니다.</p></div>
+      <div class="how-ex rv"><span>실제 예</span><p>Safe-Farm: 생육 단계 · 적산온도(GDD)를 익히고, 흩어진 기상 · 위성 데이터를 <b>밭 좌표 하나로</b> 묶는 구조 설계</p></div>
     </div>
 
     <div class="how-block" id="issue">
-      <h3 class="how-t rv"><span>04</span>어려운 이슈 — 증상을 확인하고, 원인을 좁히고, 다시 안 생기게 막습니다</h3>
+      <h3 class="how-t rv"><span>04</span>어려운 이슈 — 증상 확인, 원인 좁히기, 재발 방지</h3>
       <div class="flow rv" data-flow>
       <div class="step">증상을 숫자로 확인</div><span class="arrow">→</span>
       <div class="step">원인 후보 세우기</div><span class="arrow">→</span>
@@ -908,11 +868,11 @@ details.more>.table-wrap,details.more>.aig{margin-inline:16px}
       <div class="step">고치고 확인</div><span class="arrow">→</span>
       <div class="step">재발 방지 장치</div>
     </div>
-      <div class="how-ex rv"><span>실제 예</span><p>재학습을 했는데 <b>결과가 소수점까지 똑같았습니다</b>. 모델이 아니라 데이터를 의심해 확인하니, 데이터를 나누는 단계가 폴더를 비우지 않아 <b>2,160장이 3,328장으로 쌓여</b> 있었습니다. 폴더를 비우도록 고치고 장수를 확인한 뒤 재학습했고, 이후엔 결과가 같으면 <b>모델 파일 지문(md5)부터</b> 확인합니다.</p></div>
+      <div class="how-ex rv"><span>실제 예</span><p>재학습 결과가 소수점까지 같음 → 데이터가 <b>2,160장 → 3,328장으로 누적</b>된 것 발견 → 폴더 초기화 후 재학습, 이후엔 <b>모델 파일 md5부터</b> 확인</p></div>
     </div>
 
     <div class="how-block" id="team">
-      <h3 class="how-t rv"><span>05</span>협업 · 배포 — 일을 나누고, 올린 코드는 자동으로 검사합니다</h3>
+      <h3 class="how-t rv"><span>05</span>협업 · 배포 — 나눠서 개발하고, 자동으로 검사합니다</h3>
       <div class="flow rv" data-flow>
       <div class="step">Jira로 업무 · 일정 관리</div><span class="arrow">→</span>
       <div class="step">Git 기능 단위 커밋</div><span class="arrow">→</span>
@@ -920,7 +880,7 @@ details.more>.table-wrap,details.more>.aig{margin-inline:16px}
       <div class="step">Docker로 배포</div><span class="arrow">→</span>
       <div class="step">Slack으로 공유</div>
     </div>
-      <div class="how-ex rv"><span>실제 예</span><p>LIFE,FIT에서는 엔진 · 웹 두 저장소에 <b>GitHub Actions CI</b>를 걸었고, 오늘뭐멍냥에서는 <b>Docker 이미지를 2.16GB → 503MB</b>로 줄여 Railway에 배포했습니다.</p></div>
+      <div class="how-ex rv"><span>실제 예</span><p>LIFE,FIT <b>GitHub Actions CI</b> · 오늘뭐멍냥 <b>Docker 이미지 2.16GB → 503MB</b></p></div>
       <details class="more rv"><summary>단계별 하는 일 보기</summary>
       <div class="table-wrap rv"><table>
       <tr><th>단계</th><th>평소 하는 일</th><th>실제 예</th></tr>
